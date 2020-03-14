@@ -1,0 +1,6 @@
+.app {
+    $padding: 10px;
+    display: flex;
+    padding: $padding;
+    height: calc(100% - #{$padding*2});
+}

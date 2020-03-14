@@ -1,0 +1,16 @@
+{
+    "Tools": {
+        "State": {
+            "Label": "Zustand"
+        }
+    },
+
+    "Dialogs": {
+        "Tools": {
+            "Name": "Name",
+            "Value": "Wert",
+            "Inputs": "Eingänge",
+            "Submit": "Speichern"
+        }
+    }
+}

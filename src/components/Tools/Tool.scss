@@ -1,0 +1,11 @@
+.tool {
+    display: inline-block;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+    position: absolute;
+
+    &.moving {
+        cursor: grabbing;
+    }
+}
