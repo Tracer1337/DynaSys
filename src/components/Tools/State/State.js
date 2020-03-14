@@ -5,9 +5,13 @@ import Strings from "config/strings.json"
 import "./State.scss"
 
 class State extends Component {
+    isSettled = false
+
+    userClicked = () => this.isSettled = true
+
     render() {
         return (
-            <div className="state">
+            <div className="state" id={this.props.id}>
                 {this.props.label}
             </div>
         )

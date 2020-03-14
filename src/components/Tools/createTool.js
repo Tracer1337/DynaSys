@@ -12,6 +12,15 @@ function createTool(Child, config) {
             renderDialog: false
         }
 
+        isSettled = false
+
+        userClicked = (event) => {
+            this.child.userClicked(event)
+            if(this.child.isSettled) {
+                this.isSettled = true
+            }
+        }
+
         handleSubmit(state) {
             this.props.onChange({id: this.props.object.id, newState: state})
             this.setState({renderDialog: false})
@@ -35,7 +44,7 @@ function createTool(Child, config) {
 
         render() {
             let DialogFields
-            
+
             if(!this.props.unSettled) {
                 DialogFields = [
                     {
@@ -74,7 +83,9 @@ function createTool(Child, config) {
                     onClick={this.handleClick.bind(this)}
                 >
                     <Child
+                        ref={ref => this.child = ref}
                         label={this.props.unSettled || !this.props.object.name ? "?" : this.props.object.name}
+                        id={this.props.object && this.props.object.id}
                     />
                     {this.state.renderDialog && (
                         <Dialog

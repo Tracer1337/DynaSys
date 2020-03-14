@@ -2,6 +2,9 @@
     "Tools": {
         "State": {
             "Label": "Zustand"
+        },
+        "RateOfChange": {
+            "Label": "Zustandsänderung"
         }
     },
 

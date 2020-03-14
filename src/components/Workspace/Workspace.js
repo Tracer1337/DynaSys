@@ -16,26 +16,32 @@ class Workspace extends Component {
 
     handleMouseMove(event) {
         if(this.props.activeTool !== -1) {
-            const mouseX = event.clientX - this.container.offsetLeft - this.currentToolDom.offsetWidth / 2
-            const mouseY = event.clientY - this.container.offsetTop - this.currentToolDom.offsetHeight / 2
+            const mouseX = event.clientX - this.container.offsetLeft
+            const mouseY = event.clientY - this.container.offsetTop
 
-            const newX = this.currentX = constrain(mouseX, 0, this.container.offsetWidth - this.currentToolDom.offsetWidth)
-            const newY = this.currentY = constrain(mouseY, 0, this.container.offsetHeight - this.currentToolDom.offsetHeight)
+            const newX = this.currentX = constrain(mouseX - this.currentToolDom.offsetWidth / 2, 0, this.container.offsetWidth - this.currentToolDom.offsetWidth)
+            const newY = this.currentY = constrain(mouseY - this.currentToolDom.offsetHeight / 2, 0, this.container.offsetHeight - this.currentToolDom.offsetHeight)
 
             this.currentToolDom.style.transform = `translate(${newX}px, ${newY}px)`
         }
     }
 
-    handleClick() {
+    handleClick(event) {
         if(this.props.activeTool !== -1) {
-            this.props.onObjectCreate({
-                type: this.currentTool.config.type,
-                props: {
-                    id: idCounter++,
-                    x: this.currentX, 
-                    y: this.currentY
-                }
-            })
+            console.log(event.target, parseInt(event.target.id))
+
+            this.currentToolRef.userClicked({id: parseInt(event.target.id)})
+
+            if(this.currentToolRef.isSettled) {
+                this.props.onObjectCreate({
+                    type: this.currentTool.config.type,
+                    props: {
+                        id: idCounter++,
+                        x: this.currentX, 
+                        y: this.currentY
+                    }
+                })
+            }
         }
     }
 
