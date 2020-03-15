@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 
 import tools from "../Tools/Tools.js"
+import Strings from "config/strings.json"
 import "./Workspace.scss"
 
 const constrain = (x, min, max) => Math.min(Math.max(x, min), max)
@@ -23,12 +24,15 @@ class Workspace extends Component {
     }
 
     createObject({type, settled, props}) {
+        const newId = idCounter++
+
         const newObject = this.props.onObjectCreate({
             type: type,
             props: {
-                id: idCounter++,
+                id: newId,
                 x: this.currentX,
                 y: this.currentY,
+                name: Strings.Dialogs.Tools.UnnamedObject + " " + newId,
                 ...props
             }
         })
@@ -62,7 +66,7 @@ class Workspace extends Component {
 
     handleClick(event) {
         if(this.props.activeTool) {
-            this.currentToolRef.userSettled({id: parseInt(event.target.id)})
+            this.currentToolRef.userSettled({object: this.props.getObjectById(parseInt(event.target.id))})
         }
     }
 

@@ -44,6 +44,10 @@ class Dialog extends Component {
                 element = <Title {...field}/>
                 break
 
+            case "button":
+                element = <button onClick={field.onClick}>{field.label}</button>
+                break
+
             case "submit":
                 element = <Submit {...field} onClick={this.handleSubmit.bind(this)}/>
                 break

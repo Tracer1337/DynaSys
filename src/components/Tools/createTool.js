@@ -69,9 +69,9 @@ function createTool(Child, config) {
                     {
                         label: Strings.Dialogs.Tools.Inputs,
                         type: "list",
-                        items: Array.isArray(object.inputs) ? object.inputs.map(id => ({
+                        items: Array.isArray(object.inputs) ? object.inputs.map(object => ({
                             type: "textbox",
-                            value: this.props.getObjectById(id).name || Strings.Dialogs.Tools.UnnamedObject
+                            value: object.name
                         })) : []
                     },
                     {
@@ -83,7 +83,7 @@ function createTool(Child, config) {
             
             return (
                 <div 
-                    className={`tool ${this.props.isMoving ? "moving" : ""} ${Tool.config.className}`} 
+                    className={`tool ${this.props.isMoving ? "moving" : ""} ${Tool.config.className || ""}`} 
                     ref={ref => this.container = ref}
                     style={{left: object.x, top: object.y}}
                 >

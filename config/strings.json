@@ -1,8 +1,14 @@
 {
+    "Toolbar": {
+        "Tools": "Werkzeuge",
+        "Outputs": "Ausgaben"
+    },
+
     "Tools": {
         "State": {
             "Label": "Zustand"
         },
+
         "RateOfChange": {
             "Label": "Zustandsänderung",
             "Sink": {
@@ -14,6 +20,12 @@
         }
     },
 
+    "Outputs": {
+        "TimingDiagramm": {
+            "Label": "Zeitdiagramm"
+        }
+    },
+
     "Dialogs": {
         "Tools": {
             "Name": "Name",
@@ -21,6 +33,17 @@
             "Inputs": "Eingänge",
             "Submit": "Speichern",
             "UnnamedObject": "Unbenanntes Objekt"
+        },
+
+        "Outputs": {
+            "Available": "Verfügbar",
+            "Selected": "Ausgewählt",
+            "Submit": "Erstellen"
+        },
+
+        "OutputWarning": {
+            "Text": "Keine Objekte vorhanden",
+            "Accept": "Schliessen"
         }
     }
 }

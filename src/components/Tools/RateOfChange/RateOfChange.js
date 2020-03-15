@@ -9,27 +9,27 @@ class RateOfChange extends Component {
     input = null
     output = null
     
-    userSettled = ({id}) => {
-        if (isNaN(id)) {
+    userSettled = ({object}) => {
+        if (!object) {
 
             if (this.input === null) {
                 const newObject = this.props.onObjectCreate({
                     type: "Source"
                 })
-                this.input = newObject.id
+                this.input = newObject
 
             } else if (this.output === null) {
                 const newObject = this.props.onObjectCreate({
                     type: "Sink"
                 })
-                this.output = newObject.id
+                this.output = newObject
 
             }
         } else {
             if (this.input === null) {
-                this.input = id
+                this.input = object
             } else if (this.output === null) {
-                this.output = id
+                this.output = object
             }
         }
 
@@ -50,8 +50,8 @@ class RateOfChange extends Component {
             return <></>
         }
 
-        const input = this.props.getObjectById(this.props.object.inputs[0])
-        const output = this.props.getObjectById(this.props.object.outputs[0])
+        const input = this.props.object.inputs[0]
+        const output = this.props.object.outputs[0]
 
         const width = Math.abs(output.x - input.x)
         const height = Math.abs(output.y - input.y)

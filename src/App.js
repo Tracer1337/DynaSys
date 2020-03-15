@@ -2,15 +2,21 @@ import React, { Component } from "react"
 
 import Workspace from "./components/Workspace/Workspace.js"
 import Toolbar from "./components/Toolbar/Toolbar.js"
+import Dialog from "./components/Dialog/Dialog.js"
 
 import objects from "./Model/Objects/Objects.js"
+import outputs from "./Model/Outputs/Outputs.js"
+import outputRenderers from "./components/Outputs/Outputs.js"
 import Model from "./Model/Model.js"
+
+import Strings from "config/strings.json"
 
 import "./App.scss"
 
 class App extends Component {
     state = {
-        activeTool: null
+        activeTool: null,
+        renderOutput: null
     }
 
     model = new Model()
@@ -36,13 +42,55 @@ class App extends Component {
         this.forceUpdate()
     }
 
+    handleOutputClicked(event) {
+        if(!this.model.getObjects().length) {
+            this.setState({renderOutputWaring: true})
+        } else {
+            this.setState({renderOutput: event.type})
+        }
+    }
+
+    componentDidMount() {
+        window.model = this.model
+
+        const state = new objects["State"]({
+            name: "Zustand 1",
+            value: 10,
+            id: -1,
+            x: 100,
+            y: 200
+        })
+
+        const sink = new objects["Sink"]({
+            x: 300,
+            y: 500,
+            id: -2
+        })
+
+        const roc = new objects["RateOfChange"]({
+            name: "Änderung 1",
+            id: -3,
+            value: 1,
+            inputs: [state],
+            outputs: [sink]
+        })
+
+        this.model.add(state)
+        this.model.add(sink)
+        this.model.add(roc)
+
+        this.forceUpdate()
+    }
+
     render() {
         return (
             <div className="app">
                 <Toolbar 
-                    onActiveToolChange={this.handleActiveToolChange.bind(this)} 
+                    onActiveToolChange={this.handleActiveToolChange.bind(this)}
+                    onOutputClicked={this.handleOutputClicked.bind(this)}
                     ref={ref => this.toolbar = ref}
                 />
+
                 <Workspace 
                     activeTool={this.state.activeTool} 
                     onSettle={this.handleSettle.bind(this)}
@@ -51,6 +99,27 @@ class App extends Component {
                     objects={this.model.getObjects()}
                     getObjectById={this.model.getObjectById}
                 />
+
+                {this.state.renderOutputWaring && (
+                    <Dialog
+                        fields={[{
+                            type: "textbox",
+                            value: Strings.Dialogs.OutputWarning.Text
+                        }, {
+                            type: "submit",
+                            value: Strings.Dialogs.OutputWarning.Accept
+                        }]}
+                        onSubmit={() => this.setState({renderOutputWaring: false})}
+                    />
+                )}
+
+                {this.state.renderOutput && (
+                    React.createElement(outputRenderers[this.state.renderOutput], {
+                        model: this.model,
+                        outputClass: outputs[this.state.renderOutput],
+                        getObjectById: this.model.getObjectById
+                    })
+                )}
             </div>
         )
     }

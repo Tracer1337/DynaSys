@@ -1,6 +1,8 @@
 import React, { Component } from "react"
 
 import tools from "../Tools/Tools.js"
+import outputs from "../Outputs/Outputs.js"
+import Strings from "config/strings.json"
 import "./Toolbar.scss"
 
 class Toolbar extends Component {
@@ -12,27 +14,49 @@ class Toolbar extends Component {
         this.setState({selected: null})
     }
 
-    handleClick(type) {
+    handleToolClick(type) {
         const newState = this.state.selected === type ? null : type
         this.setState({selected: newState})
 
-        if(this.props.onActiveToolChange) {
-            this.props.onActiveToolChange(newState)
-        }
+        this.props.onActiveToolChange(newState)
+    }
+
+    handleOutputClick(type) {
+        this.props.onOutputClicked({type})
     }
 
     render() {
         return (
             <div className="toolbar">
-                {Object.entries(tools).map(([type, tool]) => !tool.config.hideInToolbar && (
-                    <button 
-                        className={`item ${this.state.selected === type ? "selected" : ""}`}
-                        key={type}
-                        onClick={() => this.handleClick(type)}
-                    >
-                        {tool.config.label}
-                    </button>
-                ))}
+
+                <p>{Strings.Toolbar.Tools}</p>
+
+                <div className="section tools">
+                    {Object.entries(tools).map(([type, tool]) => !tool.config.hideInToolbar && (
+                        <button 
+                            className={`item ${this.state.selected === type ? "selected" : ""}`}
+                            key={type}
+                            onClick={() => this.handleToolClick(type)}
+                        >
+                            {tool.config.label}
+                        </button>
+                    ))}
+                </div>
+
+                <p>{Strings.Toolbar.Outputs}</p>
+
+                <div className="section outputs">
+                    {Object.entries(outputs).map(([type, output]) => (
+                        <button
+                            className={`item`}
+                            key={type}
+                            onClick={() => this.handleOutputClick(type)}
+                        >
+                            {output.config.label}
+                        </button>
+                    ))}
+                </div>
+
             </div>
         )
     }

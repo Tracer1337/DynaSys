@@ -3,8 +3,14 @@
     width: 200px;
 
     .item {
+        margin: 2px 0;
+
         &.selected {
             background-color: cyan;
         }
+    }
+
+    .section {
+        margin: 10px 0;
     }
 }
