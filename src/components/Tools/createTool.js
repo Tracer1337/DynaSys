@@ -12,24 +12,27 @@ function createTool(Child, config) {
             renderDialog: false
         }
 
-        isSettled = false
-
-        userClicked = (event) => {
-            this.child.userClicked(event)
-            if(this.child.isSettled) {
-                this.isSettled = true
-            }
+        userSettled = (event) => {
+            this.child.userSettled(event)
         }
 
+        requestDialog() {
+            if(Tool.config.dialogAvailable && !this.props.isMoving && !this.props.unSettled && !this.state.renderDialog) {
+                this.setState({ renderDialog: true })
+            }
+        }
         handleSubmit(state) {
             this.props.onChange({id: this.props.object.id, newState: state})
             this.setState({renderDialog: false})
         }
 
         handleClick() {
-            if(!this.props.isMoving && !this.state.renderDialog) {
-                this.setState({renderDialog: true})
+            // Check if the user wants to interact with this tool
+            if(this.props.unSettled || !this.props.requestClick()) {
+                return
             }
+            
+            this.requestDialog()
         }
 
         componentDidMount() {
@@ -37,16 +40,16 @@ function createTool(Child, config) {
                 this.props.getDomRef(this.container)
             }
 
-            if(!this.props.unSettled) {
-                this.setState({renderDialog: true})
-            }
+            this.requestDialog()
         }
 
         render() {
-            let DialogFields
+            const object = this.props.object || {}
 
-            if(!this.props.unSettled) {
-                DialogFields = [
+            let dialogFields
+
+            if (Tool.config.dialogAvailable) {
+                dialogFields = [
                     {
                         type: "title",
                         value: Tool.config.label
@@ -55,13 +58,13 @@ function createTool(Child, config) {
                         name: "name",
                         label: Strings.Dialogs.Tools.Name,
                         type: "string",
-                        defaultValue: this.props.object.name
+                        defaultValue: object.name
                     },
                     {
                         name: "value",
                         label: Strings.Dialogs.Tools.Value,
                         type: "string",
-                        defaultValue: this.props.object.value
+                        defaultValue: object.value
                     },
                     {
                         label: Strings.Dialogs.Tools.Inputs,
@@ -74,22 +77,25 @@ function createTool(Child, config) {
                     }
                 ]
             }
-
+            
             return (
                 <div 
                     className={`tool ${this.props.isMoving ? "moving" : ""}`} 
                     ref={ref => this.container = ref}
-                    style={{left: this.props.x, top: this.props.y}}
+                    style={{left: object.x, top: object.y}}
                     onClick={this.handleClick.bind(this)}
                 >
                     <Child
                         ref={ref => this.child = ref}
-                        label={this.props.unSettled || !this.props.object.name ? "?" : this.props.object.name}
-                        id={this.props.object && this.props.object.id}
+                        label={this.props.unSettled || !object.name ? "?" : object.name}
+                        object={object}
+                        onObjectCreate={this.props.onObjectCreate}
+                        onSettle={this.props.onSettle}
+                        unSettled={this.props.unSettled}
                     />
                     {this.state.renderDialog && (
                         <Dialog
-                            fields={DialogFields}
+                            fields={dialogFields}
                             onSubmit={this.handleSubmit.bind(this)}
                         />
                     )}

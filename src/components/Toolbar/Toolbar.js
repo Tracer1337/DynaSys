@@ -5,15 +5,15 @@ import "./Toolbar.scss"
 
 class Toolbar extends Component {
     state = {
-        selected: -1
+        selected: null
     }
 
     clearSelection = () => {
-        this.setState({selected: -1})
+        this.setState({selected: null})
     }
 
-    handleClick(i) {
-        const newState = this.state.selected === i ? -1 : i
+    handleClick(type) {
+        const newState = this.state.selected === type ? null : type
         this.setState({selected: newState})
 
         if(this.props.onActiveToolChange) {
@@ -24,13 +24,13 @@ class Toolbar extends Component {
     render() {
         return (
             <div className="toolbar">
-                {tools.map((t, i) => (
+                {Object.entries(tools).map(([type, tool]) => !tool.config.hideInToolbar && (
                     <button 
-                        className={`item ${this.state.selected === i ? "selected" : ""}`}
-                        key={i}
-                        onClick={() => this.handleClick(i)}
+                        className={`item ${this.state.selected === type ? "selected" : ""}`}
+                        key={type}
+                        onClick={() => this.handleClick(type)}
                     >
-                        {t.config.label}
+                        {tool.config.label}
                     </button>
                 ))}
             </div>

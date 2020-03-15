@@ -1,4 +1,4 @@
-import Object from "./Object.js"
+import Object from "../Object.js"
 
 class State extends Object {
     constructor(defaultValues) {

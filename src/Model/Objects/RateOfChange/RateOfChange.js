@@ -1,4 +1,4 @@
-import Object from "./Object.js"
+import Object from "../Object.js"
 
 class RateOfChange extends Object {
     constructor(defaultValue) {

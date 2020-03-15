@@ -4,7 +4,13 @@
             "Label": "Zustand"
         },
         "RateOfChange": {
-            "Label": "Zustandsänderung"
+            "Label": "Zustandsänderung",
+            "Sink": {
+                "Label": "Senke"
+            },
+            "Source": {
+                "Label": "Quelle"
+            }
         }
     },
 

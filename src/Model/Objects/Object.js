@@ -12,6 +12,14 @@ class Object {
             }
         }
     }
+
+    addInput(object) {
+        this.input.push(object)
+    }
+
+    addOutput(object) {
+        this.output.push(object)
+    }
 }
 
 export default Object

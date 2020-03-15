@@ -5,13 +5,16 @@ import Strings from "config/strings.json"
 import "./State.scss"
 
 class State extends Component {
-    isSettled = false
-
-    userClicked = () => this.isSettled = true
+    userSettled = () => {
+        this.props.onObjectCreate({
+            type: "State", 
+            settled: true
+        })
+    }
 
     render() {
         return (
-            <div className="state" id={this.props.id}>
+            <div className="state" id={this.props.object.id}>
                 {this.props.label}
             </div>
         )
@@ -20,5 +23,6 @@ class State extends Component {
 
 export default createTool(State, {
     type: "State",
-    label: Strings.Tools.State.Label
+    label: Strings.Tools.State.Label,
+    dialogAvailable: true
 })

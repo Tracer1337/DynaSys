@@ -1,13 +1,22 @@
-import React from "react"
+import React, { Component } from "react"
 
+import createTool from "../../createTool.js"
+import Strings from "config/strings.json"
 import "./Sink.scss"
 
-function Sink() {
-    return (
-        <div className="sink">
-
-        </div>
-    )
+class Sink extends Component {
+    render() {
+        return (
+            <div className="sink" id={this.props.object.id}>
+                Sink
+            </div>
+        )
+    }
 }
 
-export default Sink
+export default createTool(Sink, {
+    type: "Sink",
+    label: Strings.Tools.RateOfChange.Sink.Label,
+    hideInToolbar: true,
+    dialogAvailable: false
+})

@@ -14,8 +14,34 @@ class Workspace extends Component {
 
     renderedIds = []
 
+    createObject({type, settled, props}) {
+        const newObject = this.props.onObjectCreate({
+            type: type,
+            props: {
+                id: idCounter++,
+                x: this.currentX,
+                y: this.currentY,
+                ...props
+            }
+        })
+
+        if(settled && this.props.onSettle) {
+            this.onSettle()
+        }
+
+        return newObject
+    }
+
+    onSettle() {
+        this.props.onSettle()
+    }
+
+    requestClick() {
+        return !this.props.activeTool
+    }
+
     handleMouseMove(event) {
-        if(this.props.activeTool !== -1) {
+        if(this.props.activeTool) {
             const mouseX = event.clientX - this.container.offsetLeft
             const mouseY = event.clientY - this.container.offsetTop
 
@@ -27,52 +53,42 @@ class Workspace extends Component {
     }
 
     handleClick(event) {
-        if(this.props.activeTool !== -1) {
-            console.log(event.target, parseInt(event.target.id))
-
-            this.currentToolRef.userClicked({id: parseInt(event.target.id)})
-
-            if(this.currentToolRef.isSettled) {
-                this.props.onObjectCreate({
-                    type: this.currentTool.config.type,
-                    props: {
-                        id: idCounter++,
-                        x: this.currentX, 
-                        y: this.currentY
-                    }
-                })
-            }
+        if(this.props.activeTool) {
+            this.currentToolRef.userSettled({id: parseInt(event.target.id)})
         }
-    }
-
-    componentDidMount() {
-        this.container.addEventListener("mousemove", this.handleMouseMove.bind(this))
-        this.container.addEventListener("click", this.handleClick.bind(this))
     }
 
     componentDidUpdate() {
         // Render new objects of the model
+        const newTools = []
+        
         for(let object of this.props.objects) {
 
             // Check if object is already rendered on the workspace
             if(!this.renderedIds.includes(object.id)) {
                 this.renderedIds.push(object.id)
 
-                const newTool = React.createElement(this.currentTool, {
-                    key: this.props.activeTool + this.currentX + this.currentY,
-                    onObjectCreate: this.props.onObjectCreate,
+                const tool = tools[object.constructor.name]
+
+                if(!tool) {
+                    throw new Error("[Workspace] Tool '"+object.constructor.name+"' does not exist")
+                }
+
+                // Create the new object and render it into the workspace
+                const newTool = React.createElement(tool, {
+                    key: object.id,
                     onChange: this.props.onObjectChange,
-                    x: this.currentX,
-                    y: this.currentY,
+                    createObject: this.createObject.bind(this),
+                    requestClick: this.requestClick.bind(this),
                     object
                 })
 
-                this.setState({tools: [...this.state.tools, newTool]})
-
-                if(this.props.onSettle) {
-                    this.props.onSettle()
-                }
+                newTools.push(newTool)
             }
+        }
+
+        if(newTools.length) {
+            this.setState({tools: [...this.state.tools, ...newTools]})
         }
     }
 
@@ -80,13 +96,20 @@ class Workspace extends Component {
         const CurrentTool = this.currentTool = tools[this.props.activeTool]
 
         return (
-            <div className="workspace" ref={ref => this.container = ref}>
+            <div 
+                className="workspace" 
+                ref={ref => this.container = ref}
+                onMouseMove={this.handleMouseMove.bind(this)}
+                onClick={this.handleClick.bind(this)}
+            >
                 {CurrentTool && (
                     <CurrentTool
                         unSettled
                         isMoving
                         ref={ref => this.currentToolRef = ref}
                         getDomRef={ref => this.currentToolDom = ref}
+                        onObjectCreate={this.createObject.bind(this)}
+                        onSettle={this.onSettle.bind(this)}
                     />
                 )}
                 {this.state.tools}

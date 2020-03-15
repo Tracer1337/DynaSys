@@ -1,37 +1,57 @@
 import React, { Component } from "react"
 
-import Source from "./Source/Source.js"
-import Sink from "./Sink/Sink.js"
 import createTool from "../createTool.js"
 import Strings from "config/strings.json"
 import "./RateOfChange.scss"
 
 class RateOfChange extends Component {
-    state = {
-        start: null,
-        end: null
-    }
+    input = null
+    output = null
+    
+    userSettled = ({id}) => {
+        if (isNaN(id)) {
 
-    isSettled = false
+            if (this.input === null) {
+                const newObject = this.props.onObjectCreate({
+                    type: "Source"
+                })
+                this.input = newObject.id
 
-    counter = 0
+            } else if (this.output === null) {
+                const newObject = this.props.onObjectCreate({
+                    type: "Sink"
+                })
+                this.output = newObject.id
 
-    userClicked = ({id}) => {
-        // User has clicked an empty spot
-        if(isNaN(id)) {
-            this.setState({start: })
+            }
         } else {
-            console.log("Clicked id", id)
+            if (this.input === null) {
+                this.input = id
+            } else if (this.output === null) {
+                this.output = id
+            }
         }
 
-        if(this.counter++ === 1) {
-            this.isSettled = true
+        if (this.input !== null && this.output !== null) {
+            this.props.onObjectCreate({
+                type: "RateOfChange",
+                settled: true,
+                props: {
+                    input: this.input,
+                    output: this.output
+                }
+            })
         }
     }
 
     render() {
-        return(
-            <div className="rate-of-change" id={this.props.id}>
+        if (this.props.unSettled) {
+            return <></>
+        }
+
+        return (
+            <div className="rate-of-change" id={this.props.object.id}>
+                {this.props.label}
             </div>
         )
     }
@@ -39,5 +59,6 @@ class RateOfChange extends Component {
 
 export default createTool(RateOfChange, {
     type: "RateOfChange",
-    label: Strings.Tools.RateOfChange.Label
+    label: Strings.Tools.RateOfChange.Label,
+    dialogAvailable: true
 })

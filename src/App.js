@@ -10,24 +10,25 @@ import "./App.scss"
 
 class App extends Component {
     state = {
-        activeTool: -1
+        activeTool: null
     }
 
     model = new Model()
 
-    handleActiveToolChange(i) {
-        this.setState({activeTool: i})
+    handleActiveToolChange(type) {
+        this.setState({activeTool: type})
     }
 
     handleSettle() {
         this.toolbar.clearSelection()
-        this.setState({activeTool: -1})
+        this.setState({activeTool: null})
     }
 
     handleObjectCreate(event) {
         const newObject = new objects[event.type](event.props)
         this.model.add(newObject)
         this.forceUpdate()
+        return newObject
     }
 
     handleObjectChange(event) {
@@ -36,6 +37,7 @@ class App extends Component {
     }
 
     render() {
+        window.model = this.model
         return (
             <div className="app">
                 <Toolbar 
