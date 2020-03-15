@@ -8,4 +8,8 @@
     &.moving {
         cursor: grabbing;
     }
+
+    &.click-through {
+        pointer-events: none;
+    }
 }

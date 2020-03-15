@@ -14,6 +14,14 @@ class Workspace extends Component {
 
     renderedIds = []
 
+    defaultToolProps = {
+        onObjectCreate: this.createObject.bind(this),
+        requestClick: this.requestClick.bind(this),
+        onSettle: this.onSettle.bind(this),
+        getObjectById: this.props.getObjectById,
+        onChange: this.props.onObjectChange,
+    }
+
     createObject({type, settled, props}) {
         const newObject = this.props.onObjectCreate({
             type: type,
@@ -77,10 +85,8 @@ class Workspace extends Component {
                 // Create the new object and render it into the workspace
                 const newTool = React.createElement(tool, {
                     key: object.id,
-                    onChange: this.props.onObjectChange,
-                    createObject: this.createObject.bind(this),
-                    requestClick: this.requestClick.bind(this),
-                    object
+                    object,
+                    ...this.defaultToolProps
                 })
 
                 newTools.push(newTool)
@@ -108,8 +114,7 @@ class Workspace extends Component {
                         isMoving
                         ref={ref => this.currentToolRef = ref}
                         getDomRef={ref => this.currentToolDom = ref}
-                        onObjectCreate={this.createObject.bind(this)}
-                        onSettle={this.onSettle.bind(this)}
+                        {...this.defaultToolProps}
                     />
                 )}
                 {this.state.tools}

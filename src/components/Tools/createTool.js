@@ -22,7 +22,7 @@ function createTool(Child, config) {
             }
         }
         handleSubmit(state) {
-            this.props.onChange({id: this.props.object.id, newState: state})
+            this.props.onChange({id: this.props.object.id, newValues: state})
             this.setState({renderDialog: false})
         }
 
@@ -69,7 +69,10 @@ function createTool(Child, config) {
                     {
                         label: Strings.Dialogs.Tools.Inputs,
                         type: "list",
-                        items: []
+                        items: Array.isArray(object.inputs) ? object.inputs.map(id => ({
+                            type: "textbox",
+                            value: this.props.getObjectById(id).name || Strings.Dialogs.Tools.UnnamedObject
+                        })) : []
                     },
                     {
                         type: "submit",
@@ -80,10 +83,9 @@ function createTool(Child, config) {
             
             return (
                 <div 
-                    className={`tool ${this.props.isMoving ? "moving" : ""}`} 
+                    className={`tool ${this.props.isMoving ? "moving" : ""} ${Tool.config.className}`} 
                     ref={ref => this.container = ref}
                     style={{left: object.x, top: object.y}}
-                    onClick={this.handleClick.bind(this)}
                 >
                     <Child
                         ref={ref => this.child = ref}
@@ -92,6 +94,9 @@ function createTool(Child, config) {
                         onObjectCreate={this.props.onObjectCreate}
                         onSettle={this.props.onSettle}
                         unSettled={this.props.unSettled}
+                        getObjectById={this.props.getObjectById}
+                        onChange={this.props.onChange}
+                        onClick={this.handleClick.bind(this)}
                     />
                     {this.state.renderDialog && (
                         <Dialog

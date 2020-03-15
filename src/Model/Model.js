@@ -15,6 +15,10 @@ class Model {
     getObjects() {
         return this.model
     }
+
+    getObjectById = id => {
+        return this.model.find(object => object.id === id)
+    }
 }
 
 export default Model

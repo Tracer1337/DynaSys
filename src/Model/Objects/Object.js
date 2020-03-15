@@ -1,4 +1,4 @@
-const keys = ["name", "value", "input", "output", "x", "y", "id"]
+const keys = ["name", "value", "inputs", "outputs", "x", "y", "id"]
 
 class Object {
     constructor(defaultValues = {}) {
@@ -14,11 +14,11 @@ class Object {
     }
 
     addInput(object) {
-        this.input.push(object)
+        this.inputs.push(object)
     }
 
     addOutput(object) {
-        this.output.push(object)
+        this.outputs.push(object)
     }
 }
 

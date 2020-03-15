@@ -32,12 +32,11 @@ class App extends Component {
     }
 
     handleObjectChange(event) {
-        this.model.update(event.id, event.newState)
+        this.model.update(event.id, event.newValues)
         this.forceUpdate()
     }
 
     render() {
-        window.model = this.model
         return (
             <div className="app">
                 <Toolbar 
@@ -50,6 +49,7 @@ class App extends Component {
                     onObjectCreate={this.handleObjectCreate.bind(this)}
                     onObjectChange={this.handleObjectChange.bind(this)}
                     objects={this.model.getObjects()}
+                    getObjectById={this.model.getObjectById}
                 />
             </div>
         )

@@ -19,7 +19,8 @@
             "Name": "Name",
             "Value": "Wert",
             "Inputs": "Eingänge",
-            "Submit": "Speichern"
+            "Submit": "Speichern",
+            "UnnamedObject": "Unbenanntes Objekt"
         }
     }
 }

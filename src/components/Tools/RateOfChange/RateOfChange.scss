@@ -1,7 +1,14 @@
 .rate-of-change {
-    border: 1px solid black;
-    border-radius: 50%;
-    min-width: 30px;
-    min-height: 30px;
-    padding: 3px;
+    position: relative;
+
+    .action {
+        border: 1px solid black;
+        border-radius: 50%;
+        min-width: 30px;
+        min-height: 30px;
+        padding: 3px;
+        position: absolute;
+        top: 50%;
+        pointer-events: all;
+    }
 }

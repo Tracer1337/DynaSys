@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import ReactDOM from "react-dom"
 
 import createTool from "../createTool.js"
 import Strings from "config/strings.json"
@@ -37,8 +38,8 @@ class RateOfChange extends Component {
                 type: "RateOfChange",
                 settled: true,
                 props: {
-                    input: this.input,
-                    output: this.output
+                    inputs: [this.input],
+                    outputs: [this.output]
                 }
             })
         }
@@ -49,9 +50,34 @@ class RateOfChange extends Component {
             return <></>
         }
 
+        const input = this.props.getObjectById(this.props.object.inputs[0])
+        const output = this.props.getObjectById(this.props.object.outputs[0])
+
+        const width = Math.abs(output.x - input.x)
+        const height = Math.abs(output.y - input.y)
+
+        const x = Math.min(input.x, output.x) + 10
+        const y = Math.min(input.y, output.y) + 10
+
+        this.props.onChange({id: this.props.object.id, newValues: {x, y}})
+
         return (
-            <div className="rate-of-change" id={this.props.object.id}>
-                {this.props.label}
+            <div 
+                className="rate-of-change" 
+                id={this.props.object.id} 
+                style={{width: width+"px", height: height+"px"}}
+            >
+                <svg className="arrow" width={width} height={height}>
+                    <path 
+                        d={`M0 -5 L${width} ${height-5} M0 5 L${width} ${height+5}`}
+                        stroke="black"
+                        fill="none"
+                    />
+                </svg>
+
+                <div className="action" onClick={this.props.onClick}>
+                    {this.props.label}
+                </div>
             </div>
         )
     }
@@ -60,5 +86,6 @@ class RateOfChange extends Component {
 export default createTool(RateOfChange, {
     type: "RateOfChange",
     label: Strings.Tools.RateOfChange.Label,
-    dialogAvailable: true
+    dialogAvailable: true,
+    className: "click-through"
 })
