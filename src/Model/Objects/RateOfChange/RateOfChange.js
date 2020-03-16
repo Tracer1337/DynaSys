@@ -7,30 +7,30 @@ class RateOfChange extends Object {
         this.hasOutput = true
     }
 
-    calculateValues(t) {
-        const data = {[this.id]: null}
+    calculateDeltas(t) {
+        const deltas = {[this.id]: null}
 
         for(let object of [...this.inputs, ...this.outputs]) {
-            data[object.id] = 0
+            deltas[object.id] = 0
         }
 
-        const newValue = this.value * t
+        const delta = this.getValue()
 
-        data[this.id] = this.value
+        deltas[this.id] = 0
 
         for (let input of this.inputs) {
             if (input.constructor.name !== "Source") {
-                data[input.id] = input.value - newValue
+                deltas[input.id] = -delta
             }
         }
 
         for (let output of this.outputs) {
             if (output.constructor.name !== "Sink") {
-                data[output.id] = output.value + newValue
+                deltas[output.id] = delta
             }
         }
 
-        return data
+        return deltas
     }
 }
 

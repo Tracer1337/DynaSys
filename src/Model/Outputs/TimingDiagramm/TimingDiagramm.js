@@ -14,21 +14,27 @@ class TimingDiagramm extends Output {
         const data = {}
 
         for(let object of this.objects) {
-            data[object.id] = []
+            data[object.id] = [object.getValue()]
         }
 
         // Generate data table
-        for(let t = 0; t < this.getTimeSteps(); t++) {
+        for(let t = 1; t < this.getTimeSteps(); t++) {
+            // Settings the values for t to the previous ones (t - 1)
+            for(let id in data) {
+                data[id][t] = data[id][t - 1]
+            }
+
+            // Adding deltas to the values for t
             for(let object of this.model.getObjects()) {
-                if(!object.calculateValues) {
+                if(!object.calculateDeltas) {
                     continue
                 }
                 
-                const newData = object.calculateValues(t)
+                const deltas = object.calculateDeltas(t)
 
-                for(let id in newData) {
+                for(let id in deltas) {
                     if(data[id]) {
-                        data[id][t] = newData[id]
+                        data[id][t] += deltas[id]
                     }
                 }
             }

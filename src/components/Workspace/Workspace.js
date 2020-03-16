@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 
 import tools from "../Tools/Tools.js"
-import Strings from "config/strings.json"
 import "./Workspace.scss"
 
 const constrain = (x, min, max) => Math.min(Math.max(x, min), max)
@@ -32,7 +31,7 @@ class Workspace extends Component {
                 id: newId,
                 x: this.currentX,
                 y: this.currentY,
-                name: Strings.Dialogs.Tools.UnnamedObject + " " + newId,
+                name: tools[type].config.label + " " + newId,
                 ...props
             }
         })

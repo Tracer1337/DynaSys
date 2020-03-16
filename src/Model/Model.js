@@ -4,7 +4,11 @@ class Model {
     }
 
     add(object) {
-        this.model.push(object)
+        if(Array.isArray(object)) {
+            this.model.push(...object)
+        } else {
+            this.model.push(object)
+        }
     }
 
     update(id, newValues) {

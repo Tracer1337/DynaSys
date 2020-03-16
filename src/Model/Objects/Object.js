@@ -20,6 +20,10 @@ class Object {
     addOutput(object) {
         this.outputs.push(object)
     }
+
+    getValue() {
+        return this.value
+    }
 }
 
 export default Object

@@ -33,8 +33,7 @@
             "Name": "Name",
             "Value": "Wert",
             "Inputs": "Eingänge",
-            "Submit": "Speichern",
-            "UnnamedObject": "Unbenanntes Objekt"
+            "Submit": "Speichern"
         },
 
         "Outputs": {
