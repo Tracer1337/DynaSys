@@ -22,8 +22,10 @@
 
     "Outputs": {
         "TimingDiagramm": {
-            "Label": "Zeitdiagramm"
-        }
+            "Label": "Zeitdiagramm",
+            "XAxesLabel": "Zeiteinheiten"
+        },
+        "Close": "Schliessen"
     },
 
     "Dialogs": {

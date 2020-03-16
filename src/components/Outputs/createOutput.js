@@ -28,7 +28,7 @@ function createOutput(Child, config) {
                     type: "list",
                     label: Strings.Dialogs.Outputs.Available,
                     items: this.props.model.getObjects().map(object => {
-                        if (this.state.selectedObjects.includes(object)) {
+                        if (this.state.selectedObjects.includes(object) || !object.hasOutput) {
                             return false
                         }
                         
@@ -67,10 +67,13 @@ function createOutput(Child, config) {
 
             return ReactDOM.createPortal(
                 <div className="output">
-                    <Child
-                        selectedObjects={this.state.selectedObjects}
-                        {...this.props}
-                    />
+                    <div className="content">
+                        <Child
+                            selectedObjects={this.state.selectedObjects}
+                            {...this.props}
+                        />
+                        <button onClick={this.props.onClose}>{Strings.Outputs.Close}</button>
+                    </div>
                 </div>
             , document.getElementById("root"))
         }

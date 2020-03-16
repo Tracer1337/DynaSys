@@ -3,6 +3,8 @@ import Object from "../Object.js"
 class RateOfChange extends Object {
     constructor(defaultValue) {
         super(defaultValue)
+
+        this.hasOutput = true
     }
 
     calculateValues(t) {

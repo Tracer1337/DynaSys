@@ -21,6 +21,7 @@ function createTool(Child, config) {
                 this.setState({ renderDialog: true })
             }
         }
+        
         handleSubmit(state) {
             this.props.onChange({id: this.props.object.id, newValues: state})
             this.setState({renderDialog: false})

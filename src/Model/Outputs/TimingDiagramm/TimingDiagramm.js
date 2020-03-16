@@ -1,10 +1,12 @@
 import Output from "../Output.js"
 
-const steps = 10
-
 class TimingDiagramm extends Output {
     constructor(values) {
         super(values)
+    }
+
+    getTimeSteps() {
+        return 10
     }
 
     generateData = () => {
@@ -16,7 +18,7 @@ class TimingDiagramm extends Output {
         }
 
         // Generate data table
-        for(let t = 0; t < steps; t++) {
+        for(let t = 0; t < this.getTimeSteps(); t++) {
             for(let object of this.model.getObjects()) {
                 if(!object.calculateValues) {
                     continue

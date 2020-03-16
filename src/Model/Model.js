@@ -17,6 +17,7 @@ class Model {
     }
 
     getObjectById = id => {
+        id = parseInt(id)
         return this.model.find(object => object.id === id)
     }
 }

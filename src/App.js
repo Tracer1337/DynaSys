@@ -50,36 +50,40 @@ class App extends Component {
         }
     }
 
+    handleOutputClose() {
+        this.setState({renderOutput: null})
+    }
+
     componentDidMount() {
-        window.model = this.model
+        // window.model = this.model
 
-        const state = new objects["State"]({
-            name: "Zustand 1",
-            value: 10,
-            id: -1,
-            x: 100,
-            y: 200
-        })
+        // const state = new objects["State"]({
+        //     name: "Zustand 1",
+        //     value: 10,
+        //     id: -1,
+        //     x: 100,
+        //     y: 200
+        // })
 
-        const sink = new objects["Sink"]({
-            x: 300,
-            y: 500,
-            id: -2
-        })
+        // const sink = new objects["Sink"]({
+        //     x: 300,
+        //     y: 500,
+        //     id: -2
+        // })
 
-        const roc = new objects["RateOfChange"]({
-            name: "Änderung 1",
-            id: -3,
-            value: 1,
-            inputs: [state],
-            outputs: [sink]
-        })
+        // const roc = new objects["RateOfChange"]({
+        //     name: "Änderung 1",
+        //     id: -3,
+        //     value: 1,
+        //     inputs: [state],
+        //     outputs: [sink]
+        // })
 
-        this.model.add(state)
-        this.model.add(sink)
-        this.model.add(roc)
+        // this.model.add(state)
+        // this.model.add(sink)
+        // this.model.add(roc)
 
-        this.forceUpdate()
+        // this.forceUpdate()
     }
 
     render() {
@@ -117,7 +121,8 @@ class App extends Component {
                     React.createElement(outputRenderers[this.state.renderOutput], {
                         model: this.model,
                         outputClass: outputs[this.state.renderOutput],
-                        getObjectById: this.model.getObjectById
+                        getObjectById: this.model.getObjectById,
+                        onClose: this.handleOutputClose.bind(this)
                     })
                 )}
             </div>
