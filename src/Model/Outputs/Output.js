@@ -1,6 +1,7 @@
 class Output {
-    constructor({objects}) {
+    constructor({objects, model}) {
         this.objects = objects
+        this.model = model
     }
 }
 

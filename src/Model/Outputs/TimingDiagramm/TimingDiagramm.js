@@ -8,10 +8,28 @@ class TimingDiagramm extends Output {
     }
 
     generateData = () => {
-        const data = this.objects.map(() => [])
+        // Create id - value map for objects
+        const data = {}
 
-        for(let i = 0; i < steps; i++) {
-            
+        for(let object of this.objects) {
+            data[object.id] = []
+        }
+
+        // Generate data table
+        for(let t = 0; t < steps; t++) {
+            for(let object of this.model.getObjects()) {
+                if(!object.calculateValues) {
+                    continue
+                }
+                
+                const newData = object.calculateValues(t)
+
+                for(let id in newData) {
+                    if(data[id]) {
+                        data[id][t] = newData[id]
+                    }
+                }
+            }
         }
 
         return data

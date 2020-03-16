@@ -6,7 +6,7 @@ import "./TimingDiagramm.scss"
 
 class TimingDiagramm extends Component {
     render() {
-        const Diagramm = new this.props.outputClass({objects: this.props.selectedObjects})
+        const Diagramm = new this.props.outputClass({objects: this.props.selectedObjects, model: this.props.model})
 
         console.log(Diagramm)
 
