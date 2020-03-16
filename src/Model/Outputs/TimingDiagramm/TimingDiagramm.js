@@ -30,7 +30,7 @@ class TimingDiagramm extends Output {
                     continue
                 }
                 
-                const deltas = object.calculateDeltas(t)
+                const deltas = object.calculateDeltas(t, data)
 
                 for(let id in deltas) {
                     if(data[id]) {

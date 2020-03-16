@@ -31,7 +31,7 @@ class Workspace extends Component {
                 id: newId,
                 x: this.currentX,
                 y: this.currentY,
-                name: tools[type].config.label + " " + newId,
+                name: tools[type].config.label + newId,
                 ...props
             }
         })

@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "chart.js": "^2.9.3",
     "chartjs": "^0.3.24",
+    "mathjs": "^6.6.1",
     "node-sass": "^4.13.1",
     "react": "^16.13.0",
     "react-chartjs-2": "^2.9.0",
