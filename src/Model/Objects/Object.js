@@ -49,6 +49,17 @@ class Object {
     clone() {
         return new this.constructor(this)
     }
+
+    getInputsForData(data, t) {
+        return this.inputs.map(input => {
+            if (!data[input.id]) {
+                return input
+            }
+            const newInput = input.clone()
+            newInput.value = data[input.id][t - 1]
+            return newInput
+        })
+    }
 }
 
 export default Object

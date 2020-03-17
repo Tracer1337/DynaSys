@@ -6,6 +6,12 @@ class State extends Object {
 
         this.hasOutput = true
     }
+
+    feedForward(data, t) {
+        if(data[this.id][t] === undefined) {
+            data[this.id][t] = this.getValue(this.getInputsForData(data, t))
+        }
+    }
 }
 
 export default State
