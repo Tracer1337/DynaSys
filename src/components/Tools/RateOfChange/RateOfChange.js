@@ -1,4 +1,7 @@
 import React, { Component } from "react"
+import ReactDOM from "react-dom"
+
+import SVGArrow from "../../Utils/SVG/Arrow.js"
 
 import createTool from "../createTool.js"
 import Strings from "config/strings.json"
@@ -22,8 +25,8 @@ class RateOfChange extends Component {
                     type: "Sink"
                 })
                 this.output = newObject
-
             }
+            
         } else {
             if (this.input === null) {
                 this.input = object
@@ -44,6 +47,12 @@ class RateOfChange extends Component {
         }
     }
 
+    componentDidMount() {
+        if(!this.props.unSettled) {
+            this.props.onExpand()
+        }
+    }
+
     render() {
         if (this.props.unSettled) {
             return <></>
@@ -52,31 +61,35 @@ class RateOfChange extends Component {
         const input = this.props.object.inputs[0]
         const output = this.props.object.outputs[0]
 
-        const width = Math.abs(output.x - input.x)
-        const height = Math.abs(output.y - input.y)
+        const inputDomElement = this.props.getDomObjectById(input.id)
+        const outputDomElement = this.props.getDomObjectById(output.id)
 
-        const x = Math.min(input.x, output.x) + 10
-        const y = Math.min(input.y, output.y) + 10
-
-        this.props.onChange({id: this.props.object.id, newValues: {x, y}})
+        this.props.onChange({id: this.props.object.id, newValues: {x: 0, y: 0}})
 
         return (
             <div 
-                className="rate-of-change" 
-                id={this.props.object.id} 
-                style={{width: width+"px", height: height+"px"}}
+                className="object rate-of-change" 
+                data-id={this.props.object.id} 
+                style={{width: "100%", height: "100%"}}
+                ref={ref => this.container = ref}
             >
-                <svg className="arrow" width={width} height={height}>
-                    <path 
-                        d={`M0 -5 L${width} ${height-5} M0 5 L${width} ${height+5}`}
-                        stroke="black"
-                        fill="none"
-                    />
+                <svg width="100%" height="100%">
+                    {this.container && inputDomElement && outputDomElement &&
+                        <SVGArrow 
+                            from={{ x: input.x + inputDomElement.offsetWidth / 2, y: input.y + inputDomElement.offsetHeight / 2 }} 
+                            to={{ x: output.x + outputDomElement.offsetWidth / 2, y: output.y + outputDomElement.offsetHeight / 2 }}
+                            Label={({x, y}) => ReactDOM.createPortal(
+                                <div 
+                                    className="action" 
+                                    onClick={this.props.onClick}
+                                    style={{left: x+"px", top: y+"px"}}
+                                >
+                                    {this.props.label}
+                                </div>
+                            , this.container)}
+                        />
+                    }
                 </svg>
-
-                <div className="action" onClick={this.props.onClick}>
-                    {this.props.label}
-                </div>
             </div>
         )
     }

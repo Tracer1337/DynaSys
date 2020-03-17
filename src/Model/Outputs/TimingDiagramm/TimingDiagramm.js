@@ -19,24 +19,15 @@ class TimingDiagramm extends Output {
 
         // Generate data table
         for(let t = 1; t < this.getTimeSteps(); t++) {
-            // Settings the values for t to the previous ones (t - 1)
-            for(let id in data) {
-                data[id][t] = data[id][t - 1]
-            }
 
-            // Adding deltas to the values for t
+            // Feed the data through all objects
             for(let object of this.model.getObjects()) {
-                if(!object.calculateDeltas) {
+
+                if(!object.feedForward) {
                     continue
                 }
-                
-                const deltas = object.calculateDeltas(t, data)
 
-                for(let id in deltas) {
-                    if(data[id]) {
-                        data[id][t] += deltas[id]
-                    }
-                }
+                object.feedForward(data, t)
             }
         }
 

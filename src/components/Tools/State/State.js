@@ -14,7 +14,7 @@ class State extends Component {
 
     render() {
         return (
-            <div className="state" id={this.props.object.id} onClick={this.props.onClick}>
+            <div className="object state" data-id={this.props.object.id} onClick={this.props.onClick}>
                 {this.props.label}
             </div>
         )

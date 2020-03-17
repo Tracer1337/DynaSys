@@ -9,7 +9,8 @@ function createTool(Child, config) {
         static config = config
 
         state = {
-            renderDialog: false
+            renderDialog: false,
+            expanded: false
         }
 
         userSettled = (event) => {
@@ -34,6 +35,10 @@ function createTool(Child, config) {
             }
             
             this.requestDialog()
+        }
+
+        handleExpand() {
+            this.setState({expanded: true})
         }
 
         componentDidMount() {
@@ -70,10 +75,10 @@ function createTool(Child, config) {
                     {
                         label: Strings.Dialogs.Tools.Inputs,
                         type: "list",
-                        items: Array.isArray(object.inputs) ? object.inputs.map(object => ({
+                        items: Array.isArray(object.inputs) ? object.inputs.map(object => object.hasOutput && ({
                             type: "textbox",
                             value: object.name
-                        })) : []
+                        })).filter(e => e) : []
                     },
                     {
                         type: "submit",
@@ -84,7 +89,7 @@ function createTool(Child, config) {
             
             return (
                 <div 
-                    className={`tool ${this.props.isMoving ? "moving" : ""} ${Tool.config.className || ""}`} 
+                    className={`tool ${this.props.isMoving ? "moving" : ""} ${Tool.config.className || ""} ${this.state.expanded ? "full-size" : ""}`} 
                     ref={ref => this.container = ref}
                     style={{left: object.x, top: object.y}}
                 >
@@ -98,6 +103,8 @@ function createTool(Child, config) {
                         getObjectById={this.props.getObjectById}
                         onChange={this.props.onChange}
                         onClick={this.handleClick.bind(this)}
+                        getDomObjectById={this.props.getDomObjectById}
+                        onExpand={this.handleExpand.bind(this)}
                     />
                     {this.state.renderDialog && (
                         <Dialog

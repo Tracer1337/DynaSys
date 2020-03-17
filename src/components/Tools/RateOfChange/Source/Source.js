@@ -7,7 +7,7 @@ import "./Source.scss"
 class Source extends Component {
     render() {
         return (
-            <div className="source" id={this.props.object.id}>
+            <div className="object source" data-id={this.props.object.id}>
                 Source
             </div>
         )

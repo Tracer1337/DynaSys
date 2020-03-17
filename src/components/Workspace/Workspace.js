@@ -18,8 +18,14 @@ class Workspace extends Component {
         onObjectCreate: this.createObject.bind(this),
         requestClick: this.requestClick.bind(this),
         onSettle: this.onSettle.bind(this),
+        getDomObjectById: this.getDomObjectById.bind(this),
         getObjectById: this.props.getObjectById,
         onChange: this.props.onObjectChange,
+    }
+
+    getDomObjectById(id) {
+        const tools = Array.from(this.container.getElementsByClassName("object"))
+        return tools.find(tool => parseInt(tool.dataset.id) === id)
     }
 
     createObject({type, settled, props}) {
@@ -65,7 +71,7 @@ class Workspace extends Component {
 
     handleClick(event) {
         if(this.props.activeTool) {
-            this.currentToolRef.userSettled({object: this.props.getObjectById(parseInt(event.target.id))})
+            this.currentToolRef.userSettled({object: this.props.getObjectById(parseInt(event.target.dataset.id))})
         }
     }
 

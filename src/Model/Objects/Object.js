@@ -9,7 +9,7 @@ class Object {
 
     setValues(values, setUndefinedValues = false) {
         for(let key of keys) {
-            if(values[key] || setUndefinedValues) {
+            if(values[key] !== undefined || setUndefinedValues) {
                 this[key] = values[key]
             }
         }
