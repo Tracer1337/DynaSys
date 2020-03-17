@@ -43,8 +43,10 @@ class RateOfChange extends Object {
         }
 
         // Calculate the delta
-        const nextDelta = this.getValue(this.getInputsForData(data, t + 1))
-        data[this.id][t] = nextDelta
+        if(data[this.id]) {
+            const nextDelta = this.getValue(this.getInputsForData(data, t + 1))
+            data[this.id][t] = nextDelta
+        }
     }
 }
 

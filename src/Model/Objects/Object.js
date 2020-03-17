@@ -13,6 +13,14 @@ class Object {
                 this[key] = values[key]
             }
         }
+
+        if(!this.inputs) {
+            this.inputs = []
+        }
+
+        if(!this.outputs) {
+            this.outputs = []
+        }
     }
 
     addInput(object) {

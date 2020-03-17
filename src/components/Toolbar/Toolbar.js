@@ -22,7 +22,11 @@ class Toolbar extends Component {
     }
 
     handleOutputClick(type) {
-        this.props.onOutputClicked({type})
+        this.props.onOutputClick({type})
+    }
+    
+    handlePresetClick(name) {
+        this.props.onPresetClick(name)
     }
 
     render() {
@@ -53,6 +57,20 @@ class Toolbar extends Component {
                             onClick={() => this.handleOutputClick(type)}
                         >
                             {output.config.label}
+                        </button>
+                    ))}
+                </div>
+
+                <p>{Strings.Toolbar.Presets}</p>
+
+                <div className="section presets">
+                    {Object.entries(this.props.presets).map(([name]) => (
+                        <button
+                            className={`item`}
+                            key={name}
+                            onClick={() => this.handlePresetClick(name)}
+                        >
+                            {name}
                         </button>
                     ))}
                 </div>

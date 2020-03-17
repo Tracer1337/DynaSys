@@ -1,7 +1,8 @@
 {
     "Toolbar": {
         "Tools": "Werkzeuge",
-        "Outputs": "Ausgaben"
+        "Outputs": "Ausgaben",
+        "Presets": "Presets"
     },
 
     "Tools": {
@@ -17,6 +18,10 @@
             "Source": {
                 "Label": "Quelle"
             }
+        },
+        
+        "Effect": {
+            "Label": "Effekt"
         }
     },
 

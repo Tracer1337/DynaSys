@@ -3,13 +3,6 @@
 
 # Tools
 
-###### Tools which can not be placed on the workspace
-
-### Arrow
-* Interact with elements on the workspace
-
-###### Tools which can be placed on the workspace
-
 ### State
 * Represented by a rectangle
 * Properties
@@ -47,8 +40,7 @@
 
 ### Effect
 * Represented by an arrow
-* Connects two objects
-* An effect-arrow from A to B means "A effects B"
+* Adds the first object as an input to the second
 * Properties
     * Object A
     * Object B

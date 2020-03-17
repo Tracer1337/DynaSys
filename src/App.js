@@ -43,7 +43,7 @@ class App extends Component {
         this.forceUpdate()
     }
 
-    handleOutputClicked(event) {
+    handleOutputClick(event) {
         if(!this.model.getObjects().length) {
             this.setState({renderOutputWaring: true})
         } else {
@@ -55,12 +55,13 @@ class App extends Component {
         this.setState({renderOutput: null})
     }
 
+    handlePresetClick(name) {
+        presets[name](this.model)
+        this.forceUpdate()
+    }
+
     componentDidMount() {
         window.model = this.model
-
-        presets["Preset2"](this.model)
-
-        this.forceUpdate()
     }
 
     render() {
@@ -68,7 +69,9 @@ class App extends Component {
             <div className="app">
                 <Toolbar 
                     onActiveToolChange={this.handleActiveToolChange.bind(this)}
-                    onOutputClicked={this.handleOutputClicked.bind(this)}
+                    onOutputClick={this.handleOutputClick.bind(this)}
+                    onPresetClick={this.handlePresetClick.bind(this)}
+                    presets={presets}
                     ref={ref => this.toolbar = ref}
                 />
 

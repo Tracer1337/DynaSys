@@ -70,7 +70,6 @@ class RateOfChange extends Component {
             <div 
                 className="object rate-of-change" 
                 data-id={this.props.object.id} 
-                style={{width: "100%", height: "100%"}}
                 ref={ref => this.container = ref}
             >
                 <svg width="100%" height="100%">
@@ -83,6 +82,7 @@ class RateOfChange extends Component {
                                     className="action" 
                                     onClick={this.props.onClick}
                                     style={{left: x+"px", top: y+"px"}}
+                                    data-id={this.props.object.id}
                                 >
                                     {this.props.label}
                                 </div>
