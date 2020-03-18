@@ -2,27 +2,27 @@ import React, { Component } from "react"
 
 import createTool from "../createTool.js"
 import Strings from "config/strings.json"
-import "./State.scss"
+import "./Parameter.scss"
 
-class State extends Component {
+class Parameter extends Component {
     userSettled = () => {
         this.props.onObjectCreate({
-            type: "State", 
+            type: "Parameter",
             settled: true
         })
     }
 
     render() {
         return (
-            <div className="object action state" data-id={this.props.object.id} onClick={this.props.onClick}>
+            <div className="object action parameter" data-id={this.props.object.id} onClick={this.props.onClick}>
                 {this.props.label}
             </div>
         )
     }
 }
 
-export default createTool(State, {
-    type: "State",
-    label: Strings.Tools.State.Label,
+export default createTool(Parameter, {
+    type: "Parameter",
+    label: Strings.Tools.Parameter.Label,
     dialogAvailable: true
 })

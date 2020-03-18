@@ -1,10 +1,9 @@
 import objects from "../Objects/Objects.js"
-import Model from "../Model.js"
 
 const preset1 = model => {
     const state = new objects["State"]({
         name: "Zustand",
-        value: "10 + Zustand0",
+        value: "10 + Parameter0",
         id: -1,
         x: 100,
         y: 200
@@ -38,8 +37,8 @@ const preset1 = model => {
         outputs: [state]
     })
 
-    const state2 = new objects["State"]({
-        name: "Zustand0",
+    const param = new objects["Parameter"]({
+        name: "Parameter0",
         value: "10",
         id: -6,
         x: 500,
@@ -49,11 +48,11 @@ const preset1 = model => {
     const effect = new objects["Effect"]({
         name: "Effekt",
         id: -7,
-        inputs: [state2],
+        inputs: [param],
         outputs: [state]
     })
 
-    model.add([state, sink, source, roc1, roc2, state2, effect])
+    model.add([state, sink, source, roc1, roc2, param, effect])
 }
 
 export default preset1

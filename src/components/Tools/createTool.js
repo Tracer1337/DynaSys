@@ -72,7 +72,7 @@ function createTool(Child, config) {
                         type: "string",
                         defaultValue: object.value
                     },
-                    {
+                    object.hasInput !== false && {
                         label: Strings.Dialogs.Tools.Inputs,
                         type: "list",
                         items: Array.isArray(object.inputs) ? object.inputs.map(object => object.hasOutput && ({
@@ -84,7 +84,7 @@ function createTool(Child, config) {
                         type: "submit",
                         value: Strings.Dialogs.Tools.Submit
                     }
-                ]
+                ].filter(e => e)
             }
             
             return (

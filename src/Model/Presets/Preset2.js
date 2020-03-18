@@ -1,5 +1,4 @@
 import objects from "../Objects/Objects.js"
-import Model from "../Model.js"
 
 const preset2 = model => {
     const state = new objects["State"]({

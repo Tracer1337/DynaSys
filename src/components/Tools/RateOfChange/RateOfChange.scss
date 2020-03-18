@@ -4,11 +4,8 @@
     height: 100%;
 
     .action {
-        border: 1px solid black;
         border-radius: 50%;
         min-width: 30px;
-        min-height: 30px;
-        padding: 3px;
         position: absolute;
         pointer-events: all;
     }

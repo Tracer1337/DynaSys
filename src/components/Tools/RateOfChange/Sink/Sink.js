@@ -7,7 +7,7 @@ import "./Sink.scss"
 class Sink extends Component {
     render() {
         return (
-            <div className="object sink" data-id={this.props.object.id}>
+            <div className="object action sink" data-id={this.props.object.id}>
                 Sink
             </div>
         )

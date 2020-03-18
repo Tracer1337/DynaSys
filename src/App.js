@@ -5,7 +5,6 @@ import Toolbar from "./components/Toolbar/Toolbar.js"
 import Dialog from "./components/Dialog/Dialog.js"
 
 import objects from "./Model/Objects/Objects.js"
-import outputs from "./Model/Outputs/Outputs.js"
 import presets from "./Model/Presets/Presets.js"
 import outputRenderers from "./components/Outputs/Outputs.js"
 import Model from "./Model/Model.js"
@@ -100,7 +99,6 @@ class App extends Component {
                 {this.state.renderOutput && (
                     React.createElement(outputRenderers[this.state.renderOutput], {
                         model: this.model,
-                        outputClass: outputs[this.state.renderOutput],
                         getObjectById: this.model.getObjectById,
                         onClose: this.handleOutputClose.bind(this)
                     })

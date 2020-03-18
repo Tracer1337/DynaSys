@@ -22,6 +22,10 @@
         
         "Effect": {
             "Label": "Effekt"
+        },
+
+        "Parameter": {
+            "Label": "Parameter"
         }
     },
 

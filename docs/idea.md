@@ -4,3 +4,6 @@
 [ ] Funktionen im Objekt-Dialog anzeigen
 [ ] Zeit als Parameter im Objekt-Dialog
 [ ] Objekte entfernen
+[ ] Effekt-Pfeil für ROC fixen
+[ ] Output-Dialog validiern (Alle Objekte müssen einen Wert haben)
+[ ] Output-Dialog Zeitschritte auswählen

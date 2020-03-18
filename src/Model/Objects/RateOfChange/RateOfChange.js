@@ -9,7 +9,6 @@ class RateOfChange extends Object {
 
     feedForward({data, t}) {
         const delta = this.getValue()
-        console.log(delta)
 
         // Subtract delta from the inputs value
         const input = this.inputs[0]

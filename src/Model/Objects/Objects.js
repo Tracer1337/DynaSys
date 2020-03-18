@@ -3,5 +3,6 @@ import RateOfChange from "./RateOfChange/RateOfChange.js"
 import Source from "./RateOfChange/Source.js"
 import Sink from "./RateOfChange/Sink.js"
 import Effect from "./Effect/Effect.js"
+import Parameter from "./Parameter/Parameter.js"
 
-export default {State, RateOfChange, Source, Sink, Effect}
+export default {State, RateOfChange, Source, Sink, Effect, Parameter}
