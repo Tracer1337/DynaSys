@@ -46,6 +46,10 @@ class Object {
         return parsedValue
     }
 
+    addValue(value) {
+        this.value += ` + ${value}`
+    }
+
     clone() {
         return new this.constructor(this)
     }

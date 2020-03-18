@@ -7,44 +7,33 @@ class RateOfChange extends Object {
         this.hasOutput = true
     }
 
-    getInputsForData(data, t) {
-        return this.inputs.map(input => {
-            if (!data[input.id]) {
-                return input
-            }
-            const newInput = input.clone()
-            newInput.value = data[input.id][t - 1]
-            return newInput
-        })
-    }
-
-    feedForward(data, t) {
-        // Create new inputs for calculating the value from the current data
-        const newInputs = this.getInputsForData(data, t)
-
-        const delta = this.getValue(newInputs)
+    feedForward({data, t}) {
+        const delta = this.getValue()
+        console.log(delta)
 
         // Subtract delta from the inputs value
-        for (let input of this.inputs) {
-            if (input.constructor.name !== "Source") {
-                if(data[input.id]) {
-                    data[input.id][t] = data[input.id][t-1] - delta
-                }
+        const input = this.inputs[0]
+
+        if (input.constructor.name !== "Source") {
+            input.addValue(-delta)
+            if(data[input.id]) {
+                data[input.id][t] = input.getValue()
             }
         }
 
         // Add delta to the outputs value
-        for (let output of this.outputs) {
-            if (output.constructor.name !== "Sink") {
-                if (data[output.id]) {
-                    data[output.id][t] = data[output.id][t-1] + delta
-                }
+        const output = this.outputs[0]
+
+        if (output.constructor.name !== "Sink") {
+            output.addValue(delta)
+            if (data[output.id]) {
+                data[output.id][t] = output.getValue()
             }
         }
 
         // Calculate the delta
         if(data[this.id]) {
-            const nextDelta = this.getValue(this.getInputsForData(data, t + 1))
+            const nextDelta = this.getValue()
             data[this.id][t] = nextDelta
         }
     }

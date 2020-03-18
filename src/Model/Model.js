@@ -24,6 +24,31 @@ class Model {
         id = parseInt(id)
         return this.model.find(object => object.id === id)
     }
+
+    clone() {
+        const newModel = new Model()
+
+        // Shallow clone of all objects
+        newModel.model = this.model.map(object => object.clone())
+
+        // Set the inputs and outputs of the cloned objects to the new cloned objects
+        for(let object of newModel.model) {
+            object.inputs = []
+
+            this.getObjectById(object.id).inputs.forEach((input, index) => {
+                object.inputs[index] = newModel.getObjectById(input.id)
+            })
+    
+            object.outputs = []
+    
+            this.getObjectById(object.id).outputs.forEach((output, index) => {
+                object.outputs[index] = newModel.getObjectById(output.id)
+            })
+
+        }
+
+        return newModel
+    }
 }
 
 export default Model

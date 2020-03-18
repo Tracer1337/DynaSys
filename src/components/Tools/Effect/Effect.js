@@ -59,10 +59,10 @@ class Effect extends Component {
                 data-id={this.props.id}
             >
                 <svg width="100%" height="100%">
-                    <SVGArrow
+                    {inputDomElement && outputDomElement && <SVGArrow
                         from={{ x: input.x + inputDomElement.offsetWidth / 2, y: input.y + inputDomElement.offsetHeight / 2}}
                         to={{ x: output.x + outputDomElement.offsetWidth / 2, y: output.y + outputDomElement.offsetHeight / 2}}
-                    />
+                    />}
                 </svg>
             </div>
         )
