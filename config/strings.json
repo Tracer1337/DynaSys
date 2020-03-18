@@ -34,6 +34,12 @@
             "Label": "Zeitdiagramm",
             "XAxesLabel": "Zeiteinheiten"
         },
+
+        "TimeTable": {
+            "Label": "Zeit-Tabelle",
+            "Time": "Zeit"
+        },
+
         "Close": "Schliessen"
     },
 

@@ -10,9 +10,9 @@ const colors = ["#1abc9c", "#3498db", "#9b59b6", "#34495e", "#f1c40f", "#e74c3c"
 
 class TimingDiagramm extends Component {
     render() {
-        const Diagramm = new outputs["TimeTable"]({ objects: this.props.selectedObjects, model: this.props.model })
+        const object = new outputs["TimeTable"]({ objects: this.props.selectedObjects, model: this.props.model })
 
-        const data = Diagramm.generateData()
+        const data = object.generateData()
 
         const datasets = Object.entries(data).map(([id, values], index) => {
             const object = this.props.getObjectById(id)
@@ -26,7 +26,7 @@ class TimingDiagramm extends Component {
         })
 
         const labels = []
-        for(let i = 0; i < Diagramm.getTimeSteps(); i++) {
+        for(let i = 0; i < object.getTimeSteps(); i++) {
             labels[i] = i
         }
 
