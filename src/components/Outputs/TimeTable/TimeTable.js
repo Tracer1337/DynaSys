@@ -20,8 +20,6 @@ class TimeTable extends Component {
             }
         }
 
-        console.log(formatted)
-
         return (
             <div className="time-table">
                 <table border="1" style={{borderCollapse: "collapse"}}>

@@ -40,6 +40,12 @@
             "Time": "Zeit"
         },
 
+        "Summary": {
+            "Label": "Zusammenfassung",
+            "Name": "Name",
+            "Value": "Wert"
+        },
+
         "Close": "Schliessen"
     },
 

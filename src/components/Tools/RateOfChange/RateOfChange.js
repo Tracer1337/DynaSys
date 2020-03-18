@@ -12,6 +12,10 @@ class RateOfChange extends Component {
     output = null
     
     userSettled = ({object}) => {
+        if(object && object.hasInput === false) {
+            return
+        }
+
         if (!object) {
 
             if (this.input === null) {

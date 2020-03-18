@@ -10,6 +10,10 @@ class Effect extends Component {
     output = null
 
     userSettled = ({object}) => {
+        if(object && object.hasInput === false) {
+            return
+        }
+        
         if(object) {
 
             if(object.constructor.name === "Sink" || object.constructor.name === "Source" || this.input === object || this.output === object) {

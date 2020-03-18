@@ -7,3 +7,6 @@
 [ ] Effekt-Pfeil für ROC fixen
 [ ] Output-Dialog validiern (Alle Objekte müssen einen Wert haben)
 [ ] Output-Dialog Zeitschritte auswählen
+[ ] GitHub Link
+[ ] Mehrere Sprachen
+[ ] Variablen im Zusammenfassungs-Dialog Farben zuweisen
