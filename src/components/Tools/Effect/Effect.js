@@ -10,8 +10,16 @@ class Effect extends Component {
     output = null
 
     userSettled = ({object}) => {
-        if(object && object.hasInput === false) {
-            return
+        if(object) {
+            // Prevent user from setting the input to an object without output e.g. Sink
+            if(!this.input && object.hasOutput === false) {
+                return
+            }
+
+            // Prevent user from setting the output to an object without input e.g. Effect
+            if(this.input && object.hasInput === false) {
+                return
+            }
         }
         
         if(object) {
