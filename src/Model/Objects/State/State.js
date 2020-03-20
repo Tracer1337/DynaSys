@@ -1,4 +1,5 @@
 import Object from "../Object.js"
+import Strings from "src/config/strings.json"
 import fix from "src/utils/fix.js"
 
 class State extends Object {
@@ -9,7 +10,7 @@ class State extends Object {
     }
 
     getEquation() {
-        return `${this.old} + dt * (${this.deltas.map(({ object, sign }) => (sign < 0 ? "- " : "+ ") + object.name).join(" ")})`
+        return `${this.name}.${Strings.Outputs.Summary.New} = ${this.name}.${Strings.Outputs.Summary.Old} + dt * (${this.deltas.map(({ object, sign }) => (sign < 0 ? "- " : "+ ") + object.name).join(" ")})`
     }
 
     evaluate({t, dt}) {

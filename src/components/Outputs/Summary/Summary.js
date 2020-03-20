@@ -10,23 +10,13 @@ class Summary extends Component {
 
         return (
             <div className="summary">
-                <table>
-                    {
-                        objects.map(object => (
-                            <tbody key={object.id}>
-                                <tr>
-                                    <td>{Strings.Outputs.Summary.Name}</td>
-                                    <td>{object.name}</td>
-                                </tr>
-
-                                <tr>
-                                    <td>{Strings.Outputs.Summary.Value}</td>
-                                    <td>{object.value}</td>
-                                </tr>
-                            </tbody>
-                        ))
-                    }
-                </table>
+                {
+                    objects.map(object => (
+                        <div className="equation" key={object.id}>
+                            {object.getEquation()}
+                        </div>
+                    ))
+                }
             </div>
         )
     }

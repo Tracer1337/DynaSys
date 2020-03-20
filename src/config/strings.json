@@ -42,8 +42,8 @@
 
         "Summary": {
             "Label": "Zusammenfassung",
-            "Name": "Name",
-            "Value": "Wert"
+            "Old": "Alt",
+            "New": "Neu"
         },
 
         "Close": "Schliessen"

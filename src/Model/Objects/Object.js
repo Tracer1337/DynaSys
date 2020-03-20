@@ -62,7 +62,7 @@ class Object {
     getDelta() {
         let delta = 0
 
-        for (let { object, sign } of this.deltas) {
+        for (let {object, sign} of this.deltas) {
             delta += object.getValue() * sign
         }
 
@@ -70,7 +70,7 @@ class Object {
     }
 
     getEquation() {
-        return this.value
+        return `${this.name} = ${this.value}`
     }
 
     evaluate({t}) {
