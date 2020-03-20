@@ -96,10 +96,10 @@ class Workspace extends Component {
             if(!this.renderedIds.includes(object.id)) {
                 this.renderedIds.push(object.id)
 
-                const tool = tools[object.constructor.name]
+                const tool = tools[object.type]
 
                 if(!tool) {
-                    throw new Error("[Workspace] Tool '"+object.constructor.name+"' does not exist")
+                    throw new Error("[Workspace] Tool '"+object.type+"' does not exist")
                 }
 
                 // Create the new object and render it into the workspace

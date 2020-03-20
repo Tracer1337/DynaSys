@@ -3,7 +3,7 @@ import SettingsProvider from "src/config/SettingsProvider.js"
 
 const keys = ["name", "value", "inputs", "outputs", "x", "y", "id"]
 
-class Object {
+class InternalObject {
     constructor(defaultValues = {}) {
         this.setValues(defaultValues, true)
 
@@ -82,4 +82,4 @@ class Object {
     }
 }
 
-export default Object
+export default InternalObject

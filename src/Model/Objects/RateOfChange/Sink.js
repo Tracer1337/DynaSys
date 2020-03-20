@@ -1,8 +1,10 @@
-import Object from "../Object.js"
+import InternalObject from "../InternalObject.js"
 
-class Sink extends Object {
+class Sink extends InternalObject {
     constructor(defaultValue) {
         super(defaultValue)
+
+        this.type = "Sink"
 
         this.hasOutput = false
     }

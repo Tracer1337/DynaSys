@@ -1,8 +1,10 @@
-import Object from "../Object.js"
+import InternalObject from "../InternalObject.js"
 
-class Parameter extends Object {
+class Parameter extends InternalObject {
     constructor(defaultValues) {
         super(defaultValues)
+
+        this.type = "Parameter"
 
         this.hasInput = false
         this.hasOutput = true

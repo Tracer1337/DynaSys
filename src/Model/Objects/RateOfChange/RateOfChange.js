@@ -1,8 +1,10 @@
-import Object from "../Object.js"
+import InternalObject from "../InternalObject.js"
 
-class RateOfChange extends Object {
+class RateOfChange extends InternalObject {
     constructor(defaultValue) {
         super(defaultValue)
+
+        this.type = "RateOfChange"
 
         this.hasOutput = true
 

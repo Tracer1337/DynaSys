@@ -1,10 +1,12 @@
-import Object from "../Object.js"
+import InternalObject from "../InternalObject.js"
 import Strings from "src/config/strings.json"
 import fix from "src/utils/fix.js"
 
-class State extends Object {
+class State extends InternalObject {
     constructor(defaultValues) {
         super(defaultValues)
+
+        this.type = "State"
 
         this.hasOutput = true
     }

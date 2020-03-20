@@ -1,8 +1,10 @@
-import Object from "../Object.js"
+import InternalObject from "../InternalObject.js"
 
-class Source extends Object {
+class Source extends InternalObject {
     constructor(defaultValue) {
         super(defaultValue)
+
+        this.type = "Source"
         
         this.hasOutput = false
     }

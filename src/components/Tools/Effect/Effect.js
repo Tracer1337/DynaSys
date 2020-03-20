@@ -20,7 +20,7 @@ class Effect extends Component {
 
         if (object) {
 
-            if (object.constructor.name === "Sink" || object.constructor.name === "Source" || this.input === object || this.output === object) {
+            if (object.type === "Sink" || object.typee === "Source" || this.input === object || this.output === object) {
                 return
             }
 
