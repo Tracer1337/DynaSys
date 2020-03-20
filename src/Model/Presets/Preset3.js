@@ -37,7 +37,11 @@ const preset3 = model => {
         outputs: [state2]
     })
 
-    model.add([state, source, roc, state2, effect])
+    const newObjects = [state, source, roc, state2, effect]
+
+    newObjects.forEach(object => object.isPresetted = true)
+
+    model.add(newObjects)
 }
 
 export default preset3

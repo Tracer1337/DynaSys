@@ -46,11 +46,15 @@ function createTool(Child, config) {
                 this.props.getDomRef(this.container)
             }
 
-            this.requestDialog()
+            if(!this.props.object || !this.props.object.isPresetted) {
+                this.requestDialog()
+            }
         }
 
         render() {
             const object = this.props.object || {}
+
+            this.id = object.id
 
             let dialogFields
 
@@ -100,11 +104,10 @@ function createTool(Child, config) {
                         onObjectCreate={this.props.onObjectCreate}
                         onSettle={this.props.onSettle}
                         unSettled={this.props.unSettled}
-                        getObjectById={this.props.getObjectById}
                         onChange={this.props.onChange}
                         onClick={this.handleClick.bind(this)}
-                        getDomObjectById={this.props.getDomObjectById}
                         onExpand={this.handleExpand.bind(this)}
+                        getActionPositionById={this.props.getActionPositionById}
                     />
                     {this.state.renderDialog && (
                         <Dialog

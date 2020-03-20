@@ -168,7 +168,11 @@ const preset4 = model => {
         outputs: [rocGuests2]
     })
     
-    model.add([adFactor, shFactor, ueFactor, uzFactor, guests, env, srcGuests, rocGuests1, sinkGuests, rocGuests2, srcEnv, rocEnv1, sinkEnv, rocEnv2, effect1, effect2, effect3, effect4, effect5, effect6, effect7, effect8, effect9])
+    const newObjects = [adFactor, shFactor, ueFactor, uzFactor, guests, env, srcGuests, rocGuests1, sinkGuests, rocGuests2, srcEnv, rocEnv1, sinkEnv, rocEnv2, effect1, effect2, effect3, effect4, effect5, effect6, effect7, effect8, effect9]
+
+    newObjects.forEach(object => object.isPresetted = true)
+
+    model.add(newObjects)
 }
 
 export default preset4

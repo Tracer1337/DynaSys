@@ -12,20 +12,31 @@ class Workspace extends Component {
         tools: []
     }
 
+    toolRefs = {}
+
     renderedIds = []
 
     defaultToolProps = {
         onObjectCreate: this.createObject.bind(this),
         requestClick: this.requestClick.bind(this),
         onSettle: this.onSettle.bind(this),
-        getDomObjectById: this.getDomObjectById.bind(this),
+        getActionPositionById: this.getActionPositionById.bind(this),
         getObjectById: this.props.getObjectById,
-        onChange: this.props.onObjectChange,
+        onChange: this.props.onObjectChange
     }
 
-    getDomObjectById(id) {
-        const tools = Array.from(this.container.getElementsByClassName("object"))
-        return tools.find(tool => parseInt(tool.dataset.id) === id)
+    getActionPositionById(id) {
+        const actions = Array.from(this.container.getElementsByClassName("action"))
+        const result = actions.find(action => parseInt(action.dataset.id) === id)
+
+        if(!result) {
+            return undefined
+        }
+
+        const rect = result.getBoundingClientRect()
+        const position = {x: rect.x - this.container.offsetLeft + rect.width / 2, y: rect.y - this.container.offsetTop + rect.height / 2}
+
+        return position
     }
 
     createObject({type, settled, props}) {
@@ -95,6 +106,7 @@ class Workspace extends Component {
                 const newTool = React.createElement(tool, {
                     key: object.id,
                     object,
+                    domRef: ref => this.toolRefs[object.id] = ref,
                     ...this.defaultToolProps
                 })
 
