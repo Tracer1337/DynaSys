@@ -2,7 +2,7 @@ import React, { Component } from "react"
 
 import createTool from "../createTool.js"
 import SVGArrow from "../../Utils/SVG/Arrow.js"
-import Strings from "config/strings.json"
+import Strings from "src/config/strings.json"
 import "./Effect.scss"
 
 class Effect extends Component {

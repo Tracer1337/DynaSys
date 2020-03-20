@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
 import createOutput from "../createOutput.js"
-import Strings from "config/strings.json"
+import Strings from "src/config/strings.json"
 import "./Summary.scss"
 
 class Summary extends Component {

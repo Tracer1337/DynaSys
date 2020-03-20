@@ -2,7 +2,7 @@ import React, { Component } from "react"
 
 import tools from "../Tools/Tools.js"
 import outputs from "../Outputs/Outputs.js"
-import Strings from "config/strings.json"
+import Strings from "src/config/strings.json"
 import "./Toolbar.scss"
 
 class Toolbar extends Component {

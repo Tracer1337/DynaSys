@@ -86,7 +86,7 @@ const preset4 = model => {
     const rocEnv1 = new objects["RateOfChange"]({
         name: "Verbesserung",
         id: -8,
-        value: "UmweltErholungsFaktor * Umwelt",
+        value: "UmweltErholungsFaktor * Umwelt * (1 - Umwelt)",
         inputs: [srcEnv],
         outputs: [env]
     })

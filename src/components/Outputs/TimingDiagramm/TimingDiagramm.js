@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import { Line } from "react-chartjs-2"
 
 import createOutput from "../createOutput.js"
-import Strings from "config/strings.json"
+import Strings from "src/config/strings.json"
+import fix from "src/utils/fix.js"
 import outputs from "src/Model/Outputs/Outputs.js"
 import "./TimingDiagramm.scss"
 
@@ -26,10 +27,10 @@ class TimingDiagramm extends Component {
         })
 
         const labels = []
-        for(let i = 0; i < object.getTimeSteps(); i++) {
-            labels[i] = i
+        for(let i = 0; i < object.timesteps / object.dt; i++) {
+            labels[i] = fix(i * object.dt)
         }
-
+        
         return(
             <div className="timing-diagramm">
                 <Line

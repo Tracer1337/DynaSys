@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 
 import createOutput from "../createOutput.js"
-import Strings from "config/strings.json"
+import Strings from "src/config/strings.json"
 import outputs from "src/Model/Outputs/Outputs.js"
+import fix from "src/utils/fix.js"
 import "./TimeTable.scss"
 
 class TimeTable extends Component {
@@ -13,7 +14,7 @@ class TimeTable extends Component {
 
         // Change data = {id: [values, ...], ...} to formatted = [{id: value, ...}, ...]
         const formatted = []
-        for(let i = 0; i < object.getTimeSteps(); i++) {
+        for(let i = 0; i < object.timesteps / object.dt; i++) {
             formatted[i] = {}
             for(let id in data) {
                 formatted[i][id] = data[id][i]
@@ -38,8 +39,8 @@ class TimeTable extends Component {
                     <tbody>
                         {
                             formatted.map((row, t) => 
-                                <tr>
-                                    <td>{t}</td>
+                                <tr key={t}>
+                                    <td>{fix(t * object.dt)}</td>
                                     {
                                         Object.values(row).map(value => 
                                             <td>{value}</td>

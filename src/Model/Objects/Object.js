@@ -1,10 +1,13 @@
 import * as math from "mathjs"
+import SettingsProvider from "src/config/SettingsProvider.js"
 
 const keys = ["name", "value", "inputs", "outputs", "x", "y", "id"]
 
 class Object {
     constructor(defaultValues = {}) {
         this.setValues(defaultValues, true)
+
+        this.old = 0
     }
 
     setValues(values, setUndefinedValues = false) {
@@ -21,6 +24,10 @@ class Object {
         if(!this.outputs) {
             this.outputs = []
         }
+        
+        if(!this.deltas) {
+            this.deltas = []
+        }
     }
 
     addInput(object) {
@@ -31,38 +38,47 @@ class Object {
         this.outputs.push(object)
     }
 
-    getValue(inputs = this.inputs) {
-        const parser = math.parser()
-
-        if(inputs) {
-            for(let object of inputs) {
-                if(object.hasOutput) {
-                    parser.set(object.name, object.getValue())
-                }
-            }
-        }
-
-        const parsedValue = parser.evaluate(this.value || "0")
-        return parsedValue
-    }
-
     addValue(value) {
         this.value += ` + ${value}`
     }
 
-    clone() {
-        return new this.constructor(this)
+    addDelta(object, {sign}) {
+        this.deltas.push({object, sign})
     }
 
-    getInputsForData(data, t) {
-        return this.inputs.map(input => {
-            if (!data[input.id]) {
-                return input
+    getValue() {
+        const parser = math.parser()
+
+        for (let object of this.inputs) {
+            if (object.hasOutput) {
+                parser.set(object.name, object.old)
             }
-            const newInput = input.clone()
-            newInput.value = data[input.id][t - 1]
-            return newInput
-        })
+        }
+
+        const result = parser.evaluate(this.value || "0")
+        return +result.toFixed(SettingsProvider.settings.decimalPoints)
+    }
+
+    getDelta() {
+        let delta = 0
+
+        for (let { object, sign } of this.deltas) {
+            delta += object.getValue() * sign
+        }
+
+        return delta
+    }
+
+    getEquation() {
+        return this.value
+    }
+
+    evaluate({t}) {
+        if (t === 0) {
+            this.old = this.getValue()
+        }
+
+        return this.old
     }
 }
 

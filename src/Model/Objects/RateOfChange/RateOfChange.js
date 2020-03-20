@@ -5,36 +5,19 @@ class RateOfChange extends Object {
         super(defaultValue)
 
         this.hasOutput = true
+
+        if(this.inputs[0].addDelta && !this.inputs[0].deltas.includes(this)) {
+            this.inputs[0].addDelta(this, {sign: -1})
+        }
+
+        if(this.outputs[0].addDelta && !this.outputs[0].deltas.includes(this)) {
+            this.outputs[0].addDelta(this, {sign: 1})
+        }
     }
 
-    feedForward({data, t}) {
-        const delta = this.getValue()
-
-        // Subtract delta from the inputs value
-        const input = this.inputs[0]
-
-        if (input.constructor.name !== "Source") {
-            input.addValue(-delta)
-            if(data[input.id]) {
-                data[input.id][t] = input.getValue()
-            }
-        }
-
-        // Add delta to the outputs value
-        const output = this.outputs[0]
-
-        if (output.constructor.name !== "Sink") {
-            output.addValue(delta)
-            if (data[output.id]) {
-                data[output.id][t] = output.getValue()
-            }
-        }
-
-        // Calculate the delta
-        if(data[this.id]) {
-            const nextDelta = this.getValue()
-            data[this.id][t] = nextDelta
-        }
+    evaluate() {
+        const value = this.getValue()
+        return value
     }
 }
 

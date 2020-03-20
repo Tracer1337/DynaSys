@@ -7,12 +7,6 @@ class Parameter extends Object {
         this.hasInput = false
         this.hasOutput = true
     }
-
-    feedForward({data, t}) {
-        if(data[this.id]) {
-            data[this.id][t] = this.getValue()
-        }
-    }
 }
 
 export default Parameter

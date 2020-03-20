@@ -4,7 +4,7 @@ import ReactDOM from "react-dom"
 import SVGArrow from "../../Utils/SVG/Arrow.js"
 
 import createTool from "../createTool.js"
-import Strings from "config/strings.json"
+import Strings from "src/config/strings.json"
 import "./RateOfChange.scss"
 
 class RateOfChange extends Component {

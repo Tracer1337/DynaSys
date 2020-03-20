@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
 import createTool from "../../createTool.js"
-import Strings from "config/strings.json"
+import Strings from "src/config/strings.json"
 import "./Sink.scss"
 
 class Sink extends Component {

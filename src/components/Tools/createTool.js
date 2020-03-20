@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
 import Dialog from "../Dialog/Dialog.js"
-import Strings from "config/strings.json"
+import Strings from "src/config/strings.json"
 import "./Tool.scss"
 
 function createTool(Child, config) {
