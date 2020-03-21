@@ -37,12 +37,17 @@ function createTool(Child, config) {
         }
 
         componentDidMount() {
+            // Create connections for presetted objects
+            if(this.props.object && this.props.object.isPresetted) {
+                requestAnimationFrame(() => this.forceUpdate())
+            }
+
             if(this.props.getDomRef) {
                 this.props.getDomRef(this.container)
             }
 
             if(!this.props.object || !this.props.object.isPresetted) {
-                requestAnimationFrame(() => this.requestDialog())
+                this.requestDialog()
             }
         }
 

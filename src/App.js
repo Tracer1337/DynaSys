@@ -67,7 +67,10 @@ class App extends Component {
     }
 
     handlePresetClick(name) {
-        presets[name](this.model)
+        presets[name](objects => {
+            this.model.add(objects)
+            this.forceUpdate()
+        })
         this.forceUpdate()
     }
 

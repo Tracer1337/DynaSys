@@ -1,6 +1,6 @@
 import objects from "../Objects/Objects.js"
 
-const preset4 = model => {
+const preset4 = addObjects => {
     const adFactor = new objects["Parameter"]({
         name: "WerbeFaktor",
         value: "1",
@@ -167,12 +167,20 @@ const preset4 = model => {
         inputs: [guests],
         outputs: [rocGuests2]
     })
+
+
+    const first = [adFactor, shFactor, ueFactor, uzFactor, guests, env, srcGuests, sinkGuests, srcEnv, sinkEnv]
+    const second = [rocGuests1, rocGuests2, rocEnv1, rocEnv2]
+    const third = [effect1, effect2, effect3, effect4, effect5, effect6, effect7, effect8, effect9]
     
-    const newObjects = [adFactor, shFactor, ueFactor, uzFactor, guests, env, srcGuests, rocGuests1, sinkGuests, rocGuests2, srcEnv, rocEnv1, sinkEnv, rocEnv2, effect1, effect2, effect3, effect4, effect5, effect6, effect7, effect8, effect9]
+    const push = objects => {
+        objects.forEach(object => object.isPresetted = true)
+        addObjects(objects)
+    }
 
-    newObjects.forEach(object => object.isPresetted = true)
-
-    model.add(newObjects)
+    push(first)
+    push(second)
+    push(third)
 }
 
 export default preset4

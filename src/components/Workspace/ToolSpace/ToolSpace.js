@@ -97,7 +97,6 @@ class ToolSpace extends Component {
         const newTools = []
 
         for (let object of this.context.model.getObjects()) {
-
             // Check if object is already rendered on the workspace
             if (!this.renderedIds.includes(object.id)) {
                 this.renderedIds.push(object.id)

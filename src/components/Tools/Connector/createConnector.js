@@ -7,6 +7,8 @@ const createConnector = (Child, toolProps) => {
     class Connector extends Component {
         state = {input: null, output: null}
 
+        established = false
+
         setInput(object) {
             this.setState({input: object})
         }
@@ -19,8 +21,22 @@ const createConnector = (Child, toolProps) => {
             this.child.userSettled(object)
         }
 
+        establishConnection(input, output, object) {
+            this.established = true
+            requestAnimationFrame(() => {
+                const labelPosition = this.props.establishConnection(input, output)
+                this.props.onObjectChange({ id: object.id, newValues: labelPosition })
+            })
+        }
+        
+        componentDidMount() {
+            if(this.props.object && Object.keys(this.props.object).length > 0 && this.props.object.inputs[0] && this.props.object.outputs[0]) {
+                this.establishConnection(this.props.object.inputs[0], this.props.object.outputs[0], this.props.object)
+            }
+        }
+
         componentDidUpdate() {
-            if(this.state.input && this.state.output) {
+            if(this.state.input && this.state.output && !this.established) {
                 const object = this.props.onObjectCreate({
                     type: toolProps.type,
                     settled: true,
@@ -30,10 +46,7 @@ const createConnector = (Child, toolProps) => {
                     }
                 })
 
-                requestAnimationFrame(() => {
-                    const labelPosition = this.props.establishConnection(this.state.input, this.state.output)
-                    this.props.onObjectChange({id: object.id, newValues: labelPosition})
-                })
+                this.establishConnection(this.state.input, this.state.output, object)
             }
         }
 

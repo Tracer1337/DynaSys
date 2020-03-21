@@ -10,3 +10,4 @@
 [ ] GitHub Link
 [ ] Mehrere Sprachen
 [ ] Variablen im Zusammenfassungs-Dialog Farben zuweisen
+[ ] Move output warning into output component

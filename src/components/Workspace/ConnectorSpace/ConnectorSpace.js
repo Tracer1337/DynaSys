@@ -11,6 +11,8 @@ class ConnectorSpace extends Component {
 
     connectorRefs = []
 
+    idCounter = 0
+
     establishConnection = (input, output) => {
         const from = this.props.getObjectPositionById(input.id)
         const to = this.props.getObjectPositionById(output.id)
@@ -20,7 +22,7 @@ class ConnectorSpace extends Component {
 
         const Connector = (
             <SVGArrow
-                key={fromTo.x+fromTo.y}
+                key={this.idCounter++}
                 from={from}
                 to={to}
                 ref={ref => this.connectorRefs.push(ref)}

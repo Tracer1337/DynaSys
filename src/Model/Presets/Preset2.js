@@ -1,6 +1,6 @@
 import objects from "../Objects/Objects.js"
 
-const preset2 = model => {
+const preset2 = addObjects => {
     const state = new objects["State"]({
         name: "Zustand",
         value: "128",
@@ -41,7 +41,7 @@ const preset2 = model => {
 
     newObjects.forEach(object => object.isPresetted = true)
 
-    model.add(newObjects)
+    addObjects(newObjects)
 }
 
 export default preset2
