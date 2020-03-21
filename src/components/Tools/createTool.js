@@ -36,6 +36,10 @@ function createTool(Child, config) {
             this.requestDialog()
         }
 
+        handleInputClick(object) {
+            this.valueInput.append(object.name)
+        }
+
         componentDidMount() {
             // Create connections for presetted objects
             if(this.props.object && this.props.object.isPresetted) {
@@ -74,14 +78,16 @@ function createTool(Child, config) {
                         name: "value",
                         label: Strings.Dialogs.Tools.Value,
                         type: "string",
-                        defaultValue: object.value
+                        defaultValue: object.value,
+                        ref: ref => this.valueInput = ref
                     },
                     object.hasInput !== false && {
                         label: Strings.Dialogs.Tools.Inputs,
                         type: "list",
                         items: Array.isArray(object.inputs) ? object.inputs.map(object => object.hasOutput && ({
-                            type: "textbox",
-                            value: object.name
+                            type: "button",
+                            label: object.name,
+                            onClick: () => this.handleInputClick(object)
                         })).filter(e => e) : []
                     },
                     {

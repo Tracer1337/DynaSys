@@ -1,23 +1,31 @@
-import React, { useState } from "react"
+import React, { Component } from "react"
 
-function String({label, onChange, defaultValue}) {
-    const [value, setValue] = useState(defaultValue || "")
+class String extends Component {
+    state = {value: this.props.defaultValue || ""}
 
-    const handleChange = event => {
-        setValue(event.target.value)
-        onChange(event.target.value)
+    append = value => {
+        this.handleChange({target: { 
+            value: this.state.value + value
+        }})
     }
 
-    return (
-        <div className="string">
-            <label>{label}</label>
-            <input 
-                type="string"
-                value={value}
-                onChange={handleChange}
-            />
-        </div>
-    )
+    handleChange(event) {
+        this.setState({value: event.target.value})
+        this.props.onChange(event.target.value)
+    }
+
+    render() {
+        return(
+            <div className="string">
+                <label>{this.props.label}</label>
+                <input
+                    type="string"
+                    value={this.state.value}
+                    onChange={this.handleChange.bind(this)}
+                />
+            </div>
+        )
+    }
 }
 
 export default String

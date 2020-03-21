@@ -12,6 +12,7 @@
     .inner-dialog {
         background-color: white;
         padding: 30px;
+        width: 50%;
 
         .title {
             text-align: center;
@@ -20,6 +21,10 @@
 
         .string {
             margin: 10px 0;
+            
+            input {
+                width: 100%;
+            }
 
             label {
                 display: block;
