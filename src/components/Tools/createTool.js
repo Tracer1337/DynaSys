@@ -9,8 +9,7 @@ function createTool(Child, config) {
         static config = config
 
         state = {
-            renderDialog: false,
-            expanded: false
+            renderDialog: false
         }
 
         userSettled = (event) => {
@@ -24,7 +23,7 @@ function createTool(Child, config) {
         }
         
         handleSubmit(state) {
-            this.props.onChange({id: this.props.object.id, newValues: state})
+            this.props.onObjectChange({id: this.props.object.id, newValues: state})
             this.setState({renderDialog: false})
         }
 
@@ -37,17 +36,13 @@ function createTool(Child, config) {
             this.requestDialog()
         }
 
-        handleExpand() {
-            this.setState({expanded: true})
-        }
-
         componentDidMount() {
             if(this.props.getDomRef) {
                 this.props.getDomRef(this.container)
             }
 
             if(!this.props.object || !this.props.object.isPresetted) {
-                this.requestDialog()
+                requestAnimationFrame(() => this.requestDialog())
             }
         }
 
@@ -93,7 +88,7 @@ function createTool(Child, config) {
             
             return (
                 <div 
-                    className={`tool ${this.props.isMoving ? "moving" : ""} ${Tool.config.className || ""} ${this.state.expanded ? "full-size" : ""}`} 
+                    className={`tool ${this.props.isMoving ? "moving" : ""} ${Tool.config.className || ""}`} 
                     ref={ref => this.container = ref}
                     style={{left: object.x, top: object.y}}
                 >
@@ -101,13 +96,8 @@ function createTool(Child, config) {
                         ref={ref => this.child = ref}
                         label={this.props.unSettled || !object.name ? "?" : object.name}
                         object={object}
-                        onObjectCreate={this.props.onObjectCreate}
-                        onSettle={this.props.onSettle}
-                        unSettled={this.props.unSettled}
-                        onChange={this.props.onChange}
                         onClick={this.handleClick.bind(this)}
-                        onExpand={this.handleExpand.bind(this)}
-                        getActionPositionById={this.props.getActionPositionById}
+                        {...this.props}
                     />
                     {this.state.renderDialog && (
                         <Dialog

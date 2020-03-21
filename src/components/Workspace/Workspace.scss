@@ -4,4 +4,10 @@
     border: 1px solid black;
     background-color: lightgray;
     position: relative;
+
+    .space {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
 }

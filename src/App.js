@@ -13,21 +13,33 @@ import Strings from "src/config/strings.json"
 
 import "./App.scss"
 
-class App extends Component {
-    state = {
-        activeTool: null,
-        renderOutput: null
-    }
+const AppContext = React.createContext({})
 
+class App extends Component {
     model = new Model()
 
+    state = {
+        renderOutput: null,
+        contextValue: {
+            model: this.model,
+            activeTool: null,
+            onObjectCreate: this.handleObjectCreate.bind(this),
+            onObjectChange: this.handleObjectChange.bind(this),
+            onSettle: this.handleSettle.bind(this)
+        }
+    }
+    
+    setContext(values) {
+        this.setState({contextValue: {...this.state.contextValue, ...values}})
+    }
+    
     handleActiveToolChange(type) {
-        this.setState({activeTool: type})
+        this.setContext({activeTool: type})
     }
 
     handleSettle() {
         this.toolbar.clearSelection()
-        this.setState({activeTool: null})
+        this.setContext({activeTool: null})
     }
 
     handleObjectCreate(event) {
@@ -66,46 +78,44 @@ class App extends Component {
     render() {
         return (
             <div className="app">
-                <Toolbar 
-                    onActiveToolChange={this.handleActiveToolChange.bind(this)}
-                    onOutputClick={this.handleOutputClick.bind(this)}
-                    onPresetClick={this.handlePresetClick.bind(this)}
-                    presets={presets}
-                    ref={ref => this.toolbar = ref}
-                />
-
-                <Workspace 
-                    activeTool={this.state.activeTool} 
-                    onSettle={this.handleSettle.bind(this)}
-                    onObjectCreate={this.handleObjectCreate.bind(this)}
-                    onObjectChange={this.handleObjectChange.bind(this)}
-                    objects={this.model.getObjects()}
-                    getObjectById={this.model.getObjectById}
-                />
-
-                {this.state.renderOutputWaring && (
-                    <Dialog
-                        fields={[{
-                            type: "textbox",
-                            value: Strings.Dialogs.OutputWarning.Text
-                        }, {
-                            type: "submit",
-                            value: Strings.Dialogs.OutputWarning.Accept
-                        }]}
-                        onSubmit={() => this.setState({renderOutputWaring: false})}
+                <AppContext.Provider value={this.state.contextValue}>
+                    <Toolbar
+                        onActiveToolChange={this.handleActiveToolChange.bind(this)}
+                        onOutputClick={this.handleOutputClick.bind(this)}
+                        onPresetClick={this.handlePresetClick.bind(this)}
+                        presets={presets}
+                        ref={ref => this.toolbar = ref}
                     />
-                )}
 
-                {this.state.renderOutput && (
-                    React.createElement(outputRenderers[this.state.renderOutput], {
-                        model: this.model,
-                        getObjectById: this.model.getObjectById,
-                        onClose: this.handleOutputClose.bind(this)
-                    })
-                )}
+                    <Workspace/>
+
+                    {this.state.renderOutputWaring && (
+                        <Dialog
+                            fields={[{
+                                type: "textbox",
+                                value: Strings.Dialogs.OutputWarning.Text
+                            }, {
+                                type: "submit",
+                                value: Strings.Dialogs.OutputWarning.Accept
+                            }]}
+                            onSubmit={() => this.setState({ renderOutputWaring: false })}
+                        />
+                    )}
+
+                    {this.state.renderOutput && (
+                        React.createElement(outputRenderers[this.state.renderOutput], {
+                            model: this.model,
+                            getObjectById: this.model.getObjectById,
+                            onClose: this.handleOutputClose.bind(this)
+                        })
+                    )}
+                </AppContext.Provider>
             </div>
         )
     }
 }
 
 export default App
+export {
+    AppContext
+}

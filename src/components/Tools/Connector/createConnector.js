@@ -1,79 +1,59 @@
 import React, { Component } from "react"
-import ReactDOM from "react-dom"
 
 import createTool from "../createTool.js"
-import SVGArrow from "../../Utils/SVG/Arrow.js"
 import "./Connector.scss"
 
 const createConnector = (Child, toolProps) => {
     class Connector extends Component {
-        input = null
-        output = null
+        state = {input: null, output: null}
+
+        setInput(object) {
+            this.setState({input: object})
+        }
+
+        setOutput(object) {
+            this.setState({output: object})
+        }
 
         userSettled = (object) => {
             this.child.userSettled(object)
         }
 
-        componentDidMount() {
-            if (!this.props.unSettled) {
-                this.props.onExpand()
+        componentDidUpdate() {
+            if(this.state.input && this.state.output) {
+                const object = this.props.onObjectCreate({
+                    type: toolProps.type,
+                    settled: true,
+                    props: {
+                        inputs: [this.state.input],
+                        outputs: [this.state.output]
+                    }
+                })
+
+                requestAnimationFrame(() => {
+                    const labelPosition = this.props.establishConnection(this.state.input, this.state.output)
+                    this.props.onObjectChange({id: object.id, newValues: labelPosition})
+                })
             }
         }
 
         render() {
-            if (this.props.unSettled) {
-                return (
-                    <Child 
-                        ref={ref => this.child = ref} 
-                        unSettled
-                        {...this.props}
-                    />
-                )
-            }
-
-            const input = this.props.object.inputs[0]
-            const output = this.props.object.outputs[0]
-
-            const inputPosition = this.props.getActionPositionById(input.id)
-            const outputPosition = this.props.getActionPositionById(output.id)
-
-            if (!inputPosition || !outputPosition) {
-                return <></>
-            }
-
-            this.props.onChange({ id: this.props.object.id, newValues: { x: 0, y: 0 } })
-
             return (
-                <div
-                    className="object connector"
-                    data-id={this.props.object.id}
-                    ref={ref => this.container = ref}
-                >
-                    <svg width="100%" height="100%">
-                        {this.container && inputPosition && outputPosition && <SVGArrow
-                            from={inputPosition}
-                            to={outputPosition}
-                            Label={props => 
-                                ReactDOM.createPortal(
-                                    <Child
-                                        {...this.props}
-                                        {...props}
-                                    />
-                                , this.container)
-                            }
-                        />}
-                    </svg>
-                </div>
+                <Child 
+                    ref={ref => this.child = ref} 
+                    setInput={this.setInput.bind(this)}
+                    setOutput={this.setOutput.bind(this)}
+                    input={this.state.input}
+                    output={this.state.output}
+                    {...this.props}
+                />
             )
         }
     }
 
     return createTool(
         Connector,
-        {
-            className: "click-through",
-            ...toolProps
-        }
+        toolProps
     )
 }
 

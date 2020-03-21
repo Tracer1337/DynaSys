@@ -5,9 +5,6 @@ import Strings from "src/config/strings.json"
 import "./RateOfChange.scss"
 
 class RateOfChange extends Component {
-    input = null
-    output = null
-    
     userSettled = ({object}) => {
         if(object && object.hasInput === false) {
             return
@@ -15,45 +12,37 @@ class RateOfChange extends Component {
 
         if (!object) {
 
-            if (this.input === null) {
+            if (this.props.input === null) {
                 const newObject = this.props.onObjectCreate({
                     type: "Source"
                 })
-                this.input = newObject
+                this.props.setInput(newObject)
 
-            } else if (this.output === null) {
+            } else if (this.props.output === null) {
                 const newObject = this.props.onObjectCreate({
                     type: "Sink"
                 })
-                this.output = newObject
+                this.props.setOutput(newObject)
             }
-            
-        } else {
-            if (this.input === null) {
-                this.input = object
-            } else if (this.output === null) {
-                this.output = object
-            }
-        }
 
-        if (this.input !== null && this.output !== null) {
-            this.props.onObjectCreate({
-                type: "RateOfChange",
-                settled: true,
-                props: {
-                    inputs: [this.input],
-                    outputs: [this.output]
-                }
-            })
+        } else {
+
+            if (this.props.input === null) {
+                this.props.setInput(object)
+
+            } else if (this.props.output === null) {
+                this.props.setOutput(object)
+            }
+
         }
     }
 
     render() {
         return (
             <div
-                className="action"
+                className="object rate-of-change"
                 onClick={this.props.onClick}
-                style={{ left: this.props.x + "px", top: this.props.y + "px" }}
+                style={{left: this.props.x + "px", top: this.props.y + "px"}}
                 data-id={this.props.object.id}
             >
                 {this.props.label}
@@ -65,6 +54,5 @@ class RateOfChange extends Component {
 export default createConnector(RateOfChange, {
     type: "RateOfChange",
     label: Strings.Tools.RateOfChange.Label,
-    dialogAvailable: true,
-    className: "click-through"
+    dialogAvailable: true
 })
