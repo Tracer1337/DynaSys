@@ -63,6 +63,8 @@ const preset4 = addObjects => {
         outputs: [guests]
     })
 
+    srcGuests.outputs = [rocGuests1]
+
     const sinkGuests = new objects["Sink"]({
         x: 700,
         y: 100,
@@ -77,6 +79,8 @@ const preset4 = addObjects => {
         outputs: [sinkGuests]
     })
 
+    sinkGuests.inputs = [rocGuests2]
+
     const srcEnv = new objects["Source"]({
         x: 50,
         y: 500,
@@ -90,6 +94,8 @@ const preset4 = addObjects => {
         inputs: [srcEnv],
         outputs: [env]
     })
+    
+    srcEnv.outputs = [rocEnv1]
 
     const sinkEnv = new objects["Sink"]({
         x: 700,
@@ -104,6 +110,8 @@ const preset4 = addObjects => {
         inputs: [env],
         outputs: [sinkEnv]
     })
+
+    sinkEnv.inputs = [rocEnv2]
 
     const effect1 = new objects["Effect"]({
         name: "Effekt",

@@ -15,8 +15,6 @@ class ToolSpace extends Component {
         }
     }
 
-    toolRefs = {}
-
     renderedIds = []
 
     idCounter = 0
@@ -67,6 +65,38 @@ class ToolSpace extends Component {
         return !this.context.activeTool
     }
 
+    filterNewTools(objects) {
+        const newTools = []
+
+        for(let object of objects) {
+            this.renderedIds.push(object.id)
+    
+            const tool = tools[object.type]
+    
+            if (!tool) {
+                throw new Error("[Workspace] Tool '" + object.type + "' does not exist")
+            }
+    
+            // Create the new object and render it into the workspace
+            const newTool = React.createElement(tool, {
+                key: object.id,
+                object,
+                ...this.state.defaultToolProps,
+                ...this.props
+            })
+    
+            newTools.push(newTool)
+        }
+
+        return newTools
+    }
+
+    filterRemovedTools(removedIds) {
+        const remainingTools = this.state.tools.filter(tool => !removedIds.includes(parseInt(tool.key)))
+        this.renderedIds = this.renderedIds.filter(id => !removedIds.includes(id))
+        return remainingTools
+    }
+
     handleMouseMove(event) {
         if (this.context.activeTool) {
             const containerRect = this.container.current.getBoundingClientRect()
@@ -88,35 +118,20 @@ class ToolSpace extends Component {
     }
 
     componentDidUpdate() {
-        // Render new objects of the model
-        const newTools = []
+        // Render new objects of the model and remove the removed ones
 
-        for (let object of this.context.model.getObjects()) {
-            // Check if object is already rendered on the workspace
-            if (!this.renderedIds.includes(object.id)) {
-                this.renderedIds.push(object.id)
+        // Add new Objects
+        const newObjects = this.context.model.getObjects().filter(object => !this.renderedIds.includes(object.id))
 
-                const tool = tools[object.type]
+        const newTools = this.filterNewTools(newObjects)
 
-                if (!tool) {
-                    throw new Error("[Workspace] Tool '" + object.type + "' does not exist")
-                }
+        // Remove removed objects
+        const removedIds = this.renderedIds.filter(id => !this.context.model.getObjects().some(object => object.id === id))
 
-                // Create the new object and render it into the workspace
-                const newTool = React.createElement(tool, {
-                    key: object.id,
-                    object,
-                    domRef: ref => this.toolRefs[object.id] = ref,
-                    ...this.state.defaultToolProps,
-                    ...this.props
-                })
+        const remainingTools = this.filterRemovedTools(removedIds)
 
-                newTools.push(newTool)
-            }
-        }
-
-        if (newTools.length) {
-            this.setState({ tools: [...this.state.tools, ...newTools] })
+        if (newTools.length || remainingTools.length !== this.state.tools.length) {
+            this.setState({tools: [...remainingTools, ...newTools]})
         }
     }
 
@@ -129,7 +144,8 @@ class ToolSpace extends Component {
             defaultToolProps: {
                 ...this.state.defaultToolProps,
                 getObjectById: this.context.model.getObjectById,
-                onObjectChange: this.context.onObjectChange
+                onObjectChange: this.context.onObjectChange,
+                onObjectRemove: this.context.onObjectRemove
             }
         })
     }

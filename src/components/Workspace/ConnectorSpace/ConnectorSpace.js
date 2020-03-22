@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 
+import { AppContext } from "src/App.js"
 import SVGArrow from "src/components/Utils/SVG/Arrow.js"
 import "./ConnectorSpace.scss"
 
@@ -42,12 +43,31 @@ class ConnectorSpace extends Component {
             />
         )
 
+        const newConnection = {
+            input: input,
+            output: output,
+            Connector
+        }
+
         this.setState({
-            connections: [...this.state.connections, Connector],
+            connections: [...this.state.connections, newConnection],
             renderPreview: false
         })
 
         return labelPosition
+    }
+
+    componentDidUpdate() {
+        // Remove unneccessary connections
+        const filteredConnections = this.state.connections.filter(connection => {
+            const inputExists = this.context.model.getObjectById(connection.input.id)
+            const outputExists = this.context.model.getObjectById(connection.output.id)
+            return inputExists && outputExists
+        })
+
+        if(filteredConnections.length !== this.state.connections.length) {
+            this.setState({connections: filteredConnections})
+        }
     }
 
     componentDidMount() {
@@ -60,17 +80,25 @@ class ConnectorSpace extends Component {
 
     render() {
         return (
-            <div className="space connector-space">
-                <svg height="100%" width="100%">
-                    {this.state.renderPreview && (
-                        <SVGArrow
-                            from={this.state.previewFrom}
-                            container={this.props.container}
-                        />
-                    )}
-                    {this.state.connections}
-                </svg>
-            </div>
+            <AppContext.Consumer>
+                {context => {
+                    this.context = context
+
+                    return (
+                        <div className="space connector-space">
+                            <svg height="100%" width="100%">
+                                {this.state.renderPreview && (
+                                    <SVGArrow
+                                        from={this.state.previewFrom}
+                                        container={this.props.container}
+                                    />
+                                )}
+                                {this.state.connections.map((object, i) => object.Connector)}
+                            </svg>
+                        </div>
+                    )
+                }}
+            </AppContext.Consumer>
         )
     }
 }

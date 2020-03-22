@@ -2,14 +2,11 @@ import React, { Component } from "react"
 
 import Workspace from "./components/Workspace/Workspace.js"
 import Toolbar from "./components/Toolbar/Toolbar.js"
-import Dialog from "./components/Dialog/Dialog.js"
 
 import objects from "./Model/Objects/Objects.js"
 import presets from "./Model/Presets/Presets.js"
 import outputRenderers from "./components/Outputs/Outputs.js"
 import Model from "./Model/Model.js"
-
-import Strings from "src/config/strings.json"
 
 import "./App.scss"
 
@@ -25,6 +22,7 @@ class App extends Component {
             activeTool: null,
             onObjectCreate: this.handleObjectCreate.bind(this),
             onObjectChange: this.handleObjectChange.bind(this),
+            onObjectRemove: this.handleObjectRemove.bind(this),
             onSettle: this.handleSettle.bind(this)
         }
     }
@@ -51,6 +49,11 @@ class App extends Component {
 
     handleObjectChange(event) {
         this.model.update(event.id, event.newValues)
+        this.forceUpdate()
+    }
+
+    handleObjectRemove(id) {
+        this.model.remove(id)
         this.forceUpdate()
     }
 

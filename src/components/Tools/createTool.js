@@ -40,6 +40,10 @@ function createTool(Child, config) {
             this.valueInput.append(object.name)
         }
 
+        handleRemove() {
+            this.props.onObjectRemove(this.props.object.id)
+        }
+
         componentDidMount() {
             // Create connections for presetted objects
             if(this.props.object && this.props.object.isPresetted) {
@@ -97,6 +101,11 @@ function createTool(Child, config) {
                     {
                         type: "submit",
                         value: Strings.Dialogs.Tools.Submit
+                    },
+                    {
+                        type: "button",
+                        label: Strings.Dialogs.Tools.Remove,
+                        onClick: this.handleRemove.bind(this)
                     }
                 ].filter(e => e)
             }
