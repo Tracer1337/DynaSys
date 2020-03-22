@@ -19,6 +19,21 @@ function createOutput(Child, config) {
         }
 
         render() {
+            if(this.props.model.getObjects().length === 0) {
+                return (
+                    <Dialog
+                        fields={[{
+                            type: "textbox",
+                            value: Strings.Dialogs.OutputWarning.Text
+                        }, {
+                            type: "submit",
+                            value: Strings.Dialogs.OutputWarning.Accept
+                        }]}
+                        onSubmit={this.props.onClose}
+                    />
+                )
+            }
+
             const dialogFields = [
                 {
                     type: "title",
@@ -51,8 +66,21 @@ function createOutput(Child, config) {
                     }))
                 },
                 {
+                    type: "setting",
+                    name: "timesteps"
+                },
+                {
+                    type: "setting",
+                    name: "interval"
+                },
+                {
                     type: "submit",
                     value: Strings.Dialogs.Outputs.Submit
+                },
+                {
+                    type: "button",
+                    label: Strings.Dialogs.Close,
+                    onClick: this.props.onClose
                 }
             ]
 

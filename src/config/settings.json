@@ -1,0 +1,16 @@
+{
+    "decimalPoints": {
+        "type": "number",
+        "value": 4 
+    },
+    
+    "timesteps": {
+        "type": "number",
+        "value": 10
+    },
+
+    "interval": {
+        "type": "number",
+        "value": 0.1
+    }
+}

@@ -42,8 +42,8 @@ class TimeTable extends Component {
                                 <tr key={t}>
                                     <td>{fix(t * object.dt)}</td>
                                     {
-                                        Object.values(row).map(value => 
-                                            <td>{value}</td>
+                                        Object.values(row).map((value, i) => 
+                                            <td key={i}>{value}</td>
                                         )
                                     }
                                 </tr>

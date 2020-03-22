@@ -28,7 +28,7 @@ const preset4 = addObjects => {
     const uzFactor = new objects["Parameter"]({
         name: "UmweltZerstörungsFaktor",
         value: "1",
-        id: -14,
+        id: -30,
         x: 600,
         y: 700
     })

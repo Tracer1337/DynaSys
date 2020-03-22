@@ -1,6 +1,15 @@
-export default class SettingsProvider {
-}
+import settings from "./settings.json"
 
-SettingsProvider.settings = {
-    decimalPoints: 4
+export default class SettingsProvider {
+    static settings = settings
+
+    static set = (key, value) => {
+        const setting = SettingsProvider.settings[key]
+
+        if(setting.type === "number") {
+            setting.value = parseFloat(value)
+        } else {
+            setting.value = value
+        }
+    }
 }

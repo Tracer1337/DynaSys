@@ -9,7 +9,9 @@
     align-items: center;
     z-index: 2;
 
-    & > div{
+    .content {
+        max-height: 90%;
+        overflow-y: scroll;
         background-color: white;
         padding: 30px;
     }

@@ -34,8 +34,8 @@ class TimingDiagramm extends Component {
         return(
             <div className="timing-diagramm">
                 <Line
-                    width={600}
-                    height={400}
+                    width={window.innerWidth * .9}
+                    height={window.innerHeight * .8}
 
                     data={{
                         labels,
@@ -54,6 +54,11 @@ class TimingDiagramm extends Component {
                                     labelString: Strings.Outputs.TimingDiagramm.XAxesLabel
                                 }
                             }]
+                        },
+                        elements: {
+                            point: {
+                                radius: 0
+                            }
                         }
                     }}
                 />

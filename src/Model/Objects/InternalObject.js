@@ -61,7 +61,7 @@ class InternalObject {
 
         const result = parser.evaluate(this.value || "0")
 
-        return +result.toFixed(SettingsProvider.settings.decimalPoints)
+        return +result.toFixed(SettingsProvider.settings.decimalPoints.value)
     }
 
     getDelta({t}) {

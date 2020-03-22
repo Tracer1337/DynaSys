@@ -55,11 +55,7 @@ class App extends Component {
     }
 
     handleOutputClick(event) {
-        if(!this.model.getObjects().length) {
-            this.setState({renderOutputWaring: true})
-        } else {
-            this.setState({renderOutput: event.type})
-        }
+        this.setState({renderOutput: event.type})
     }
 
     handleOutputClose() {
@@ -91,19 +87,6 @@ class App extends Component {
                     />
 
                     <Workspace/>
-
-                    {this.state.renderOutputWaring && (
-                        <Dialog
-                            fields={[{
-                                type: "textbox",
-                                value: Strings.Dialogs.OutputWarning.Text
-                            }, {
-                                type: "submit",
-                                value: Strings.Dialogs.OutputWarning.Accept
-                            }]}
-                            onSubmit={() => this.setState({ renderOutputWaring: false })}
-                        />
-                    )}
 
                     {this.state.renderOutput && (
                         React.createElement(outputRenderers[this.state.renderOutput], {

@@ -14,14 +14,16 @@
         padding: 30px;
         width: 50%;
 
+        .field {
+            margin: 10px 0;
+        }
+
         .title {
             text-align: center;
             margin-top: 0;
         }
 
         .string {
-            margin: 10px 0;
-            
             input {
                 width: 100%;
             }
@@ -32,18 +34,16 @@
         }
 
         .list {
-            margin: 10px 0;
-
             ul {
                 margin: 0;
                 list-style: none;
                 padding: 5px;
                 border: 1px solid rgba(0, 0, 0, 0.2);
-            }
-        }
 
-        .textbox {
-            margin: 5px 0;
+                .field {
+                    margin: 0;
+                }
+            }
         }
     }
 }

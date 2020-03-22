@@ -6,6 +6,7 @@ import List from "./components/List.js"
 import Textbox from "./components/Textbox.js"
 import Title from "./components/Title.js"
 import Submit from "./components/Submit.js"
+import Setting from "./components/Setting.js"
 
 import "./Dialog.scss"
 
@@ -50,6 +51,10 @@ class Dialog extends Component {
 
             case "submit":
                 element = <Submit {...field} onClick={this.handleSubmit.bind(this)}/>
+                break
+
+            case "setting":
+                element = <Setting {...field}/>
                 break
             
             default:

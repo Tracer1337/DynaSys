@@ -1,12 +1,13 @@
 import Output from "../Output.js"
 import fix from "src/utils/fix.js"
+import SettingsProvider from "src/config/SettingsProvider.js"
 
 class TimeTable extends Output {
     constructor(props) {
         super(props)
 
-        this.dt = 0.1
-        this.timesteps = 10
+        this.dt = SettingsProvider.settings.interval.value
+        this.timesteps = SettingsProvider.settings.timesteps.value
     }
 
     generateData = () => {
@@ -19,6 +20,7 @@ class TimeTable extends Output {
             data[object.id] = []
 
             object.old = 0
+            object.new = 0
         }
 
         // Generate data table
@@ -41,6 +43,8 @@ class TimeTable extends Output {
                 }
             }
         }
+
+        console.log(data)
 
         // Return requested objects
         const result = {}
