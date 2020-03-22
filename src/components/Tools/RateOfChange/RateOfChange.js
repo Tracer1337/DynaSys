@@ -38,6 +38,10 @@ class RateOfChange extends Component {
     }
 
     render() {
+        if(this.props.unSettled) {
+            return <></>
+        }
+        
         return (
             <div
                 className="object rate-of-change"

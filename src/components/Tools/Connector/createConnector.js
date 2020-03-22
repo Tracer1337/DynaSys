@@ -24,7 +24,7 @@ const createConnector = (Child, toolProps) => {
         establishConnection(input, output, object) {
             this.established = true
             requestAnimationFrame(() => {
-                const labelPosition = this.props.establishConnection(input, output)
+                const labelPosition = this.props.acrossSpaceCommunication.ConnectorSpace.establishConnection(input, output)
                 this.props.onObjectChange({ id: object.id, newValues: labelPosition })
             })
         }
@@ -35,8 +35,17 @@ const createConnector = (Child, toolProps) => {
             }
         }
 
+        componentWillUnmount() {
+            this.props.acrossSpaceCommunication.ConnectorSpace.disablePreview()
+        }
+
         componentDidUpdate() {
-            if(this.state.input && this.state.output && !this.established) {
+            if(this.state.input && !this.state.output) {
+                // Render arrow from input to cursor
+                this.props.acrossSpaceCommunication.ConnectorSpace.enablePreview(this.state.input)
+
+            } else if(this.state.input && this.state.output && !this.established) {
+                // Create final connection
                 const object = this.props.onObjectCreate({
                     type: toolProps.type,
                     settled: true,

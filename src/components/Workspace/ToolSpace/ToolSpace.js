@@ -2,7 +2,7 @@ import React, { Component } from "react"
 
 import tools from "../../Tools/Tools.js"
 import constrain from "src/utils/constrain.js"
-import {AppContext} from "src/App.js"
+import { AppContext } from "src/App.js"
 import "./ToolSpace.scss"
 
 class ToolSpace extends Component {
@@ -21,8 +21,10 @@ class ToolSpace extends Component {
 
     idCounter = 0
 
-    getObjectPositionById = (id) => {
-        const objects = Array.from(this.container.getElementsByClassName("object"))
+    container = React.createRef()
+
+    getObjectPositionById(id) {
+        const objects = Array.from(this.container.current.getElementsByClassName("object"))
         const result = objects.find(object => parseInt(object.dataset.id) === id)
 
         if (!result) {
@@ -30,7 +32,7 @@ class ToolSpace extends Component {
         }
 
         const rect = result.getBoundingClientRect()
-        const containerRect = this.container.getBoundingClientRect()
+        const containerRect = this.container.current.getBoundingClientRect()
         const position = { x: rect.x - containerRect.x + rect.width / 2, y: rect.y - containerRect.y + rect.height / 2 }
 
         return position
@@ -67,13 +69,13 @@ class ToolSpace extends Component {
 
     handleMouseMove(event) {
         if (this.context.activeTool) {
-            const containerRect = this.container.getBoundingClientRect()
+            const containerRect = this.container.current.getBoundingClientRect()
 
             const mouseX = event.clientX - containerRect.x
             const mouseY = event.clientY - containerRect.y
 
-            const newX = this.currentX = constrain(mouseX - this.currentToolDomElement.offsetWidth / 2, 0, this.container.offsetWidth - this.currentToolDomElement.offsetWidth)
-            const newY = this.currentY = constrain(mouseY - this.currentToolDomElement.offsetHeight / 2, 0, this.container.offsetHeight - this.currentToolDomElement.offsetHeight)
+            const newX = this.currentX = constrain(mouseX - this.currentToolDomElement.offsetWidth / 2, 0, containerRect.width - this.currentToolDomElement.offsetWidth)
+            const newY = this.currentY = constrain(mouseY - this.currentToolDomElement.offsetHeight / 2, 0, containerRect.height - this.currentToolDomElement.offsetHeight)
 
             this.currentToolDomElement.style.transform = `translate(${newX}px, ${newY}px)`
         }
@@ -83,13 +85,6 @@ class ToolSpace extends Component {
         if (this.context.activeTool) {
             this.currentToolRef.userSettled({ object: this.context.model.getObjectById(parseInt(event.target.dataset.id)) })
         }
-    }
-
-    componentDidMount() {
-        this.setState({defaultToolProps: {...this.state.defaultToolProps,
-            getObjectById: this.context.model.getObjectById,
-            onObjectChange: this.context.onObjectChange
-        }})
     }
 
     componentDidUpdate() {
@@ -125,6 +120,20 @@ class ToolSpace extends Component {
         }
     }
 
+    componentDidMount() {
+        this.props.acrossSpaceCommunication.set("ToolSpace", {
+            getObjectPositionById: this.getObjectPositionById.bind(this)
+        })
+
+        this.setState({
+            defaultToolProps: {
+                ...this.state.defaultToolProps,
+                getObjectById: this.context.model.getObjectById,
+                onObjectChange: this.context.onObjectChange
+            }
+        })
+    }
+
     render() {
         return (
             <AppContext.Consumer>
@@ -136,7 +145,7 @@ class ToolSpace extends Component {
                     return (
                         <div
                             className="space tool-space"
-                            ref={ref => this.container = ref}
+                            ref={this.container}
                             onMouseMove={this.handleMouseMove.bind(this)}
                             onClick={this.handleClick.bind(this)}
                         >

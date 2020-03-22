@@ -5,21 +5,29 @@ import ConnectorSpace from "./ConnectorSpace/ConnectorSpace.js"
 import "./Workspace.scss"
 
 class Workspace extends Component {
+    ASCValue = {
+        set: (key, newValues) => {
+            this.ASCValue = {
+                ...this.ASCValue,
+                [key]: {
+                    ...this.ASCValue[key],
+                    ...newValues
+                }
+            }
+
+            this.forceUpdate()
+        }
+    }
+
     render() {
         return (
             <div 
                 className="workspace" 
                 ref={ref => this.container = ref}
             >
-                <ToolSpace
-                    ref={ref => this.toolSpace = ref}
-                    establishConnection={(...args) => this.connectorSpace.establishConnection(...args)}
-                />
+                <ToolSpace acrossSpaceCommunication={this.ASCValue}/>
                 
-                <ConnectorSpace 
-                    ref={ref => this.connectorSpace = ref}
-                    getObjectPositionById={(...args) => this.toolSpace.getObjectPositionById(...args)}
-                />
+                <ConnectorSpace acrossSpaceCommunication={this.ASCValue} container={this.container}/>
             </div>
         )
     }
