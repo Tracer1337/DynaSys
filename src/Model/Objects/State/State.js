@@ -17,11 +17,11 @@ class State extends InternalObject {
 
     evaluate({t, dt}) {
         if(t === 0) {
-            this.old = this.getValue()
+            this.old = this.getValue({t})
             return this.old
         }
-        
-        const delta = this.getDelta()
+
+        const delta = this.getDelta({t})
         
         this.new = this.old + dt * delta
 

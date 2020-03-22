@@ -17,8 +17,8 @@ class RateOfChange extends InternalObject {
         }
     }
 
-    evaluate() {
-        const value = this.getValue()
+    evaluate({t}) {
+        const value = this.getValue({t})
         return value
     }
 }

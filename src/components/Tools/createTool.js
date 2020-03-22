@@ -84,11 +84,15 @@ function createTool(Child, config) {
                     object.hasInput !== false && {
                         label: Strings.Dialogs.Tools.Inputs,
                         type: "list",
-                        items: Array.isArray(object.inputs) ? object.inputs.map(object => object.hasOutput && ({
+                        items: Array.isArray(object.inputs) ? [{
+                            type: "button",
+                            label: Strings.Dialogs.Tools.Time,
+                            onClick: () => this.handleInputClick({name: "t"})
+                        }].concat(object.inputs.map(object => object.hasOutput && ({
                             type: "button",
                             label: object.name,
                             onClick: () => this.handleInputClick(object)
-                        })).filter(e => e) : []
+                        })).filter(e => e)) : []
                     },
                     {
                         type: "submit",

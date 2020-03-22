@@ -46,7 +46,7 @@ class InternalObject {
         this.deltas.push({object, sign})
     }
 
-    getValue() {
+    getValue(data) {
         const parser = math.parser()
 
         for (let object of this.inputs) {
@@ -55,15 +55,20 @@ class InternalObject {
             }
         }
 
+        if(data.t !== undefined) {
+            parser.set("t", data.t)
+        }
+
         const result = parser.evaluate(this.value || "0")
+
         return +result.toFixed(SettingsProvider.settings.decimalPoints)
     }
 
-    getDelta() {
+    getDelta({t}) {
         let delta = 0
 
         for (let {object, sign} of this.deltas) {
-            delta += object.getValue() * sign
+            delta += object.getValue({t}) * sign
         }
 
         return delta
@@ -75,7 +80,7 @@ class InternalObject {
 
     evaluate({t}) {
         if (t === 0) {
-            this.old = this.getValue()
+            this.old = this.getValue({t})
         }
 
         return this.old
