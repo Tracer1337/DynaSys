@@ -1,3 +1,5 @@
+import objects from "./Objects/Objects.js"
+
 class Model {
     constructor() {
         this.model = []
@@ -48,6 +50,26 @@ class Model {
     getObjectById = id => {
         id = parseInt(id)
         return this.model.find(object => object.id === id)
+    }
+
+    toJSON() {
+        return JSON.stringify(this.model)
+    }
+
+    loadJSON(string) {
+        this.model = JSON.parse(string)
+
+        const resolveArray = array => array.map(object => this.getObjectById(object.id))
+
+        this.model = this.model.map(object => new objects[object.type](object))
+
+        this.model.forEach(object => {
+            object.inputs = resolveArray(object.inputs)
+            object.outputs = resolveArray(object.outputs)
+            object.deltas = resolveArray(object.deltas)
+        })
+
+        this.model.forEach(object => object.setConnections && object.setConnections())
     }
 }
 

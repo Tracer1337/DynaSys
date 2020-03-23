@@ -1,7 +1,7 @@
 import * as math from "mathjs"
 import SettingsProvider from "src/config/SettingsProvider.js"
 
-const keys = ["name", "value", "inputs", "outputs", "x", "y", "id"]
+const keys = ["name", "value", "inputs", "outputs", "x", "y", "id", "isPresetted"]
 
 class InternalObject {
     constructor(defaultValues = {}) {
@@ -88,6 +88,15 @@ class InternalObject {
 
     clone() {
         return new this.constructor(this)
+    }
+
+    toJSON() {
+        return {
+            ...this,
+            inputs: this.inputs.map(object => ({id: object.id})),
+            outputs: this.outputs.map(object => ({id: object.id})),
+            deltas: this.deltas.map(object => ({id: object.id}))
+        }
     }
 }
 

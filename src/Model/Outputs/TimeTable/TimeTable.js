@@ -44,8 +44,6 @@ class TimeTable extends Output {
             }
         }
 
-        console.log(data)
-
         // Return requested objects
         const result = {}
 

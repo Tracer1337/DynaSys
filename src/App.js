@@ -4,7 +4,6 @@ import Workspace from "./components/Workspace/Workspace.js"
 import Toolbar from "./components/Toolbar/Toolbar.js"
 
 import objects from "./Model/Objects/Objects.js"
-import presets from "./Model/Presets/Presets.js"
 import outputRenderers from "./components/Outputs/Outputs.js"
 import Model from "./Model/Model.js"
 
@@ -66,7 +65,7 @@ class App extends Component {
     }
 
     handleSettle() {
-        this.toolbar.clearSelection()
+        this.clearToolSelection()
         this.setContext({activeTool: null})
     }
 
@@ -103,11 +102,8 @@ class App extends Component {
         this.setState({renderOutput: null})
     }
 
-    handlePresetClick(name) {
-        presets[name](objects => {
-            this.model.add(objects)
-            this.forceUpdate()
-        })
+    handleModelLoad(json) {
+        this.model.loadJSON(json)
         this.forceUpdate()
     }
 
@@ -122,9 +118,9 @@ class App extends Component {
                     <Toolbar
                         onActiveToolChange={this.handleActiveToolChange.bind(this)}
                         onOutputClick={this.handleOutputClick.bind(this)}
-                        onPresetClick={this.handlePresetClick.bind(this)}
-                        presets={presets}
-                        ref={ref => this.toolbar = ref}
+                        onModelLoad={this.handleModelLoad.bind(this)}
+                        setClearToolSelection={fn => this.clearToolSelection = fn}
+                        model={this.model}
                     />
 
                     <Workspace/>

@@ -8,19 +8,27 @@ class RateOfChange extends InternalObject {
 
         this.hasOutput = true
 
-        if(this.inputs[0].addDelta && !this.inputs[0].deltas.includes(this)) {
-            this.inputs[0].addDelta(this, {sign: -1})
+        this.setConnections()
+    }
+
+    setConnections() {
+        if(!this.inputs[0].type || !this.outputs[0].type) {
+            return
         }
 
-        if(this.outputs[0].addDelta && !this.outputs[0].deltas.includes(this)) {
-            this.outputs[0].addDelta(this, {sign: 1})
+        if(!this.inputs[0].deltas.some(delta => delta.object.id === this.id)) {
+            this.inputs[0].addDelta(this, { sign: -1 })
+        }
+
+        if(!this.outputs[0].deltas.some(delta => delta.object.id === this.id)) {
+            this.outputs[0].addDelta(this, { sign: 1 })
         }
 
         if(this.inputs[0].type === "Source") {
             this.inputs[0].outputs[0] = this
         }
 
-        if (this.outputs[0].type === "Sink") {
+        if(this.outputs[0].type === "Sink") {
             this.outputs[0].inputs[0] = this
         }
     }
