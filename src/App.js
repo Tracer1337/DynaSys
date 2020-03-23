@@ -15,6 +15,8 @@ const AppContext = React.createContext({})
 class App extends Component {
     model = new Model()
 
+    listeners = {}
+
     state = {
         renderOutput: null,
         contextValue: {
@@ -23,10 +25,38 @@ class App extends Component {
             onObjectCreate: this.handleObjectCreate.bind(this),
             onObjectChange: this.handleObjectChange.bind(this),
             onObjectRemove: this.handleObjectRemove.bind(this),
-            onSettle: this.handleSettle.bind(this)
+            onShallowObjectChange: this.handleShallowObjectChange.bind(this),
+            onSettle: this.handleSettle.bind(this),
+            addEventListener: this.addEventListener.bind(this),
+            removeEventListener: this.removeEventListener.bind(this)
         }
     }
+
+    addEventListener(type, fn) {
+        if(!this.listeners[type]) {
+            this.listeners[type] = []
+        }
+
+        this.listeners[type].push(fn)
+    }
+
+    removeEventListener(type, fn) {
+        if(!this.listeners[type]) {
+            return
+        }
+
+        const index = this.listeners[type].findIndex(x => x === fn)
+        this.listeners[type].splice(index, 1)
+    }
     
+    emit(event) {
+        if(!this.listeners[event.type]) {
+            return
+        }
+
+        this.listeners[event.type].forEach(fn => fn(event))
+    }
+
     setContext(values) {
         this.setState({contextValue: {...this.state.contextValue, ...values}})
     }
@@ -47,8 +77,16 @@ class App extends Component {
         return newObject
     }
 
-    handleObjectChange(event) {
+    handleShallowObjectChange(event) {
         this.model.update(event.id, event.newValues)
+        this.emit({
+            type: "objectchange",
+            details: event
+        })
+    }
+
+    handleObjectChange(event) {
+        this.handleShallowObjectChange(event)
         this.forceUpdate()
     }
 

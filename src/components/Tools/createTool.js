@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 
+import { AppContext } from "src/App.js"
 import Dialog from "../Dialog/Dialog.js"
 import Strings from "src/config/strings.json"
 import "./Tool.scss"
@@ -9,27 +10,42 @@ function createTool(Child, config) {
         static config = config
 
         state = {
-            renderDialog: false
+            renderDialog: false,
+            isMouseDown: false
         }
+
+        preventClick = false
 
         userSettled = (event) => {
             this.child.userSettled(event)
         }
 
         requestDialog() {
-            if(Tool.config.dialogAvailable && !this.props.isMoving && !this.props.unSettled && !this.state.renderDialog) {
+            const isMoving = this.props.isMoving || this.state.isMouseDown
+            if(Tool.config.dialogAvailable && !isMoving && !this.props.unSettled && !this.state.renderDialog) {
                 this.setState({ renderDialog: true })
+            }
+        }
+
+        handleObjectChange() {
+            if (!this.lastObject || !this.props.object) {
+                return
+            }
+
+            if (this.lastObject.x !== this.props.object.x || this.lastObject.y !== this.props.object.y) {
+                this.forceUpdate()
             }
         }
         
         handleSubmit(state) {
-            this.props.onObjectChange({id: this.props.object.id, newValues: state})
+            this.context.onObjectChange({id: this.props.object.id, newValues: state})
             this.setState({renderDialog: false})
         }
 
         handleClick() {
             // Check if the user wants to interact with this tool
-            if(this.props.unSettled || !this.props.requestClick()) {
+            if(this.props.unSettled || !this.props.requestClick() || this.preventClick) {
+                this.preventClick = false
                 return
             }
             
@@ -41,7 +57,39 @@ function createTool(Child, config) {
         }
 
         handleRemove() {
-            this.props.onObjectRemove(this.props.object.id)
+            this.context.onObjectRemove(this.props.object.id)
+        }
+
+        handleMouseMove(event) {
+            if(!Tool.config.isMovable) {
+                return
+            }
+
+            if(this.state.isMouseDown && this.props.object) {
+                this.preventClick = true
+
+                const containerRect = this.props.container.current.getBoundingClientRect()
+
+                const newX = event.clientX - containerRect.x - this.container.offsetWidth / 2
+                const newY = event.clientY - containerRect.y - this.container.offsetHeight / 2
+
+                this.container.style.left = newX + "px"
+                this.container.style.top = newY + "px"
+
+                this.context.onShallowObjectChange({id: this.props.object.id, newValues: {x: newX, y: newY}})
+            }
+        }
+
+        handleMouseDown() {
+            if(Tool.config.isMovable && !this.state.renderDialog) {
+                this.setState({isMouseDown: true})
+            }
+        }
+
+        handleMouseUp() {
+            if(Tool.config.isMovable && !this.state.renderDialog) {
+                this.setState({isMouseDown: false})
+            }
         }
 
         componentDidMount() {
@@ -57,10 +105,16 @@ function createTool(Child, config) {
             if(!this.props.object || !this.props.object.isPresetted) {
                 this.requestDialog()
             }
+
+            window.addEventListener("mousemove", this.handleMouseMove.bind(this))
+            this.context.addEventListener("objectchange", this.handleObjectChange.bind(this))
         }
 
         render() {
+            this.lastObject = this.props.object && this.props.object.clone()
+            
             const object = this.props.object || {}
+            const isMoving = this.props.isMoving || this.state.isMouseDown
 
             this.id = object.id
 
@@ -111,25 +165,35 @@ function createTool(Child, config) {
             }
             
             return (
-                <div 
-                    className={`tool ${this.props.isMoving ? "moving" : ""} ${Tool.config.className || ""}`} 
-                    ref={ref => this.container = ref}
-                    style={{left: object.x, top: object.y}}
-                >
-                    <Child
-                        ref={ref => this.child = ref}
-                        label={this.props.unSettled || !object.name ? "?" : object.name}
-                        object={object}
-                        onClick={this.handleClick.bind(this)}
-                        {...this.props}
-                    />
-                    {this.state.renderDialog && (
-                        <Dialog
-                            fields={dialogFields}
-                            onSubmit={this.handleSubmit.bind(this)}
-                        />
-                    )}
-                </div>
+                <AppContext.Consumer>
+                    {context => {
+                        this.context = context
+
+                        return (
+                            <div
+                                className={`tool ${isMoving ? "moving" : ""} ${Tool.config.className || ""}`}
+                                ref={ref => this.container = ref}
+                                style={{ left: object.x, top: object.y }}
+                                onMouseDown={this.handleMouseDown.bind(this)}
+                                onMouseUp={this.handleMouseUp.bind(this)}
+                            >
+                                <Child
+                                    ref={ref => this.child = ref}
+                                    label={this.props.unSettled || !object.name ? "?" : object.name}
+                                    object={object}
+                                    onClick={this.handleClick.bind(this)}
+                                    {...this.props}
+                                />
+                                {this.state.renderDialog && (
+                                    <Dialog
+                                        fields={dialogFields}
+                                        onSubmit={this.handleSubmit.bind(this)}
+                                    />
+                                )}
+                            </div>
+                        )
+                    }}
+                </AppContext.Consumer>
             )
         }
     }

@@ -18,5 +18,6 @@ export default createTool(Sink, {
     type: "Sink",
     label: Strings.Tools.RateOfChange.Sink.Label,
     hideInToolbar: true,
-    dialogAvailable: false
+    dialogAvailable: false,
+    isMovable: true
 })

@@ -118,8 +118,6 @@ class ToolSpace extends Component {
     }
 
     componentDidUpdate() {
-        // Render new objects of the model and remove the removed ones
-
         // Add new Objects
         const newObjects = this.context.model.getObjects().filter(object => !this.renderedIds.includes(object.id))
 
@@ -143,9 +141,7 @@ class ToolSpace extends Component {
         this.setState({
             defaultToolProps: {
                 ...this.state.defaultToolProps,
-                getObjectById: this.context.model.getObjectById,
-                onObjectChange: this.context.onObjectChange,
-                onObjectRemove: this.context.onObjectRemove
+                container: this.container
             }
         })
     }

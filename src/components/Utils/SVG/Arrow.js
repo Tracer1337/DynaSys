@@ -38,6 +38,10 @@ class Arrow extends Component {
         this.setPath(event)
     }
 
+    componentDidUpdate() {
+        this.setPath()
+    }
+
     componentDidMount() {
         if(!this.props.to) {
             window.addEventListener("mousemove", this.setPath)

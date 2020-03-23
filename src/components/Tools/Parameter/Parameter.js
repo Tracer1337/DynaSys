@@ -24,5 +24,6 @@ class Parameter extends Component {
 export default createTool(Parameter, {
     type: "Parameter",
     label: Strings.Tools.Parameter.Label,
-    dialogAvailable: true
+    dialogAvailable: true,
+    isMovable: true
 })

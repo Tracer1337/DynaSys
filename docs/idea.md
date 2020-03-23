@@ -1,6 +1,5 @@
 [ ] Projekt speichern / laden / als Binary exportieren
 [ ] Funktionen im Objekt-Dialog anzeigen
-[ ] Objekte entfernen / verschieben
 [ ] Output-Dialog validiern (Alle Objekte müssen einen Wert haben)
 [ ] GitHub Link
 [ ] Mehrere Sprachen

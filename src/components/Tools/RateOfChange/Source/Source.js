@@ -17,5 +17,6 @@ export default createTool(Source, {
     type: "Source",
     label: Strings.Tools.RateOfChange.Source.Label,
     hideInToolbar: true,
-    dialogAvailable: false
+    dialogAvailable: false,
+    isMovable: true
 })

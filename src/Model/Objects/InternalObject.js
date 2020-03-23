@@ -85,6 +85,10 @@ class InternalObject {
 
         return this.old
     }
+
+    clone() {
+        return new this.constructor(this)
+    }
 }
 
 export default InternalObject

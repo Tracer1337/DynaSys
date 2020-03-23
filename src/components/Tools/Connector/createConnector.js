@@ -24,8 +24,7 @@ const createConnector = (Child, toolProps) => {
         establishConnection(input, output, object) {
             this.established = true
             requestAnimationFrame(() => {
-                const labelPosition = this.props.acrossSpaceCommunication.ConnectorSpace.establishConnection(input, output)
-                this.props.onObjectChange({ id: object.id, newValues: labelPosition })
+                this.props.acrossSpaceCommunication.ConnectorSpace.establishConnection(input, output, object)
             })
         }
         

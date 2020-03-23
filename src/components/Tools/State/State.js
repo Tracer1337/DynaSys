@@ -24,5 +24,6 @@ class State extends Component {
 export default createTool(State, {
     type: "State",
     label: Strings.Tools.State.Label,
-    dialogAvailable: true
+    dialogAvailable: true,
+    isMovable: true
 })

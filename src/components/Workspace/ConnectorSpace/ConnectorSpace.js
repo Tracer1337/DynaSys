@@ -2,6 +2,7 @@ import React, { Component } from "react"
 
 import { AppContext } from "src/App.js"
 import SVGArrow from "src/components/Utils/SVG/Arrow.js"
+import Connector from "./Connector.js"
 import "./ConnectorSpace.scss"
 
 class ConnectorSpace extends Component {
@@ -10,8 +11,6 @@ class ConnectorSpace extends Component {
         renderPreview: false,
         previewFrom: null
     }
-
-    connectorRefs = []
 
     idCounter = 0
 
@@ -27,34 +26,29 @@ class ConnectorSpace extends Component {
         this.setState({renderPreview: false})
     }
 
-    establishConnection(input, output) {
-        const from = this.props.acrossSpaceCommunication.ToolSpace.getObjectPositionById(input.id)
-        const to = this.props.acrossSpaceCommunication.ToolSpace.getObjectPositionById(output.id)
-
-        const fromTo = { x: to.x - from.x, y: to.y - from.y }
-        const labelPosition = { x: from.x + fromTo.x / 2, y: from.y + fromTo.y / 2 }
-
-        const Connector = (
-            <SVGArrow
+    establishConnection(input, output, label) {
+        const Element = (
+            <Connector
                 key={this.idCounter++}
-                from={from}
-                to={to}
-                ref={ref => this.connectorRefs.push(ref)}
+                input={input}
+                output={output}
+                label={label}
+                getObjectPositionById={this.props.acrossSpaceCommunication.ToolSpace.getObjectPositionById}
+                onObjectChange={this.context.onObjectChange}
+                onShallowObjectChange={this.context.onShallowObjectChange}
             />
         )
 
         const newConnection = {
             input: input,
             output: output,
-            Connector
+            Connector: Element
         }
 
         this.setState({
             connections: [...this.state.connections, newConnection],
             renderPreview: false
         })
-
-        return labelPosition
     }
 
     componentDidUpdate() {
@@ -93,7 +87,7 @@ class ConnectorSpace extends Component {
                                         container={this.props.container}
                                     />
                                 )}
-                                {this.state.connections.map((object, i) => object.Connector)}
+                                {this.state.connections.map(object => object.Connector)}
                             </svg>
                         </div>
                     )
