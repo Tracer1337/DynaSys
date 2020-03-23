@@ -11,27 +11,39 @@ function createOutput(Child, config) {
 
         state = {
             renderDialog: true,
+            renderSelectedObjectsWarning: false,
             selectedObjects: []
         }
 
         handleSubmit() {
-            this.setState({renderDialog: false})
+            // Display warning if no objects are selected
+            if(this.state.selectedObjects.length === 0) {
+                this.setState({ renderSelectedObjectsWarning: true })
+            } else {
+                this.setState({ renderDialog: false })
+            }
         }
 
         render() {
+            // Display a warning if there are no objects or if some objects have no value
+            let error = false
             if(this.props.model.getObjects().length === 0) {
-                return (
-                    <Dialog
-                        fields={[{
-                            type: "textbox",
-                            value: Strings.Dialogs.OutputWarning.Text
-                        }, {
-                            type: "submit",
-                            value: Strings.Dialogs.OutputWarning.Accept
-                        }]}
-                        onSubmit={this.props.onClose}
-                    />
-                )
+                this.props.onWarning(Strings.Dialogs.Warnings.NoObjects)
+                error = true
+            } else if(this.props.model.getObjects().some(object => object.hasOutput ? !object.value : false)) {
+                const missingObjects = this.props.model.getObjects()
+                                        .filter(object => object.hasOutput ? !object.value : false)
+                                        .map(object => object.name)
+                                        .join(", ")
+                                        
+                const message = Strings.Dialogs.Warnings.MissingValues.replace("{}", missingObjects)
+                this.props.onWarning(message)
+                error = true
+            }
+
+            if(error) {
+                this.props.onClose()
+                return <></>
             }
 
             const dialogFields = [
@@ -65,6 +77,10 @@ function createOutput(Child, config) {
                         onClick: () => this.setState({ selectedObjects: this.state.selectedObjects.filter(selected => selected.id !== object.id) })
                     }))
                 },
+                this.state.renderSelectedObjectsWarning && {
+                    type: "textbox",
+                    value: Strings.Dialogs.Warnings.SelectObjects
+                },
                 {
                     type: "setting",
                     name: "timesteps"
@@ -82,7 +98,7 @@ function createOutput(Child, config) {
                     label: Strings.Dialogs.Close,
                     onClick: this.props.onClose
                 }
-            ]
+            ].filter(e => e)
 
             if(this.state.renderDialog) {
                 return (

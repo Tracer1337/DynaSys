@@ -2,10 +2,12 @@ import React, { Component } from "react"
 
 import Workspace from "./components/Workspace/Workspace.js"
 import Toolbar from "./components/Toolbar/Toolbar.js"
+import Dialog from "./components/Dialog/Dialog.js"
 
 import objects from "./Model/Objects/Objects.js"
 import outputRenderers from "./components/Outputs/Outputs.js"
 import Model from "./Model/Model.js"
+import Strings from "./config/strings.json"
 
 import "./App.scss"
 
@@ -18,6 +20,10 @@ class App extends Component {
 
     state = {
         renderOutput: null,
+
+        renderWarning: false,
+        warningText: "",
+
         contextValue: {
             model: this.model,
             activeTool: null,
@@ -26,6 +32,7 @@ class App extends Component {
             onObjectRemove: this.handleObjectRemove.bind(this),
             onShallowObjectChange: this.handleShallowObjectChange.bind(this),
             onSettle: this.handleSettle.bind(this),
+            onWarning: this.handleWarning.bind(this),
             addEventListener: this.addEventListener.bind(this),
             removeEventListener: this.removeEventListener.bind(this)
         }
@@ -107,6 +114,20 @@ class App extends Component {
         this.forceUpdate()
     }
 
+    handleWarning(content) {
+        this.setState({
+            renderWarning: true,
+            warningText: content
+        })
+    }
+
+    handleWarningClose() {
+        this.setState({
+            renderWarning: false,
+            warningText: ""
+        })
+    }
+
     componentDidMount() {
         window.model = this.model
     }
@@ -129,8 +150,22 @@ class App extends Component {
                         React.createElement(outputRenderers[this.state.renderOutput], {
                             model: this.model,
                             getObjectById: this.model.getObjectById,
+                            onWarning: this.handleWarning.bind(this),
                             onClose: this.handleOutputClose.bind(this)
                         })
+                    )}
+
+                    {this.state.renderWarning && (
+                        <Dialog
+                            fields={[{
+                                type: "textbox",
+                                value: this.state.warningText
+                            }, {
+                                type: "submit",
+                                value: Strings.Dialogs.Close
+                            }]}
+                            onSubmit={this.handleWarningClose.bind(this)}
+                        />
                     )}
                 </AppContext.Provider>
             </div>

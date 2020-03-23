@@ -67,9 +67,10 @@
             "Submit": "Erstellen"
         },
 
-        "OutputWarning": {
-            "Text": "Keine Objekte vorhanden",
-            "Accept": "Schliessen"
+        "Warnings": {
+            "NoObjects": "Keine Objekte vorhanden",
+            "MissingValues": "Füge den Objekten {} einen Wert hinzu",
+            "SelectObjects": "Wähle ein oder mehrere Objekte aus"
         },
 
         "Close": "Schliessen"

@@ -18,7 +18,7 @@ const Setting = (props) => {
         case "number":
             element = (
                 <div className="number">
-                    <input type="number" value={value} onChange={handleChange}/>
+                    <input type="number" value={value} step={setting.step || 1} onChange={handleChange}/>
                 </div>
             )
             break

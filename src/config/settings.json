@@ -1,7 +1,7 @@
 {
     "decimalPoints": {
         "type": "number",
-        "value": 4 
+        "value": 4
     },
     
     "timesteps": {
@@ -11,6 +11,7 @@
 
     "interval": {
         "type": "number",
-        "value": 0.1
+        "value": 0.1,
+        "step": 0.1
     }
 }

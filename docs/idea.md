@@ -1,5 +1,3 @@
-[ ] Funktionen im Objekt-Dialog anzeigen
-[ ] Output-Dialog validiern (Alle Objekte müssen einen Wert haben)
 [ ] GitHub Link
 [ ] Mehrere Sprachen
 [ ] Variablen im Zusammenfassungs-Dialog Farben zuweisen
