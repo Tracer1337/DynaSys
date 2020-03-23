@@ -81,7 +81,8 @@
 
     "Model": {
         "Save": "Speichern",
-        "Load": "Laden",
+        "Export": "Exportieren",
+        "Import": "Importieren",
 
         "SaveModal": {
             "Title": "Modell Speichern",
