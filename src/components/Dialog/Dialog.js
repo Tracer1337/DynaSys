@@ -7,6 +7,7 @@ import Textbox from "./components/Textbox.js"
 import Title from "./components/Title.js"
 import Submit from "./components/Submit.js"
 import Setting from "./components/Setting.js"
+import Functions from "./components/Functions.js"
 
 import "./Dialog.scss"
 
@@ -55,6 +56,10 @@ class Dialog extends Component {
 
             case "setting":
                 element = <Setting {...field}/>
+                break
+
+            case "functions":
+                element = <Functions {...field}/>
                 break
             
             default:

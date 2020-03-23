@@ -9,6 +9,10 @@ import importJSON from "src/utils/importJSON.js"
 const Model = ({model, onModelLoad}) => {
     const [showSaveModal, setShowSaveModal] = useState(false)
 
+    const presetModel = () => {
+        model.getObjects().map(object => object.isPresetted = true)
+    }
+
     const handleSaveClick = () => {
         setShowSaveModal(true)
     }
@@ -18,7 +22,7 @@ const Model = ({model, onModelLoad}) => {
 
         const currentModels = JSON.parse(localStorage.getItem("models")) || {}
 
-        model.getObjects().map(object => object.isPresetted = true)
+        presetModel()
         currentModels[data.name] = model
 
         localStorage.setItem("models", JSON.stringify(currentModels))
@@ -27,6 +31,7 @@ const Model = ({model, onModelLoad}) => {
     }
 
     const handleExportClick = () => {
+        presetModel()
         downloadJSON(model, "model")
     }
 

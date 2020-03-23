@@ -1,4 +1,4 @@
-import * as math from "mathjs"
+import { parser as mathParser } from "mathjs"
 import SettingsProvider from "src/config/SettingsProvider.js"
 
 const keys = ["name", "value", "inputs", "outputs", "x", "y", "id", "isPresetted"]
@@ -47,7 +47,7 @@ class InternalObject {
     }
 
     getValue(data) {
-        const parser = math.parser()
+        const parser = mathParser()
 
         for (let object of this.inputs) {
             if (object.hasOutput) {

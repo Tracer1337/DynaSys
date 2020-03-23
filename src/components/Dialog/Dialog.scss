@@ -9,6 +9,10 @@
     background-color: rgba(0, 0, 0, 0.25);
     z-index: 2;
 
+    @mixin border {
+        border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
     .inner-dialog {
         background-color: white;
         padding: 30px;
@@ -38,11 +42,20 @@
                 margin: 0;
                 list-style: none;
                 padding: 5px;
-                border: 1px solid rgba(0, 0, 0, 0.2);
+                @include border;
 
                 .field {
                     margin: 0;
                 }
+            }
+        }
+
+        .functions > div {
+            padding: 3px;
+            @include border;
+
+            button {
+                margin: 2px;
             }
         }
     }

@@ -56,6 +56,10 @@ function createTool(Child, config) {
             this.valueInput.append(object.name)
         }
 
+        handleFunctionClick(fn) {
+            this.valueInput.append(fn)
+        }
+
         handleRemove() {
             this.context.onObjectRemove(this.props.object.id)
         }
@@ -151,6 +155,11 @@ function createTool(Child, config) {
                             label: object.name,
                             onClick: () => this.handleInputClick(object)
                         })).filter(e => e)) : []
+                    },
+                    {
+                        type: "functions",
+                        label: Strings.Dialogs.Tools.Functions,
+                        onClick: this.handleFunctionClick.bind(this)
                     },
                     {
                         type: "submit",
