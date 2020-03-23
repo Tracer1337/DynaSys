@@ -118,6 +118,9 @@ class ToolSpace extends Component {
     }
 
     componentDidUpdate() {
+        // Set idCounter to a higher value than the highest in objects
+        this.context.model.getObjects().forEach(object => object.id >= this.idCounter ? (this.idCounter = object.id + 1) : null)
+        
         // Add new Objects
         const newObjects = this.context.model.getObjects().filter(object => !this.renderedIds.includes(object.id))
 

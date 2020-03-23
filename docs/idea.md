@@ -1,4 +1,4 @@
-[ ] Projekt speichern / laden / als Binary exportieren
+[ ] Projekt als JSON / Binary exportieren
 [ ] Funktionen im Objekt-Dialog anzeigen
 [ ] Output-Dialog validiern (Alle Objekte müssen einen Wert haben)
 [ ] GitHub Link
