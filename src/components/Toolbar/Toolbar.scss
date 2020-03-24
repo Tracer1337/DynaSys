@@ -13,5 +13,9 @@
 
     .section {
         margin: 10px 0;
+
+        &.github a img{
+            width: 75%;
+        }
     }
 }
