@@ -7,8 +7,6 @@ import fix from "src/utils/fix.js"
 import outputs from "src/Model/Outputs/Outputs.js"
 import "./TimingDiagramm.scss"
 
-const colors = ["#1abc9c", "#3498db", "#9b59b6", "#34495e", "#f1c40f", "#e74c3c", "#ecf0f1"]
-
 class TimingDiagramm extends Component {
     render() {
         const object = new outputs["TimeTable"]({ objects: this.props.selectedObjects, model: this.props.model })
@@ -21,7 +19,7 @@ class TimingDiagramm extends Component {
             return {
                 label: object.name,
                 data: values,
-                borderColor: colors[index],
+                borderColor: object.color,
                 fill: false
             }
         })

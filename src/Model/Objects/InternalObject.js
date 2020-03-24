@@ -1,7 +1,7 @@
 import { parser as mathParser } from "mathjs"
 import SettingsProvider from "src/config/SettingsProvider.js"
 
-const keys = ["name", "value", "inputs", "outputs", "x", "y", "id", "isPresetted"]
+const keys = ["name", "value", "inputs", "outputs", "x", "y", "id", "isPresetted", "color"]
 
 class InternalObject {
     constructor(defaultValues = {}) {
@@ -74,8 +74,29 @@ class InternalObject {
         return delta
     }
 
+    mask(equation) {
+        // Apply colors of objects to string
+        let masked = equation
+
+        const sortedObjects = [this, ...this.inputs, ...this.outputs, ...this.deltas.map(d => d.object)]
+        sortedObjects.sort((a, b) => (b.name || "").length - (a.name || "").length)
+
+        for (let object of sortedObjects) {
+            if(!object.name) {
+                continue
+            }
+
+            const regex = new RegExp(`\w*(?<!}|[A-za-z])${object.name}`, "g")
+
+            masked = masked.replace(regex, `{${object.color || ""}}${object.name}`)
+        }
+
+        return masked
+    }
+
     getEquation() {
-        return `${this.name} = ${this.value}`
+        const equation = `${this.name} = ${this.value}`
+        return this.mask(equation)
     }
 
     evaluate({t}) {

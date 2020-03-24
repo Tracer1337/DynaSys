@@ -3,6 +3,7 @@ import React, { Component } from "react"
 import { AppContext } from "src/App.js"
 import Dialog from "../Dialog/Dialog.js"
 import Strings from "src/config/strings.json"
+import Colors from "src/config/colors.json"
 import "./Tool.scss"
 
 function createTool(Child, config) {
@@ -137,10 +138,20 @@ function createTool(Child, config) {
                         defaultValue: object.name
                     },
                     {
+                        name: "color",
+                        label: Strings.Dialogs.Tools.Color,
+                        type: "select",
+                        options: Colors.map(color => ({
+                            value: color,
+                            label: color
+                        })),
+                        defaultValue: object.color || Colors[0]
+                    },
+                    {
                         name: "value",
                         label: Strings.Dialogs.Tools.Value,
                         type: "string",
-                        defaultValue: object.value,
+                        defaultValue: object.value || "",
                         ref: ref => this.valueInput = ref
                     },
                     object.hasInput !== false && {

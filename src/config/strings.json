@@ -53,6 +53,7 @@
     "Dialogs": {
         "Tools": {
             "Name": "Name",
+            "Color": "Farbe",
             "Value": "Wert",
             "Inputs": "Eingänge",
             "Submit": "Speichern",

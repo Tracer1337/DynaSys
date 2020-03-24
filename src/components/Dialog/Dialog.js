@@ -8,30 +8,31 @@ import Title from "./components/Title.js"
 import Submit from "./components/Submit.js"
 import Setting from "./components/Setting.js"
 import Functions from "./components/Functions.js"
+import Select from "./components/Select.js"
 
 import "./Dialog.scss"
 
 class Dialog extends Component {
     constructor(props) {
         super(props)
+        
+        this.state = {
+            fieldState: {}
+        }
 
-        this.idCounter = 0
-
-        this.fieldState = {}
-
-        for(let field in this.props.fields) {
+        for(let field of this.props.fields) {
             if(field.name) {
-                this.fieldState[field.name] = field.defaultValue || null
+                this.state.fieldState[field.name] = field.defaultValue === undefined ? null : field.defaultValue
             }
         }
     }
     
-    getField(field) {
+    getField(field, index) {
         let element
 
         switch(field.type) {
             case "string":
-                element = <String {...field} onChange={value => this.handleChange(field.name, value)}/>
+                element = <String {...field} value={this.state.fieldState[field.name]} onChange={value => this.handleChange(field.name, value)}/>
                 break
             
             case "list":
@@ -61,6 +62,10 @@ class Dialog extends Component {
             case "functions":
                 element = <Functions {...field}/>
                 break
+
+            case "select":
+                element = <Select {...field} value={this.state.fieldState[field.name]} onChange={value => this.handleChange(field.name, value)}/>
+                break
             
             default:
                 element = <p>Element type {field.type} not found</p>
@@ -68,26 +73,31 @@ class Dialog extends Component {
         }
 
         return (
-            <div className="field" key={this.idCounter++}>
+            <div className="field" key={index}>
                 {element}
             </div>
         )
     }
 
     handleChange(name, value) {
-        this.fieldState[name] = value
+        this.setState({
+            fieldState: {
+                ...this.state.fieldState,
+                [name]: value
+            }
+        })
     }
 
     handleSubmit() {
         if(this.props.onSubmit) {
-            this.props.onSubmit(this.fieldState)
+            this.props.onSubmit(this.state.fieldState)
         }
     }
 
     handleKeyPress(event) {
         // User pressed enter => Submit
         if(event.keyCode === 13 && this.props.onSubmit) {
-            this.props.onSubmit(this.fieldState)
+            this.props.onSubmit(this.state.fieldState)
         }
     }
 
@@ -98,7 +108,7 @@ class Dialog extends Component {
                     className="inner-dialog"
                     onKeyDown={this.handleKeyPress.bind(this)}
                 >
-                    {this.props.fields.map(f => this.getField(f))}
+                    {this.props.fields.map((f, i) => this.getField(f, i))}
                 </div>
             </div>
         , document.getElementById("root"))

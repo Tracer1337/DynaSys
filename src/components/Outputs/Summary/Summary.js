@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 
+import MaskConverter from "../../Utils/MaskConverter/MaskConverter.js"
 import createOutput from "../createOutput.js"
 import Strings from "src/config/strings.json"
 import "./Summary.scss"
@@ -13,7 +14,7 @@ class Summary extends Component {
                 {
                     objects.map(object => (
                         <div className="equation" key={object.id}>
-                            {object.getEquation()}
+                            <MaskConverter maskedString={object.getEquation()}/>
                         </div>
                     ))
                 }
