@@ -57,6 +57,7 @@
             "Value": "Wert",
             "Inputs": "Eingänge",
             "Submit": "Speichern",
+            "Close": "Schliessen",
             "Remove": "Entfernen",
             "Time": "Zeit (t)",
             "Functions": "Funktionen"
@@ -90,6 +91,7 @@
         "SaveModal": {
             "Title": "Modell Speichern",
             "Name": "Name",
+            "Saved": "Vorhandene Modelle",
             "Submit": "Speichern",
             "Close": "Schliessen"
         }

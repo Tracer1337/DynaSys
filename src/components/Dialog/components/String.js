@@ -7,6 +7,10 @@ class String extends Component {
         }})
     }
 
+    set = value => {
+        this.handleChange({target: {value}})
+    }
+
     handleChange(event) {
         this.props.onChange(event.target.value)
     }

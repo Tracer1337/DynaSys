@@ -178,6 +178,11 @@ function createTool(Child, config) {
                     },
                     {
                         type: "button",
+                        label: Strings.Dialogs.Tools.Close,
+                        onClick: () => this.setState({renderDialog: false})
+                    },
+                    {
+                        type: "button",
                         label: Strings.Dialogs.Tools.Remove,
                         onClick: this.handleRemove.bind(this)
                     }

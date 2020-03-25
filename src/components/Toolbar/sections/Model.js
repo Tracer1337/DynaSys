@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef } from "react"
 
 import createSection from "./createSection.js"
 import Dialog from "../../Dialog/Dialog.js"
@@ -6,8 +6,18 @@ import Strings from "src/config/strings.json"
 import downloadJSON from "src/utils/downloadJSON.js"
 import importJSON from "src/utils/importJSON.js"
 
+const _getModels = () => JSON.parse(localStorage.getItem("models")) || {}
+const _setModels = models => localStorage.setItem("models", JSON.stringify(models))
+
 const Model = ({model, onModelLoad}) => {
     const [showSaveModal, setShowSaveModal] = useState(false)
+    const [models, setModelsState] = useState(_getModels())
+    const saveNameInput = useRef()
+
+    const setModels = models => {
+        _setModels(models)
+        setModelsState(models)
+    }
 
     const presetModel = () => {
         model.getObjects().map(object => object.isPresetted = true)
@@ -19,15 +29,25 @@ const Model = ({model, onModelLoad}) => {
 
     const handleSaveSubmit = data => {
         // Add the model under the name given by data to the models in localStorage
-
-        const currentModels = JSON.parse(localStorage.getItem("models")) || {}
-
         presetModel()
-        currentModels[data.name] = model
+        models[data.name] = model
 
-        localStorage.setItem("models", JSON.stringify(currentModels))
+        setModels(models)
         
         setShowSaveModal(false)
+    }
+
+    const handleModelRemove = name => {
+        // Remove the model with given name from localStorage
+        const newModels = {}
+
+        for(let key in models) {
+            if(key !== name) {
+                newModels[key] = models[key]
+            }
+        }
+        
+        setModels(newModels)
     }
 
     const handleExportClick = () => {
@@ -40,8 +60,6 @@ const Model = ({model, onModelLoad}) => {
         onModelLoad(newModel)
     }
 
-    const savedModels = JSON.parse(localStorage.getItem("models")) || {}
-
     return (
         <div>
             <button onClick={handleSaveClick} className="item">{Strings.Model.Save}</button>
@@ -50,10 +68,14 @@ const Model = ({model, onModelLoad}) => {
 
             <button onClick={handleImportClick} className="item">{Strings.Model.Import}</button>
 
-            {Object.entries(savedModels).map(([name, json], i) => (
-                <button className="item" onClick={() => onModelLoad(json)} key={i}>
-                    {name}
-                </button>
+            {Object.entries(models).map(([name, json], i) => (
+                <div className="item">
+                    <button onClick={() => onModelLoad(json)} key={i+"-Load"}>
+                        {name}
+                    </button>
+
+                    <button onClick={() => handleModelRemove(name)} key={i+"-Remove"}>X</button>
+                </div>
             ))}
 
             {showSaveModal && (
@@ -66,7 +88,17 @@ const Model = ({model, onModelLoad}) => {
                         {
                             type: "string",
                             label: Strings.Model.SaveModal.Name,
-                            name: "name"
+                            name: "name",
+                            ref: saveNameInput
+                        },
+                        {
+                            type: "list",
+                            label: Strings.Model.SaveModal.Saved,
+                            items: Object.keys(models).map(name => ({
+                                type: "button",
+                                label: name,
+                                onClick: () => saveNameInput.current.set(name)
+                            }))
                         },
                         {
                             type: "submit",
