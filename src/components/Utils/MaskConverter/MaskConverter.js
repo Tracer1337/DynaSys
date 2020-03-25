@@ -7,7 +7,7 @@ function MaskConverter({maskedString}) {
     converted = converted.replace(/{}/g, "{#000000}")
 
     // Convert {<color>}<name> into <span style="color: <color>"><name></span>
-    converted = converted.replace(/{(#[0-9a-z]{6})}([a-z\u00c4-\u00df]+)/gi, (match, color, name) => {
+    converted = converted.replace(/{(#[0-9a-z]{6})}([0-9a-z\u00c4-\u00df]+)/gi, (match, color, name) => {
         return `<span style="color: ${color}">${name}</span>`
     })
     

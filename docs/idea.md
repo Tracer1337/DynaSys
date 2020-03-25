@@ -1,6 +1,6 @@
-[ ] Variablen im Zusammenfassungs-Dialog Farben zuweisen
-[ ] ConnectorSpace -> AppContext -> Pfeile abhängig vom Model rendern, nicht mit dem callback Zeugs
 [ ] Model resetten / Workspace clear
 [ ] Wenn Modell im localStorage überschrieben wird, fragen ob der Nutzer wirklich speichern will
 [ ] Entfernte Elemente vom Input / Output anderer entfernen
 [ ] Mehrere Sprachen
+[ ] Crash wenn man zwei presets lädt
+[ ] Werte umrahmen wenn man sie angeklickt hat und Iteraktionen wie DEL -> Löschen ermöglichen. Mit Klick auf Freie Fläche markieren aufheben

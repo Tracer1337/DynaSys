@@ -26,47 +26,65 @@ class ConnectorSpace extends Component {
         this.setState({renderPreview: false})
     }
 
-    establishConnection(input, output, label) {
+    createConnection(object) {
+        const input = object.inputs[0]
+        const output = object.outputs[0]
+
         const Element = (
             <Connector
                 key={this.idCounter++}
                 input={input}
                 output={output}
-                label={label}
+                label={object}
                 getObjectPositionById={this.props.acrossSpaceCommunication.ToolSpace.getObjectPositionById}
                 onObjectChange={this.context.onObjectChange}
                 onShallowObjectChange={this.context.onShallowObjectChange}
             />
         )
-
-        const newConnection = {
+        
+        return {
+            object,
             input: input,
             output: output,
             Connector: Element
         }
-
-        this.setState({
-            connections: [...this.state.connections, newConnection],
-            renderPreview: false
-        })
     }
 
     componentDidUpdate() {
+        // Add new connections        
+        const newConnections = this.context.model.getObjects().map(object => {
+            if(object.providesConnection) {
+                if(!this.state.connections.some(connection => connection.object.id === object.id)) {
+                    return this.createConnection(object)
+                }
+            }
+            return false
+        }).filter(e => e)
+
         // Remove unneccessary connections
         const filteredConnections = this.state.connections.filter(connection => {
             const inputExists = this.context.model.getObjectById(connection.input.id)
             const outputExists = this.context.model.getObjectById(connection.output.id)
-            return inputExists && outputExists
+            const objectExists = this.context.model.getObjectById(connection.object.id)
+            return inputExists && outputExists && objectExists
         })
 
-        if(filteredConnections.length !== this.state.connections.length) {
-            this.setState({connections: filteredConnections})
+        if(filteredConnections.length !== this.state.connections.length || newConnections.length > 0) {
+            // Render the new connections when the new objects are set into the DOM
+            requestAnimationFrame(() => {
+                this.setState({
+                    connections: [
+                        ...filteredConnections,
+                        ...newConnections
+                    ],
+                    renderPreview: newConnections.length > 0 ? false : this.state.renderPreview
+                })
+            })
         }
     }
 
     componentDidMount() {
         this.props.acrossSpaceCommunication.set("ConnectorSpace", {
-            establishConnection: this.establishConnection.bind(this),
             enablePreview: this.enablePreview.bind(this),
             disablePreview: this.disablePreview.bind(this)
         })

@@ -7,6 +7,7 @@ class Effect extends InternalObject {
         this.type = "Effect"
 
         this.hasOutput = false
+        this.providesConnection = true
 
         this.setConnections()
     }

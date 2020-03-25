@@ -20,17 +20,10 @@ const createConnector = (Child, toolProps) => {
         userSettled = (object) => {
             this.child.userSettled(object)
         }
-
-        establishConnection(input, output, object) {
-            this.established = true
-            requestAnimationFrame(() => {
-                this.props.acrossSpaceCommunication.ConnectorSpace.establishConnection(input, output, object)
-            })
-        }
         
         componentDidMount() {
-            if(this.props.object && Object.keys(this.props.object).length > 0 && this.props.object.inputs[0] && this.props.object.outputs[0]) {
-                this.establishConnection(this.props.object.inputs[0], this.props.object.outputs[0], this.props.object)
+            if(this.props?.object?.inputs?.[0] && this.props?.object?.outputs?.[0]) {
+                this.established = true
             }
         }
 
@@ -45,7 +38,7 @@ const createConnector = (Child, toolProps) => {
 
             } else if(this.state.input && this.state.output && !this.established) {
                 // Create final connection
-                const object = this.props.onObjectCreate({
+                this.props.onObjectCreate({
                     type: toolProps.type,
                     settled: true,
                     props: {
@@ -54,7 +47,7 @@ const createConnector = (Child, toolProps) => {
                     }
                 })
 
-                this.establishConnection(this.state.input, this.state.output, object)
+                this.established = true
             }
         }
 

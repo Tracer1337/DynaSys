@@ -28,8 +28,8 @@ class Model {
                 return false
             }
 
-            // Remove dependencies (e.g. Effect mounted on the removed object)
-            if(object.type === "Effect" || object.type === "RateOfChange") {
+            // Remove dependencies (e.g. RateOfChange connected to State)
+            if(object.type === "RateOfChange") {
                 return !hasConnection(object)
 
             } else if(object.type === "Source" || object.type === "Sink") {
@@ -38,6 +38,17 @@ class Model {
 
             object.inputs = object.inputs.filter(object => object.id !== id)
             object.outputs = object.outputs.filter(object => object.id !== id)
+
+            return true
+        })
+
+        // Remove those effect who do not have a connection anymore
+        this.model = this.model.filter(object => {
+            if(object.type === "Effect") {
+                const hasInput = this.getObjectById(object.inputs?.[0]?.id)
+                const hasOutput = this.getObjectById(object.outputs?.[0]?.id)
+                return hasInput && hasOutput
+            }
 
             return true
         })

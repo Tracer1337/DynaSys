@@ -28,6 +28,7 @@ class Dialog extends Component {
     }
     
     getField(field, index) {
+        field.key = index
         let element
 
         switch(field.type) {
@@ -73,7 +74,7 @@ class Dialog extends Component {
         }
 
         return (
-            <div className="field" key={index}>
+            <div className="field">
                 {element}
             </div>
         )

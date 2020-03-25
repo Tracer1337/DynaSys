@@ -7,6 +7,7 @@ class RateOfChange extends InternalObject {
         this.type = "RateOfChange"
 
         this.hasOutput = true
+        this.providesConnection = true
 
         this.setConnections()
     }
