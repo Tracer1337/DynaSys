@@ -9,7 +9,7 @@ import importJSON from "src/utils/importJSON.js"
 const _getModels = () => JSON.parse(localStorage.getItem("models")) || {}
 const _setModels = models => localStorage.setItem("models", JSON.stringify(models))
 
-const Model = ({model, onModelLoad}) => {
+const Model = ({model, onModelLoad, onModelReset}) => {
     const [showSaveModal, setShowSaveModal] = useState(false)
     const [models, setModelsState] = useState(_getModels())
     const saveNameInput = useRef()
@@ -60,6 +60,10 @@ const Model = ({model, onModelLoad}) => {
         onModelLoad(newModel)
     }
 
+    const handleNewClick = () => {
+        onModelReset()
+    }
+
     return (
         <div>
             <button onClick={handleSaveClick} className="item">{Strings.Model.Save}</button>
@@ -67,6 +71,8 @@ const Model = ({model, onModelLoad}) => {
             <button onClick={handleExportClick} className="item">{Strings.Model.Export}</button>
 
             <button onClick={handleImportClick} className="item">{Strings.Model.Import}</button>
+
+            <button onClick={handleNewClick} className="item">{Strings.Model.New}</button>
 
             {Object.entries(models).map(([name, json], i) => (
                 <div className="item">

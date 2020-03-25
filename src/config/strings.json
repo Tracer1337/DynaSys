@@ -2,7 +2,7 @@
     "Toolbar": {
         "Tools": "Werkzeuge",
         "Outputs": "Ausgaben",
-        "Presets": "Presets",
+        "Presets": "Vorlagen",
         "Model": "Modell"
     },
 
@@ -87,6 +87,7 @@
         "Save": "Speichern",
         "Export": "Exportieren",
         "Import": "Importieren",
+        "New": "Neu",
 
         "SaveModal": {
             "Title": "Modell Speichern",

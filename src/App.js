@@ -114,6 +114,11 @@ class App extends Component {
         this.forceUpdate()
     }
 
+    handleModelReset() {
+        this.model.reset()
+        this.forceUpdate()
+    }
+
     handleWarning(content) {
         this.setState({
             renderWarning: true,
@@ -140,6 +145,7 @@ class App extends Component {
                         onActiveToolChange={this.handleActiveToolChange.bind(this)}
                         onOutputClick={this.handleOutputClick.bind(this)}
                         onModelLoad={this.handleModelLoad.bind(this)}
+                        onModelReset={this.handleModelReset.bind(this)}
                         setClearToolSelection={fn => this.clearToolSelection = fn}
                         model={this.model}
                     />

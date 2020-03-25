@@ -82,6 +82,10 @@ class Model {
 
         this.model.forEach(object => object.setConnections && object.setConnections())
     }
+
+    reset() {
+        this.model = []
+    }
 }
 
 export default Model
