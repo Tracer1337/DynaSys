@@ -7,6 +7,7 @@ import Dialog from "./components/Dialog/Dialog.js"
 import objects from "./Model/Objects/Objects.js"
 import outputRenderers from "./components/Outputs/Outputs.js"
 import Model from "./Model/Model.js"
+import waitFrames from "./utils/waitFrames.js"
 import Strings from "./config/strings.json"
 
 import "./App.scss"
@@ -110,8 +111,12 @@ class App extends Component {
     }
 
     handleModelLoad(json) {
-        this.model.loadJSON(json)
-        this.forceUpdate()
+        this.handleModelReset()
+        
+        waitFrames(() => {
+            this.model.loadJSON(json)
+            this.forceUpdate()
+        }, 2)
     }
 
     handleModelReset() {
