@@ -11,19 +11,15 @@ function createTool(Child, config) {
         static config = config
 
         state = {
-            renderDialog: false,
-            isMouseDown: false
+            renderDialog: false
         }
-
-        preventClick = false
 
         userSettled = (event) => {
             this.child.userSettled(event)
         }
 
         requestDialog() {
-            const isMoving = this.props.isMoving || this.state.isMouseDown
-            if(Tool.config.dialogAvailable && !isMoving && !this.props.unSettled && !this.state.renderDialog) {
+            if(Tool.config.dialogAvailable && !this.props.unSettled && !this.state.renderDialog) {
                 this.setState({ renderDialog: true })
             }
         }
@@ -45,12 +41,17 @@ function createTool(Child, config) {
 
         handleClick() {
             // Check if the user wants to interact with this tool
-            if(this.props.unSettled || !this.props.requestClick() || this.preventClick) {
-                this.preventClick = false
+            if(this.props.unSettled || !this.props.requestClick()) {
                 return
             }
             
             this.requestDialog()
+        }
+
+        handleMouseOver(event) {
+            if(!this.props.unSettled && event.target.classList.contains("object")) {
+                this.props.onMouseOver({target: this.container, id: this.id, isMovable: Tool.config.isMovable })
+            }
         }
 
         handleInputClick(object) {
@@ -63,38 +64,6 @@ function createTool(Child, config) {
 
         handleRemove() {
             this.context.onObjectRemove(this.props.object.id)
-        }
-
-        handleMouseMove(event) {
-            if(!Tool.config.isMovable) {
-                return
-            }
-
-            if(this.state.isMouseDown && this.props.object) {
-                this.preventClick = true
-
-                const containerRect = this.props.container.current.getBoundingClientRect()
-
-                const newX = event.clientX - containerRect.x - this.container.offsetWidth / 2
-                const newY = event.clientY - containerRect.y - this.container.offsetHeight / 2
-
-                this.container.style.left = newX + "px"
-                this.container.style.top = newY + "px"
-
-                this.context.onShallowObjectChange({id: this.props.object.id, newValues: {x: newX, y: newY}})
-            }
-        }
-
-        handleMouseDown() {
-            if(Tool.config.isMovable && !this.state.renderDialog) {
-                this.setState({isMouseDown: true})
-            }
-        }
-
-        handleMouseUp() {
-            if(Tool.config.isMovable && !this.state.renderDialog) {
-                this.setState({isMouseDown: false})
-            }
         }
 
         componentDidMount() {
@@ -111,7 +80,6 @@ function createTool(Child, config) {
                 this.requestDialog()
             }
 
-            window.addEventListener("mousemove", this.handleMouseMove.bind(this))
             this.context.addEventListener("objectchange", this.handleObjectChange.bind(this))
         }
 
@@ -119,7 +87,6 @@ function createTool(Child, config) {
             this.lastObject = this.props.object && this.props.object.clone()
             
             const object = this.props.object || {}
-            const isMoving = this.props.isMoving || this.state.isMouseDown
 
             this.id = object.id
 
@@ -188,7 +155,7 @@ function createTool(Child, config) {
                     }
                 ].filter(e => e)
             }
-            
+
             return (
                 <AppContext.Consumer>
                     {context => {
@@ -196,11 +163,11 @@ function createTool(Child, config) {
 
                         return (
                             <div
-                                className={`tool ${isMoving ? "moving" : ""} ${Tool.config.className || ""}`}
+                                className={`tool ${Tool.config.className || ""}`}
                                 ref={ref => this.container = ref}
-                                style={{ left: object.x, top: object.y }}
-                                onMouseDown={this.handleMouseDown.bind(this)}
-                                onMouseUp={this.handleMouseUp.bind(this)}
+                                style={{transform: `translate(${object.x}px, ${object.y}px)`}}
+                                onMouseOver={this.handleMouseOver.bind(this)}
+                                onMouseOut={this.props.onMouseOut}
                             >
                                 <Child
                                     ref={ref => this.child = ref}

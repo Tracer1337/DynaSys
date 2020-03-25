@@ -12,12 +12,17 @@ class ToolSpace extends Component {
             onObjectCreate: this.createObject.bind(this),
             requestClick: this.requestClick.bind(this),
             onSettle: this.onSettle.bind(this)
-        }
+        },
+        isMoving: false
     }
 
     renderedIds = []
 
     idCounter = 0
+
+    mouseOver = {}
+    isMouseDown = false
+    preventDialog = false
 
     container = React.createRef()
 
@@ -62,7 +67,12 @@ class ToolSpace extends Component {
     }
 
     requestClick() {
-        return !this.context.activeTool
+        if(this.preventDialog) {
+            this.preventDialog = false
+            return false
+        }
+
+        return !this.context.activeTool && !this.props.isMouseDown
     }
 
     filterNewTools(objects) {
@@ -81,6 +91,8 @@ class ToolSpace extends Component {
             const newTool = React.createElement(tool, {
                 key: object.id,
                 object,
+                onMouseOver: this.handleMouseOver.bind(this),
+                onMouseOut: this.handleMouseOut.bind(this),
                 ...this.state.defaultToolProps,
                 ...this.props
             })
@@ -97,17 +109,59 @@ class ToolSpace extends Component {
         return remainingTools
     }
 
+    handleMouseOver({target, id, isMovable}) {
+        if(!this.state.isMoving && !this.isMouseDown) {
+            if (isMovable) {
+                this.mouseOver = { target, id }
+            } else {
+                this.mouseOver = {}
+            }
+        }
+    }
+
+    handleMouseOut() {
+        if(!this.state.isMoving) {
+            this.mouseOver = {}
+        }
+    }
+
+    handleMouseDown() {
+        this.isMouseDown = true
+    }
+
+    handleMouseUp() {
+        this.isMouseDown = false
+    }
+
     handleMouseMove(event) {
-        if (this.context.activeTool) {
+        const objectDomElement = this.context.activeTool ? this.currentToolDomElement : this.mouseOver.target
+        const isMovingWhenSettled = this.isMouseDown && this.mouseOver.target
+
+        if (this.context.activeTool || isMovingWhenSettled) {
+            if(!this.state.isMoving) {
+                this.setState({isMoving: true})
+            }
+
             const containerRect = this.container.current.getBoundingClientRect()
 
             const mouseX = event.clientX - containerRect.x
             const mouseY = event.clientY - containerRect.y
 
-            const newX = this.currentX = constrain(mouseX - this.currentToolDomElement.offsetWidth / 2, 0, containerRect.width - this.currentToolDomElement.offsetWidth)
-            const newY = this.currentY = constrain(mouseY - this.currentToolDomElement.offsetHeight / 2, 0, containerRect.height - this.currentToolDomElement.offsetHeight)
+            const newX = this.currentX = constrain(mouseX - objectDomElement.offsetWidth / 2, 0, containerRect.width - objectDomElement.offsetWidth)
+            const newY = this.currentY = constrain(mouseY - objectDomElement.offsetHeight / 2, 0, containerRect.height - objectDomElement.offsetHeight)
 
-            this.currentToolDomElement.style.transform = `translate(${newX}px, ${newY}px)`
+            objectDomElement.style.transform = `translate(${newX}px, ${newY}px)`
+
+            if(isMovingWhenSettled) {
+                this.preventDialog = true
+                this.context.onShallowObjectChange({id: this.mouseOver.id, newValues: {x: newX, y: newY}})
+            }
+        } else {
+            if(this.state.isMoving) {
+                this.setState({
+                    isMoving: false
+                })
+            }
         }
     }
 
@@ -147,6 +201,8 @@ class ToolSpace extends Component {
                 container: this.container
             }
         })
+
+        window.addEventListener("mousemove", this.handleMouseMove.bind(this))
     }
 
     render() {
@@ -159,15 +215,15 @@ class ToolSpace extends Component {
 
                     return (
                         <div
-                            className="space tool-space"
+                            className={`space tool-space ${this.state.isMoving ? "moving" : ""}`}
                             ref={this.container}
-                            onMouseMove={this.handleMouseMove.bind(this)}
+                            onMouseDown={this.handleMouseDown.bind(this)}
+                            onMouseUp={this.handleMouseUp.bind(this)}
                             onClick={this.handleClick.bind(this)}
                         >
                             {CurrentTool && (
                                 <CurrentTool
                                     unSettled
-                                    isMoving
                                     ref={ref => this.currentToolRef = ref}
                                     getDomRef={ref => this.currentToolDomElement = ref}
                                     {...this.state.defaultToolProps}

@@ -6,10 +6,6 @@
     position: absolute;
     user-select: none;
 
-    &.moving {
-        cursor: grabbing;
-    }
-
     &.click-through {
         pointer-events: none;
     }
