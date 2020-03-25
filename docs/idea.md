@@ -1,5 +1,3 @@
-[ ] Model resetten / Workspace clear
-[ ] Wenn Modell im localStorage überschrieben wird, fragen ob der Nutzer wirklich speichern will
 [ ] Entfernte Elemente vom Input / Output anderer entfernen
 [ ] Mehrere Sprachen
 [ ] Crash wenn man zwei presets lädt
@@ -8,3 +6,4 @@
 [ ] Pevent overlapping of Tools
 [ ] Namen für Modelle (evtl. in Header anzeigen "Geöffnetes Modell: <Name>")
 [ ] Fix errors in console
+[ ] Toolbar props -> Context

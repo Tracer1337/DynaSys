@@ -11,12 +11,18 @@ const _setModels = models => localStorage.setItem("models", JSON.stringify(model
 
 const Model = ({model, onModelLoad, onModelReset}) => {
     const [showSaveModal, setShowSaveModal] = useState(false)
+
+    const [showOverrideModal, setShowOverrideModal] = useState(false)
+    const [overrideModalFor, setOverrideModalFor] = useState("")
+    const [OverrideModalReceiver] = useState(new EventTarget())
+    
     const [models, setModelsState] = useState(_getModels())
+
     const saveNameInput = useRef()
 
     const setModels = models => {
         _setModels(models)
-        setModelsState(models)
+        setModelsState(_getModels())
     }
 
     const presetModel = () => {
@@ -27,18 +33,42 @@ const Model = ({model, onModelLoad, onModelReset}) => {
         setShowSaveModal(true)
     }
 
-    const handleSaveSubmit = data => {
-        // Add the model under the name given by data to the models in localStorage
+    // Add the model under the name given by data to the models in localStorage
+    const handleSaveSubmit = async data => {
+        const name = data.name || Strings.Model.UnnamedModel
+        
+        // Ask if the user really wants to override the model if it already exists
+        if(models[name]) {
+            setShowOverrideModal(true)
+            setOverrideModalFor(name)
+
+            // Wait for the answer
+            const shouldOverride = await new Promise(resolve => {
+                const listener = (event) => {
+                    resolve(event.detail.value)
+                    OverrideModalReceiver.removeEventListener("answer", listener)
+                }
+                OverrideModalReceiver.addEventListener("answer", listener)
+            })
+
+            setShowOverrideModal(false)
+            setOverrideModalFor("")
+
+            if(!shouldOverride) {
+                return
+            }
+        }
+
         presetModel()
-        models[data.name] = model
+        models[name] = model
 
         setModels(models)
         
         setShowSaveModal(false)
     }
 
+    // Remove the model with given name from localStorage
     const handleModelRemove = name => {
-        // Remove the model with given name from localStorage
         const newModels = {}
 
         for(let key in models) {
@@ -117,6 +147,31 @@ const Model = ({model, onModelLoad, onModelReset}) => {
                         }
                     ]}
                     onSubmit={handleSaveSubmit}
+                />
+            )}
+
+            {showOverrideModal && (
+                <Dialog
+                    fields={[
+                        {
+                            type: "title",
+                            value: Strings.Model.OverrideModal.Title
+                        },
+                        {
+                            type: "textbox",
+                            value: Strings.Model.OverrideModal.Content.replace("{}", overrideModalFor)
+                        },
+                        {
+                            type: "button",
+                            label: Strings.Model.OverrideModal.Accept,
+                            onClick: () => OverrideModalReceiver.dispatchEvent(new CustomEvent("answer", {detail: {value: true}}))
+                        },
+                        {
+                            type: "button",
+                            label: Strings.Model.OverrideModal.Decline,
+                            onClick: () => OverrideModalReceiver.dispatchEvent(new CustomEvent("answer", {detail: {value: false}}))
+                        }
+                    ]}
                 />
             )}
         </div>
