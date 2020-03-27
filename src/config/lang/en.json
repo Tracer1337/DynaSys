@@ -1,0 +1,97 @@
+{
+    "Name": "English",
+
+    "Toolbar": {
+        "Tools": "Tools",
+        "Outputs": "Outputs",
+        "Presets": "Preset",
+        "Model": "Model"
+    },
+    "Tools": {
+        "State": {
+            "Label": "State"
+        },
+        "RateOfChange": {
+            "Label": "Rate Of Change",
+            "Sink": {
+                "Label": "Sink"
+            },
+            "Source": {
+                "Label": "Source"
+            }
+        },
+        "Effect": {
+            "Label": "Effect"
+        },
+        "Parameter": {
+            "Label": "Parameter"
+        }
+    },
+    "Outputs": {
+        "TimingDiagramm": {
+            "Label": "Timing Diagramm",
+            "XAxesLabel": "Time-Steps"
+        },
+        "TimeTable": {
+            "Label": "Time Table",
+            "Time": "Time"
+        },
+        "Summary": {
+            "Label": "Summary",
+            "Old": "Old",
+            "New": "New"
+        },
+        "Close": "Close"
+    },
+    "Dialogs": {
+        "Tools": {
+            "Name": "Name",
+            "Color": "Color",
+            "Value": "Value",
+            "Inputs": "Inputs",
+            "Submit": "Save",
+            "Close": "Close",
+            "Remove": "Remove",
+            "Time": "Time (t)",
+            "Functions": "Functions"
+        },
+        "Outputs": {
+            "Available": "Available",
+            "Selected": "Selected",
+            "Submit": "Create"
+        },
+        "Warnings": {
+            "NoObjects": "No objects available",
+            "MissingValues": "Add a value to the objects {}",
+            "SelectObjects": "Select one or more objects"
+        },
+        "Close": "Close"
+    },
+    "Settings": {
+        "timesteps": "Amount of timesteps",
+        "interval": "Interval (dt)"
+    },
+    "Model": {
+        "Save": "Save",
+        "Export": "Export",
+        "Import": "Import",
+        "New": "New",
+        "UnnamedModel": "Unnamed Model",
+        "SaveModal": {
+            "Title": "Save Model",
+            "Name": "Name",
+            "Saved": "Existing Models",
+            "Submit": "Save",
+            "Close": "Close"
+        },
+        "OverrideModal": {
+            "Title": "Warning",
+            "Content": "The Model '{}' will be overriden!",
+            "Accept": "Accept",
+            "Decline": "Decline"
+        }
+    },
+    "Misc": {
+        "ApplyLanguage": "Apply Language"
+    }
+}

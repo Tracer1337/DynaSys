@@ -2,7 +2,7 @@ import React from "react"
 
 import presets from "src/Model/Presets/Presets.js"
 import createSection from "./createSection.js"
-import Strings from "src/config/strings.json"
+import Strings from "src/config/strings.js"
 
 const Presets = ({onModelLoad}) => (
     Object.entries(presets).map(([name, json]) => (

@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import SettingsProvider from "src/config/SettingsProvider.js"
-import Strings from "src/config/strings.json"
+import Strings from "src/config/strings.js"
 
 const Setting = (props) => {
     const setting = SettingsProvider.settings[props.name]

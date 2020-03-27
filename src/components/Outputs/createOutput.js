@@ -2,7 +2,7 @@ import React, { Component } from "react"
 import ReactDOM from "react-dom"
 
 import Dialog from "../Dialog/Dialog.js"
-import Strings from "src/config/strings.json"
+import Strings from "src/config/strings.js"
 import "./Output.scss"
 
 function createOutput(Child, config) {

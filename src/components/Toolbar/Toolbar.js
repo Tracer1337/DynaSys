@@ -4,7 +4,7 @@ import Tools from "./sections/Tools.js"
 import Outputs from "./sections/Outputs.js"
 import Presets from "./sections/Presets.js"
 import Model from "./sections/Model.js"
-import ViewOnGithub from "./sections/ViewOnGithub.js"
+import Misc from "./sections/Misc.js"
 import "./Toolbar.scss"
 
 class Toolbar extends Component {
@@ -19,7 +19,7 @@ class Toolbar extends Component {
 
                 <Model {...this.props}/>
                 
-                <ViewOnGithub {...this.props}/>
+                <Misc {...this.props}/>
             </div>
         )
     }

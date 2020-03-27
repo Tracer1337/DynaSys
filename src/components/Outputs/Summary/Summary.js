@@ -2,7 +2,7 @@ import React, { Component } from "react"
 
 import MaskConverter from "../../Utils/MaskConverter/MaskConverter.js"
 import createOutput from "../createOutput.js"
-import Strings from "src/config/strings.json"
+import Strings from "src/config/strings.js"
 import "./Summary.scss"
 
 class Summary extends Component {

@@ -1,4 +1,6 @@
 {
+    "Name": "Deutsch",
+
     "Toolbar": {
         "Tools": "Werkzeuge",
         "Outputs": "Ausgaben",
@@ -80,7 +82,7 @@
 
     "Settings": {
         "timesteps": "Anzahl an Zeitschritten",
-        "interval": "Interval (dt)"
+        "interval": "Intervall (dt)"
     },
 
     "Model": {
@@ -104,5 +106,9 @@
             "Accept": "Akzeptieren",
             "Decline": "Ablehnen"
         }
+    },
+
+    "Misc": {
+        "ApplyLanguage": "Sprache Anwenden"
     }
 }

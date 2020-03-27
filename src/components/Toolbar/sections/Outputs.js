@@ -2,7 +2,7 @@ import React from "react"
 
 import outputs from "../../Outputs/Outputs.js"
 import createSection from "./createSection.js"
-import Strings from "src/config/strings.json"
+import Strings from "src/config/strings.js"
 
 const Outputs = ({onOutputClick}) => (
     Object.entries(outputs).map(([type, output]) => (

@@ -8,7 +8,7 @@ import objects from "./Model/Objects/Objects.js"
 import outputRenderers from "./components/Outputs/Outputs.js"
 import Model from "./Model/Model.js"
 import waitFrames from "./utils/waitFrames.js"
-import Strings from "./config/strings.json"
+import Strings from "./config/strings.js"
 
 import "./App.scss"
 

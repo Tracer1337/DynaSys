@@ -2,7 +2,7 @@ import React, { useState } from "react"
 
 import tools from "../../Tools/Tools.js"
 import createSection from "./createSection.js"
-import Strings from "src/config/strings.json"
+import Strings from "src/config/strings.js"
 
 const Tools = ({onActiveToolChange, setClearToolSelection}) => {
     const [selected, setSelected] = useState(null)

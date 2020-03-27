@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react"
 
 import createSection from "./createSection.js"
 import Dialog from "../../Dialog/Dialog.js"
-import Strings from "src/config/strings.json"
+import Strings from "src/config/strings.js"
 import downloadJSON from "src/utils/downloadJSON.js"
 import importJSON from "src/utils/importJSON.js"
 

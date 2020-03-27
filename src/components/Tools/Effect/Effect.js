@@ -1,7 +1,7 @@
 import { Component } from "react"
 
 import createConnector from "../Connector/createConnector.js"
-import Strings from "src/config/strings.json"
+import Strings from "src/config/strings.js"
 import "./Effect.scss"
 
 class Effect extends Component {

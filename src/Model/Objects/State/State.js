@@ -1,5 +1,5 @@
 import InternalObject from "../InternalObject.js"
-import Strings from "src/config/strings.json"
+import Strings from "src/config/strings.js"
 import fix from "src/utils/fix.js"
 
 class State extends InternalObject {

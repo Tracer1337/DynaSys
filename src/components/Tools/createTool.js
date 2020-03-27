@@ -2,7 +2,7 @@ import React, { Component } from "react"
 
 import { AppContext } from "src/App.js"
 import Dialog from "../Dialog/Dialog.js"
-import Strings from "src/config/strings.json"
+import Strings from "src/config/strings.js"
 import Colors from "src/config/colors.json"
 import "./Tool.scss"
 

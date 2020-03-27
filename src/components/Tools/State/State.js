@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
 import createTool from "../createTool.js"
-import Strings from "src/config/strings.json"
+import Strings from "src/config/strings.js"
 import "./State.scss"
 
 class State extends Component {

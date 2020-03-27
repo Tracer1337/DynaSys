@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
 import createConnector from "../Connector/createConnector.js"
-import Strings from "src/config/strings.json"
+import Strings from "src/config/strings.js"
 import "./RateOfChange.scss"
 
 class RateOfChange extends Component {
