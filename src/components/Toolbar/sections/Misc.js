@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react"
 
 import createSection from "./createSection.js"
 import image from "src/assets/images/view-on-github.png"
-import { languages } from "src/config/strings.js"
+import { languages, defaultLang } from "src/config/strings.js"
 import getSearchParam from "src/utils/getSearchParam.js"
 
 const Misc = () => {
-    const [langCode, setLangCode] = useState(getSearchParam("lang"))
+    const [langCode, setLangCode] = useState(getSearchParam("lang") || defaultLang)
     const [showReloadAdvice, setShowReloadAdvice] = useState(false)
 
     const handleApplyLanguage = () => {
@@ -14,10 +14,10 @@ const Misc = () => {
     }
 
     useEffect(() => {
-        if(langCode !== getSearchParam("lang")) {
-            setShowReloadAdvice(true)
-        } else {
+        if(langCode === getSearchParam("lang") || (!getSearchParam("lang") && langCode === defaultLang)) {
             setShowReloadAdvice(false)
+        } else {
+            setShowReloadAdvice(true)
         }
     }, [langCode])
 
@@ -30,8 +30,8 @@ const Misc = () => {
             </div>
 
             <select value={langCode} onChange={event => setLangCode(event.target.value)}>
-                {Object.entries(languages).map(([code, {Name}]) => (
-                    <option value={code}>{Name}</option>
+                {Object.entries(languages).map(([code, {Name}], i) => (
+                    <option value={code} key={i}>{Name}</option>
                 ))}
             </select>
 

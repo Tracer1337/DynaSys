@@ -1,11 +1,13 @@
-import React, { useState } from "react"
+import React, { useState, useContext, useEffect } from "react"
 
+import { AppContext } from "src/App.js"
 import tools from "../../Tools/Tools.js"
 import createSection from "./createSection.js"
 import Strings from "src/config/strings.js"
 
-const Tools = ({onActiveToolChange, setClearToolSelection}) => {
+const Tools = () => {
     const [selected, setSelected] = useState(null)
+    const { onActiveToolChange, activeTool } = useContext(AppContext)
 
     const handleClick = type => {
         const newSelected = selected === type ? null : type
@@ -14,7 +16,11 @@ const Tools = ({onActiveToolChange, setClearToolSelection}) => {
         onActiveToolChange(newSelected)
     }
 
-    setClearToolSelection(() => setSelected(null))
+    useEffect(() => {
+        if(activeTool !== selected) {
+            setSelected(activeTool)
+        }
+    }, [activeTool])
 
     return Object.entries(tools).map(([type, tool]) => !tool.config.hideInToolbar && (
 

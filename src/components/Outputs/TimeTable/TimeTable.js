@@ -30,7 +30,7 @@ class TimeTable extends Component {
                             <th>{Strings.Outputs.TimeTable.Time}</th>
                             {
                                 Object.keys(data).map(id => 
-                                    <th key={id}>{this.props.getObjectById(id).name}</th>
+                                    <th key={id}>{this.props.model.getObjectById(id).name}</th>
                                 )
                             }
                         </tr>

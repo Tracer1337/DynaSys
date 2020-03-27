@@ -15,5 +15,6 @@ if(!strings) {
 export default strings
 
 export {
-    languages
+    languages,
+    defaultLang
 }

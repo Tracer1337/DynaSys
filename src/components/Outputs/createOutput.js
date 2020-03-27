@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
 
+import { AppContext } from "src/App.js"
 import Dialog from "../Dialog/Dialog.js"
 import Strings from "src/config/strings.js"
 import "./Output.scss"
@@ -15,38 +16,8 @@ function createOutput(Child, config) {
             selectedObjects: []
         }
 
-        handleSubmit() {
-            // Display warning if no objects are selected
-            if(this.state.selectedObjects.length === 0) {
-                this.setState({ renderSelectedObjectsWarning: true })
-            } else {
-                this.setState({ renderDialog: false })
-            }
-        }
-
-        render() {
-            // Display a warning if there are no objects or if some objects have no value
-            let error = false
-            if(this.props.model.getObjects().length === 0) {
-                this.props.onWarning(Strings.Dialogs.Warnings.NoObjects)
-                error = true
-            } else if(this.props.model.getObjects().some(object => object.hasOutput ? !object.value : false)) {
-                const missingObjects = this.props.model.getObjects()
-                                        .filter(object => object.hasOutput ? !object.value : false)
-                                        .map(object => object.name)
-                                        .join(", ")
-                                        
-                const message = Strings.Dialogs.Warnings.MissingValues.replace("{}", missingObjects)
-                this.props.onWarning(message)
-                error = true
-            }
-
-            if(error) {
-                this.props.onClose()
-                return <></>
-            }
-
-            const dialogFields = [
+        dialogFields() {
+            return [
                 {
                     type: "title",
                     value: Output.config.label
@@ -54,11 +25,11 @@ function createOutput(Child, config) {
                 {
                     type: "list",
                     label: Strings.Dialogs.Outputs.Available,
-                    items: this.props.model.getObjects().map(object => {
+                    items: this.context.model.getObjects().map(object => {
                         if (this.state.selectedObjects.includes(object) || !object.hasOutput) {
                             return false
                         }
-                        
+
                         return {
                             type: "button",
                             label: object.name,
@@ -96,30 +67,76 @@ function createOutput(Child, config) {
                 {
                     type: "button",
                     label: Strings.Dialogs.Close,
-                    onClick: this.props.onClose
+                    onClick: this.context.onOutputClose
                 }
             ].filter(e => e)
+        }
 
-            if(this.state.renderDialog) {
-                return (
-                    <Dialog
-                        fields={dialogFields}
-                        onSubmit={this.handleSubmit.bind(this)}
-                    />
-                )
+        handleSubmit() {
+            // Display warning if no objects are selected
+            if(this.state.selectedObjects.length === 0) {
+                this.setState({ renderSelectedObjectsWarning: true })
+            } else {
+                this.setState({ renderDialog: false })
             }
+        }
 
-            return ReactDOM.createPortal(
-                <div className="output">
-                    <div className="content">
-                        <Child
-                            selectedObjects={this.state.selectedObjects}
-                            {...this.props}
-                        />
-                        <button onClick={this.props.onClose}>{Strings.Outputs.Close}</button>
-                    </div>
-                </div>
-            , document.getElementById("root"))
+        render() {
+            return (
+                <AppContext.Consumer>
+                    {context => {
+                        this.context = context
+
+                        // Display a warning if there are no objects or if some objects have no value
+                        let error = false
+
+                        if (this.context.model.getObjects().length === 0) {
+                            Dialog.warn(Strings.Dialogs.Warnings.NoObjects)
+                            error = true
+
+                        } else if (this.context.model.getObjects().some(object => object.hasOutput ? !object.value : false)) {
+                            const missingObjects = this.context.model.getObjects()
+                                .filter(object => object.hasOutput ? !object.value : false)
+                                .map(object => object.name)
+                                .join(", ")
+
+                            const message = Strings.Dialogs.Warnings.MissingValues.replace("{}", missingObjects)
+                            Dialog.warn(message)
+                            error = true
+                        }
+
+                        if (error) {
+                            this.context.onOutputClose()
+                            return <></>
+                        }
+
+                        if(this.state.renderEmpty) {
+                            return <></>
+                        }
+
+                        if (this.state.renderDialog) {
+                            return (
+                                <Dialog
+                                    fields={this.dialogFields()}
+                                    onSubmit={this.handleSubmit.bind(this)}
+                                />
+                            )
+                        }
+
+                        return ReactDOM.createPortal(
+                            <div className="output">
+                                <div className="content">
+                                    <Child
+                                        selectedObjects={this.state.selectedObjects}
+                                        model={this.context.model}
+                                    />
+                                    <button onClick={this.context.onOutputClose}>{Strings.Outputs.Close}</button>
+                                </div>
+                            </div>
+                        , document.getElementById("root"))
+                    }}
+                </AppContext.Consumer>
+            )
         }
     }
 }

@@ -18,7 +18,7 @@ class Toolbar extends Component {
                 <Presets {...this.props}/>
 
                 <Model {...this.props}/>
-                
+
                 <Misc {...this.props}/>
             </div>
         )

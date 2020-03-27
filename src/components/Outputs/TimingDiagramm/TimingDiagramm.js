@@ -14,7 +14,7 @@ class TimingDiagramm extends Component {
         const data = object.generateData()
 
         const datasets = Object.entries(data).map(([id, values], index) => {
-            const object = this.props.getObjectById(id)
+            const object = this.props.model.getObjectById(id)
 
             return {
                 label: object.name,

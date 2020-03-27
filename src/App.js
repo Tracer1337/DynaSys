@@ -22,20 +22,26 @@ class App extends Component {
     state = {
         renderOutput: null,
 
-        renderWarning: false,
-        warningText: "",
-
         contextValue: {
             model: this.model,
             activeTool: null,
+
             onObjectCreate: this.handleObjectCreate.bind(this),
             onObjectChange: this.handleObjectChange.bind(this),
             onObjectRemove: this.handleObjectRemove.bind(this),
             onShallowObjectChange: this.handleShallowObjectChange.bind(this),
+
             onSettle: this.handleSettle.bind(this),
-            onWarning: this.handleWarning.bind(this),
+
             addEventListener: this.addEventListener.bind(this),
-            removeEventListener: this.removeEventListener.bind(this)
+            removeEventListener: this.removeEventListener.bind(this),
+
+            onActiveToolChange: this.handleActiveToolChange.bind(this),
+            onOutputCreate: this.handleOutputCreate.bind(this),
+            onOutputClose: this.handleOutputClose.bind(this),
+
+            onModelLoad: this.handleModelLoad.bind(this),
+            onModelReset: this.handleModelReset.bind(this)
         }
     }
 
@@ -83,7 +89,6 @@ class App extends Component {
     }
 
     handleSettle() {
-        this.clearToolSelection()
         this.setContext({activeTool: null})
     }
 
@@ -124,7 +129,7 @@ class App extends Component {
         this.forceUpdate()
     }
 
-    handleOutputClick(event) {
+    handleOutputCreate(event) {
         this.setState({renderOutput: event.type})
     }
 
@@ -146,58 +151,17 @@ class App extends Component {
         this.forceUpdate()
     }
 
-    handleWarning(content) {
-        this.setState({
-            renderWarning: true,
-            warningText: content
-        })
-    }
-
-    handleWarningClose() {
-        this.setState({
-            renderWarning: false,
-            warningText: ""
-        })
-    }
-
     render() {
         window.model = this.model
 
         return (
             <div className="app">
                 <AppContext.Provider value={this.state.contextValue}>
-                    <Toolbar
-                        onActiveToolChange={this.handleActiveToolChange.bind(this)}
-                        onOutputClick={this.handleOutputClick.bind(this)}
-                        onModelLoad={this.handleModelLoad.bind(this)}
-                        onModelReset={this.handleModelReset.bind(this)}
-                        setClearToolSelection={fn => this.clearToolSelection = fn}
-                        model={this.model}
-                    />
+                    <Toolbar/>
 
                     <Workspace/>
 
-                    {this.state.renderOutput && (
-                        React.createElement(outputRenderers[this.state.renderOutput], {
-                            model: this.model,
-                            getObjectById: this.model.getObjectById,
-                            onWarning: this.handleWarning.bind(this),
-                            onClose: this.handleOutputClose.bind(this)
-                        })
-                    )}
-
-                    {this.state.renderWarning && (
-                        <Dialog
-                            fields={[{
-                                type: "textbox",
-                                value: this.state.warningText
-                            }, {
-                                type: "submit",
-                                value: Strings.Dialogs.Close
-                            }]}
-                            onSubmit={this.handleWarningClose.bind(this)}
-                        />
-                    )}
+                    {this.state.renderOutput && React.createElement(outputRenderers[this.state.renderOutput])}
                 </AppContext.Provider>
             </div>
         )

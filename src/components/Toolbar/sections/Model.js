@@ -1,5 +1,6 @@
-import React, { useState, useRef } from "react"
+import React, { useState, useRef, useContext } from "react"
 
+import { AppContext } from "src/App.js"
 import createSection from "./createSection.js"
 import Dialog from "../../Dialog/Dialog.js"
 import Strings from "src/config/strings.js"
@@ -9,9 +10,10 @@ import importJSON from "src/utils/importJSON.js"
 const _getModels = () => JSON.parse(localStorage.getItem("models")) || {}
 const _setModels = models => localStorage.setItem("models", JSON.stringify(models))
 
-const Model = ({model, onModelLoad, onModelReset}) => {
+const Model = () => {
     const [showSaveModal, setShowSaveModal] = useState(false)
     const [models, setModelsState] = useState(_getModels())
+    const { model, onModelLoad, onModelReset } = useContext(AppContext)
 
     const saveNameInput = useRef()
 
