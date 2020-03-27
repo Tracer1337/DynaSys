@@ -21,6 +21,7 @@ class Model {
     remove(id) {
         const hasId = object => object && object.id === id
         const hasConnection = object => object && (hasId(object.inputs[0]) || hasId(object.outputs[0]))
+        const filterArray = array => array && array.filter(object => this.getObjectById(object.id))
         
         this.model = this.model.filter(object => {
             // Remove actual object
@@ -36,17 +37,22 @@ class Model {
                 return !hasConnection(object) && !hasConnection(object.inputs[0]) && !hasConnection(object.outputs[0])
             }
 
-            object.inputs = object.inputs.filter(object => object.id !== id)
-            object.outputs = object.outputs.filter(object => object.id !== id)
-
             return true
+        })
+
+        // Remove non-existing objects from dependency arrays
+        this.model = this.model.map(object => {
+            object.inputs = filterArray(object.inputs)
+            object.outputs = filterArray(object.outputs)
+            object.deltas = filterArray(object.deltas)
+            return object
         })
 
         // Remove those effect who do not have a connection anymore
         this.model = this.model.filter(object => {
             if(object.type === "Effect") {
-                const hasInput = this.getObjectById(object.inputs?.[0]?.id)
-                const hasOutput = this.getObjectById(object.outputs?.[0]?.id)
+                const hasInput = object.inputs[0]
+                const hasOutput = object.outputs[0]
                 return hasInput && hasOutput
             }
 
