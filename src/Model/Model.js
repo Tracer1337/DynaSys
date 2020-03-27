@@ -1,8 +1,16 @@
 import objects from "./Objects/Objects.js"
 
 class Model {
-    constructor() {
+    static loadJSON(json) {
+        const object = JSON.parse(json)
+        const newModel = new Model(object.name)
+        newModel.parseObjectsToInternals(object.model)
+        return newModel
+    }
+
+    constructor(name) {
         this.model = []
+        this.name = name
     }
 
     add(object) {
@@ -70,11 +78,15 @@ class Model {
     }
 
     toJSON() {
-        return JSON.stringify(this.model)
+        const object = {
+            name: this.name,
+            model: this.model
+        }
+        return JSON.stringify(object)
     }
 
-    loadJSON(string) {
-        this.model = JSON.parse(string)
+    parseObjectsToInternals(model) {
+        this.model = model
 
         const resolveArray = array => array.map(object => this.getObjectById(object.id))
 

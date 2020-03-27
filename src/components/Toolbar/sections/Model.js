@@ -31,6 +31,7 @@ const Model = ({model, onModelLoad, onModelReset}) => {
     // Add the model under the name given by data to the models in localStorage
     const handleSaveSubmit = async data => {
         const name = data.name || Strings.Model.UnnamedModel
+        model.name = name
 
         // Ask if the user really wants to override the model if it already exists
         if(models[name]) {
@@ -80,6 +81,10 @@ const Model = ({model, onModelLoad, onModelReset}) => {
 
     return (
         <div>
+            <div>
+                <p>{model.name}</p>
+            </div>
+
             <button onClick={handleSaveClick} className="item">{Strings.Model.Save}</button>
 
             <button onClick={handleExportClick} className="item">{Strings.Model.Export}</button>
@@ -109,6 +114,7 @@ const Model = ({model, onModelLoad, onModelReset}) => {
                             type: "string",
                             label: Strings.Model.SaveModal.Name,
                             name: "name",
+                            defaultValue: model.name,
                             ref: saveNameInput
                         },
                         {
@@ -138,6 +144,5 @@ const Model = ({model, onModelLoad, onModelReset}) => {
 }
 
 export default createSection(Model, {
-    title: Strings.Toolbar.Model,
     className: "model"
 })

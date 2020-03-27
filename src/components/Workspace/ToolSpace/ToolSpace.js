@@ -127,7 +127,7 @@ class ToolSpace extends Component {
     handleMouseDown() {
         this.isMouseDown = true
 
-        if(this.mouseOver.id) {
+        if(!Number.isNaN(this.mouseOver.id)) {
             this.setState({ selectedObjectId: this.mouseOver.id })
         }
     }
@@ -153,11 +153,11 @@ class ToolSpace extends Component {
             const newX = this.currentX = constrain(mouseX - objectDomElement.offsetWidth / 2, 0, containerRect.width - objectDomElement.offsetWidth)
             const newY = this.currentY = constrain(mouseY - objectDomElement.offsetHeight / 2, 0, containerRect.height - objectDomElement.offsetHeight)
 
-            objectDomElement.style.transform = `translate(${newX}px, ${newY}px)`
-
-            if(isMovingWhenSettled) {
+            if (isMovingWhenSettled) {
                 this.preventDialog = true
-                this.context.onShallowObjectChange({id: this.mouseOver.id, newValues: {x: newX, y: newY}})
+                this.context.onShallowObjectChange({ id: this.mouseOver.id, newValues: { x: newX, y: newY } })
+            } else {
+                objectDomElement.style.transform = `translate(${newX}px, ${newY}px)`
             }
         } else {
             if(this.state.isMoving) {
@@ -208,7 +208,7 @@ class ToolSpace extends Component {
         
         // Add new Objects
         const newObjects = this.context.model.getObjects().filter(object => !this.renderedIds.includes(object.id))
-
+        
         const newTools = this.filterNewTools(newObjects)
 
         // Remove removed objects

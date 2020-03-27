@@ -51,7 +51,7 @@ class Dialog extends Component {
                             label: Strings.Dialogs.Verifications.Decline,
                             onClick: () => eventEmitter.dispatchEvent(new CustomEvent("answer", {detail: {value: false}}))
                         }
-                    ].filter(e => e)}
+                    ]}
                 />
             , container)
         })
@@ -64,7 +64,7 @@ class Dialog extends Component {
             fieldState: {}
         }
 
-        for(let field of this.props.fields) {
+        for(let field of this.props.fields.filter(e => e)) {
             if(field.name) {
                 this.state.fieldState[field.name] = field.defaultValue === undefined ? null : field.defaultValue
             }
@@ -153,7 +153,7 @@ class Dialog extends Component {
                     className="inner-dialog"
                     onKeyDown={this.handleKeyPress.bind(this)}
                 >
-                    {this.props.fields.map((f, i) => this.getField(f, i))}
+                    {this.props.fields.filter(e => e).map((f, i) => this.getField(f, i))}
                 </div>
             </div>
         , document.getElementById("root"))

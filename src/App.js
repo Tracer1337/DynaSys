@@ -15,7 +15,7 @@ import "./App.scss"
 const AppContext = React.createContext({})
 
 class App extends Component {
-    model = new Model()
+    model = new Model(Strings.Model.UnnamedModel)
 
     listeners = {}
 
@@ -68,6 +68,16 @@ class App extends Component {
         this.setState({contextValue: {...this.state.contextValue, ...values}})
     }
     
+    setModel(newModel) {
+        this.model = newModel
+        this.setState({
+            contextValue: {
+                ...this.state.contextValue,
+                model: this.model
+            }
+        })
+    }
+
     handleActiveToolChange(type) {
         this.setContext({activeTool: type})
     }
@@ -123,16 +133,16 @@ class App extends Component {
     }
 
     handleModelLoad(json) {
-        this.handleModelReset()
+        this.model.reset()
+        this.forceUpdate()
         
         waitFrames(() => {
-            this.model.loadJSON(json)
-            this.forceUpdate()
+            this.setModel(Model.loadJSON(json))
         }, 2)
     }
 
     handleModelReset() {
-        this.model.reset()
+        this.setModel(new Model(Strings.Model.UnnamedModel))
         this.forceUpdate()
     }
 
@@ -150,11 +160,9 @@ class App extends Component {
         })
     }
 
-    componentDidMount() {
-        window.model = this.model
-    }
-
     render() {
+        window.model = this.model
+
         return (
             <div className="app">
                 <AppContext.Provider value={this.state.contextValue}>
