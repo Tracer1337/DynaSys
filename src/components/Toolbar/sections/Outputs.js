@@ -22,6 +22,6 @@ const Outputs = () => {
 }
 
 export default createSection(Outputs, {
-    title: Strings.Toolbar.Outputs,
+    title: Strings["Toolbar.Outputs"],
     className: "outputs"
 })

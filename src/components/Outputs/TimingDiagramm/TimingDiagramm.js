@@ -43,13 +43,13 @@ class TimingDiagramm extends Component {
                     options={{
                         title: {
                             display: true,
-                            text: Strings.Outputs.TimingDiagramm.Label
+                            text: Strings["Outputs.TimingDiagramm.Label"]
                         },
                         scales: {
                             xAxes: [{
                                 scaleLabel: {
                                     display: true,
-                                    labelString: Strings.Outputs.TimingDiagramm.XAxesLabel
+                                    labelString: Strings["Outputs.TimingDiagramm.XAxesLabel"]
                                 }
                             }]
                         },
@@ -67,5 +67,5 @@ class TimingDiagramm extends Component {
 
 export default createOutput(TimingDiagramm, {
     type: "TimingDiagramm",
-    label: Strings.Outputs.TimingDiagramm.Label
+    label: Strings["Outputs.TimingDiagram.Label"]
 })

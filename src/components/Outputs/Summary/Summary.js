@@ -25,5 +25,5 @@ class Summary extends Component {
 
 export default createOutput(Summary, {
     type: "Summary",
-    label: Strings.Outputs.Summary.Label
+    label: Strings["Outputs.Summary.Label"]
 })

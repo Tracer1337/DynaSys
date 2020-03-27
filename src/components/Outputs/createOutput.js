@@ -24,7 +24,7 @@ function createOutput(Child, config) {
                 },
                 {
                     type: "list",
-                    label: Strings.Dialogs.Outputs.Available,
+                    label: Strings["Dialogs.Outputs.Available"],
                     items: this.context.model.getObjects().map(object => {
                         if (this.state.selectedObjects.includes(object) || !object.hasOutput) {
                             return false
@@ -40,7 +40,7 @@ function createOutput(Child, config) {
                 },
                 {
                     type: "list",
-                    label: Strings.Dialogs.Outputs.Selected,
+                    label: Strings["Dialogs.Outputs.Selected"],
                     items: this.state.selectedObjects.map(object => ({
                         type: "button",
                         label: object.name,
@@ -50,7 +50,7 @@ function createOutput(Child, config) {
                 },
                 this.state.renderSelectedObjectsWarning && {
                     type: "textbox",
-                    value: Strings.Dialogs.Warnings.SelectObjects
+                    value: Strings["Dialogs.Warnings.SelectObjects"]
                 },
                 {
                     type: "setting",
@@ -62,11 +62,11 @@ function createOutput(Child, config) {
                 },
                 {
                     type: "submit",
-                    value: Strings.Dialogs.Outputs.Submit
+                    value: Strings["Dialogs.Outputs.Submit"]
                 },
                 {
                     type: "button",
-                    label: Strings.Dialogs.Close,
+                    label: Strings["Dialogs.Close"],
                     onClick: this.context.onOutputClose
                 }
             ].filter(e => e)
@@ -91,7 +91,7 @@ function createOutput(Child, config) {
                         let error = false
 
                         if (this.context.model.getObjects().length === 0) {
-                            Dialog.warn(Strings.Dialogs.Warnings.NoObjects)
+                            Dialog.warn(Strings["Dialogs.Warnings.NoObjects"])
                             error = true
 
                         } else if (this.context.model.getObjects().some(object => object.hasOutput ? !object.value : false)) {
@@ -100,7 +100,7 @@ function createOutput(Child, config) {
                                 .map(object => object.name)
                                 .join(", ")
 
-                            const message = Strings.Dialogs.Warnings.MissingValues.replace("{}", missingObjects)
+                            const message = Strings["Dialogs.Warnings.MissingValues"].replace("{}", missingObjects)
                             Dialog.warn(message)
                             error = true
                         }
@@ -130,7 +130,7 @@ function createOutput(Child, config) {
                                         selectedObjects={this.state.selectedObjects}
                                         model={this.context.model}
                                     />
-                                    <button onClick={this.context.onOutputClose}>{Strings.Outputs.Close}</button>
+                                    <button onClick={this.context.onOutputClose}>{Strings["Outputs.Close"]}</button>
                                 </div>
                             </div>
                         , document.getElementById("root"))

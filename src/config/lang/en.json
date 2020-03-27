@@ -1,97 +1,71 @@
 {
     "Name": "English",
 
-    "Toolbar": {
-        "Tools": "Tools",
-        "Outputs": "Outputs",
-        "Presets": "Preset",
-        "Model": "Model"
-    },
-    "Tools": {
-        "State": {
-            "Label": "State"
-        },
-        "RateOfChange": {
-            "Label": "Rate Of Change",
-            "Sink": {
-                "Label": "Sink"
-            },
-            "Source": {
-                "Label": "Source"
-            }
-        },
-        "Effect": {
-            "Label": "Effect"
-        },
-        "Parameter": {
-            "Label": "Parameter"
-        }
-    },
-    "Outputs": {
-        "TimingDiagramm": {
-            "Label": "Timing Diagramm",
-            "XAxesLabel": "Time-Steps"
-        },
-        "TimeTable": {
-            "Label": "Time Table",
-            "Time": "Time"
-        },
-        "Summary": {
-            "Label": "Summary",
-            "Old": "Old",
-            "New": "New"
-        },
-        "Close": "Close"
-    },
-    "Dialogs": {
-        "Tools": {
-            "Name": "Name",
-            "Color": "Color",
-            "Value": "Value",
-            "Inputs": "Inputs",
-            "Submit": "Save",
-            "Close": "Close",
-            "Remove": "Remove",
-            "Time": "Time (t)",
-            "Functions": "Functions"
-        },
-        "Outputs": {
-            "Available": "Available",
-            "Selected": "Selected",
-            "Submit": "Create"
-        },
-        "Warnings": {
-            "NoObjects": "No objects available",
-            "MissingValues": "Add a value to the objects {}",
-            "SelectObjects": "Select one or more objects"
-        },
-        "Close": "Close"
-    },
-    "Settings": {
-        "timesteps": "Amount of timesteps",
-        "interval": "Interval (dt)"
-    },
-    "Model": {
-        "Save": "Save",
-        "Export": "Export",
-        "Import": "Import",
-        "New": "New",
-        "UnnamedModel": "Unnamed Model",
-        "SaveModal": {
-            "Title": "Save Model",
-            "Name": "Name",
-            "Saved": "Existing Models",
-            "Submit": "Save",
-            "Close": "Close"
-        },
-        "OverrideModal": {
-            "Title": "Warning",
-            "Content": "The Model '{}' will be overriden!",
-            "Accept": "Accept",
-            "Decline": "Decline"
-        }
-    },
-    "Misc": {
-        "ApplyLanguage": "Apply Language"
-    }
+    "Toolbar.Tools": "Tools",
+    "Toolbar.Outputs": "Outputs",
+    "Toolbar.Preset": "Presets",
+
+    "Tools.State.Label": "State",
+    "Tools.RateOfChange.Label": "Rate Of Change",
+    "Tools.Sink.Label": "Sink",
+    "Tools.Source.Label": "Source",
+    "Tools.Effect.Label": "Effect",
+    "Tools.Parameter.Label": "Parameter",
+
+    "Outputs.TimingDiagram.Label": "Timing Diagramm",
+    "Outputs.TimingDiagram.XAxesLabel": "Timesteps",
+    
+    "Outputs.TimeTable.Label": "Time Table",
+    "Outputs.TimeTable.Time": "Time",
+
+    "Outputs.Summary.Label": "Summary",
+    "Outputs.Summary.Old": "Old",
+    "Outputs.Summary.New": "New",
+    
+    "Outputs.Close": "Close",
+
+    "Dialogs.Tools.Name": "Name",
+    "Dialogs.Tools.Color": "Color",
+    "Dialogs.Tools.Value": "Value",
+    "Dialogs.Tools.Inputs": "Inputs",
+    "Dialogs.Tools.Submit": "Save",
+    "Dialogs.Tools.Close": "Close",
+    "Dialogs.Tools.Remove": "Remove",
+    "Dialogs.Tools.Time": "Time (t)",
+    "Dialogs.Tools.Functions": "Functions",
+    
+    "Dialogs.Outputs.Available": "Available",
+    "Dialogs.Outputs.Selected": "Selected",
+    "Dialogs.Outputs.Submit": "Create",
+
+    "Dialogs.Warnings.Title": "Warning",
+    "Dialogs.Warnings.NoObjects": "No Objects available",
+    "Dialogs.Warnings.MissingValues": "Add values to the objects {}",
+    "Dialogs.Warnings.SelectObjects": "Select one or more objects",
+    
+    "Dialogs.Verifications.Title": "Warning",
+    "Dialogs.Verifications.Accept": "Accept",
+    "Dialogs.Verifications.Decline": "Decline",
+    "Dialogs.Verifications.Remove.Content": "The object '{}' will be removed",
+    "Dialogs.Verifications.Remove.SubContent": "This dialog may be skipped by pressing shift + del",
+    "Dialogs.Verifications.Override.Content": "The model '{}' will be overriden",
+
+    "Dialogs.Close": "Close",
+    
+    "Settings.timesteps": "Amount of timesteps",
+    "Settings.interval": "Interval (dt)",
+    
+    "Model.Save": "Save",
+    "Model.Export": "Export",
+    "Model.Import": "Import",
+    "Model.New": "New",
+    "Model.UnnamedModel": "Unnamed Model",
+    
+    "Model.SaveModal.Title": "Save Model",
+    "Model.SaveModal.Name": "Name",
+    "Model.SaveModal.Saved": "Existing Models",
+    "Model.SaveModal.Submit": "Save",
+    "Model.SaveModal.Close": "Close",
+
+    "Misc.ApplyLanguage": "Apply Language"
 }

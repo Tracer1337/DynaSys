@@ -16,7 +16,7 @@ class Sink extends Component {
 
 export default createTool(Sink, {
     type: "Sink",
-    label: Strings.Tools.RateOfChange.Sink.Label,
+    label: Strings["Tools.RateOfChange.Sink.Label"],
     hideInToolbar: true,
     dialogAvailable: false,
     isMovable: true

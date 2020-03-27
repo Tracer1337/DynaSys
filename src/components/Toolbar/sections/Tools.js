@@ -36,6 +36,6 @@ const Tools = () => {
 }
 
 export default createSection(Tools, {
-    title: Strings.Toolbar.Tools,
+    title: Strings["Toolbar.Tools"],
     className: "tools"
 })

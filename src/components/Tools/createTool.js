@@ -109,13 +109,13 @@ function createTool(Child, config) {
                     },
                     {
                         name: "name",
-                        label: Strings.Dialogs.Tools.Name,
+                        label: Strings["Dialogs.Tools.Name"],
                         type: "string",
                         defaultValue: object.name
                     },
                     {
                         name: "color",
-                        label: Strings.Dialogs.Tools.Color,
+                        label: Strings["Dialogs.Tools.Color"],
                         type: "select",
                         options: Colors.map(color => ({
                             value: color,
@@ -125,17 +125,17 @@ function createTool(Child, config) {
                     },
                     {
                         name: "value",
-                        label: Strings.Dialogs.Tools.Value,
+                        label: Strings["Dialogs.Tools.Value"],
                         type: "string",
                         defaultValue: object.value || "",
                         ref: ref => this.valueInput = ref
                     },
                     object.hasInput !== false && {
-                        label: Strings.Dialogs.Tools.Inputs,
+                        label: Strings["Dialogs.Tools.Inputs"],
                         type: "list",
                         items: Array.isArray(object.inputs) ? [{
                             type: "button",
-                            label: Strings.Dialogs.Tools.Time,
+                            label: Strings["Dialogs.Tools.Time"],
                             onClick: () => this.handleInputClick({name: "t"})
                         }].concat(object.inputs.map(object => object.hasOutput && ({
                             type: "button",
@@ -145,21 +145,21 @@ function createTool(Child, config) {
                     },
                     {
                         type: "functions",
-                        label: Strings.Dialogs.Tools.Functions,
+                        label: Strings["Dialogs.Tools.Functions"],
                         onClick: this.handleFunctionClick.bind(this)
                     },
                     {
                         type: "submit",
-                        value: Strings.Dialogs.Tools.Submit
+                        value: Strings["Dialogs.Tools.Submit"]
                     },
                     {
                         type: "button",
-                        label: Strings.Dialogs.Tools.Close,
+                        label: Strings["Dialogs.Tools.Close"],
                         onClick: () => this.setState({renderDialog: false})
                     },
                     {
                         type: "button",
-                        label: Strings.Dialogs.Tools.Remove,
+                        label: Strings["Dialogs.Tools.Remove"],
                         onClick: this.handleRemove.bind(this)
                     }
                 ].filter(e => e)

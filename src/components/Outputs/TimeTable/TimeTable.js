@@ -27,7 +27,7 @@ class TimeTable extends Component {
 
                     <thead>
                         <tr>
-                            <th>{Strings.Outputs.TimeTable.Time}</th>
+                            <th>{Strings["Outputs.TimeTable.Time"]}</th>
                             {
                                 Object.keys(data).map(id => 
                                     <th key={id}>{this.props.model.getObjectById(id).name}</th>
@@ -58,5 +58,5 @@ class TimeTable extends Component {
 
 export default createOutput(TimeTable, {
     type: "TimeTable",
-    label: Strings.Outputs.TimeTable.Label
+    label: Strings["Outputs.TimeTable.Label"]
 })

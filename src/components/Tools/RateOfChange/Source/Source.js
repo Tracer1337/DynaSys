@@ -15,7 +15,7 @@ class Source extends Component {
 }
 export default createTool(Source, {
     type: "Source",
-    label: Strings.Tools.RateOfChange.Source.Label,
+    label: Strings["Tools.RateOfChange.Source.Label"],
     hideInToolbar: true,
     dialogAvailable: false,
     isMovable: true

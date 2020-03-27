@@ -36,7 +36,7 @@ const Misc = () => {
             </select>
 
             {showReloadAdvice && (
-                <button onClick={handleApplyLanguage}>{languages[langCode].Misc.ApplyLanguage}</button>
+                <button onClick={handleApplyLanguage}>{languages[langCode]["Misc.ApplyLanguage"]}</button>
             )}
         </>
     )

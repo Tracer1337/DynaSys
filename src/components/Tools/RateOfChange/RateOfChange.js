@@ -57,7 +57,7 @@ class RateOfChange extends Component {
 
 export default createConnector(RateOfChange, {
     type: "RateOfChange",
-    label: Strings.Tools.RateOfChange.Label,
+    label: Strings["Tools.RateOfChange.Label"],
     dialogAvailable: true,
     isMovable: false
 })

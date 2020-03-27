@@ -11,13 +11,13 @@ export default (content) => {
         <Dialog
             fields={[{
                 type: "title",
-                value: Strings.Dialogs.Warnings.Title
+                value: Strings["Dialogs.Warnings.Title"]
             }, {
                 type: "textbox",
                 value: content
             }, {
                 type: "submit",
-                value: Strings.Dialogs.Close
+                value: Strings["Dialogs.Close"]
             }]}
             onSubmit={() => ReactDOM.unmountComponentAtNode(container)}
         />

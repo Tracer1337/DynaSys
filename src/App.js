@@ -15,7 +15,7 @@ import "./App.scss"
 const AppContext = React.createContext({})
 
 class App extends Component {
-    model = new Model(Strings.Model.UnnamedModel)
+    model = new Model(Strings["Model.UnnamedModel"])
 
     listeners = {}
 
@@ -116,8 +116,8 @@ class App extends Component {
         if (!skipVerification) {
             const objectName = this.model.getObjectById(id).name
             const shouldRemove = await Dialog.verify({
-                content: Strings.Dialogs.Verifications.Remove.Content.replace("{}", objectName),
-                subContent: Strings.Dialogs.Verifications.Remove.SubContent
+                content: Strings["Dialogs.Verifications.Remove.Content"].replace("{}", objectName),
+                subContent: Strings["Dialogs.Verifications.Remove.SubContent"]
             })
 
             if(!shouldRemove) {
@@ -147,7 +147,7 @@ class App extends Component {
     }
 
     handleModelReset() {
-        this.setModel(new Model(Strings.Model.UnnamedModel))
+        this.setModel(new Model(Strings["Model.UnnamedModel"]))
         this.forceUpdate()
     }
 

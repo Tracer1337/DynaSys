@@ -1,123 +1,71 @@
 {
     "Name": "Deutsch",
 
-    "Toolbar": {
-        "Tools": "Werkzeuge",
-        "Outputs": "Ausgaben",
-        "Presets": "Vorlagen"
-    },
+    "Toolbar.Tools": "Werkzeuge",
+    "Toolbar.Outputs": "Ausgaben",
+    "Toolbar.Preset": "Vorlagen",
 
-    "Tools": {
-        "State": {
-            "Label": "Zustand"
-        },
+    "Tools.State.Label": "Zustand",
+    "Tools.RateOfChange.Label": "Zustandsänderung",
+    "Tools.Sink.Label": "Senke",
+    "Tools.Source.Label": "Quelle",
+    "Tools.Effect.Label": "Effekt",
+    "Tools.Parameter.Label": "Parameter",
 
-        "RateOfChange": {
-            "Label": "Zustandsänderung",
-            "Sink": {
-                "Label": "Senke"
-            },
-            "Source": {
-                "Label": "Quelle"
-            }
-        },
-        
-        "Effect": {
-            "Label": "Effekt"
-        },
+    "Outputs.TimingDiagram.Label": "Zeitdiagramm",
+    "Outputs.TimingDiagram.XAxesLabel": "Zeiteinheiten",
+    
+    "Outputs.TimeTable.Label": "Zeit-Tabelle",
+    "Outputs.TimeTable.Time": "Zeit",
 
-        "Parameter": {
-            "Label": "Parameter"
-        }
-    },
+    "Outputs.Summary.Label": "Zusammenfassung",
+    "Outputs.Summary.Old": "Alt",
+    "Outputs.Summary.New": "Neu",
+    
+    "Outputs.Close": "Schliessen",
 
-    "Outputs": {
-        "TimingDiagramm": {
-            "Label": "Zeitdiagramm",
-            "XAxesLabel": "Zeiteinheiten"
-        },
+    "Dialogs.Tools.Name": "Name",
+    "Dialogs.Tools.Color": "Farbe",
+    "Dialogs.Tools.Value": "Wert",
+    "Dialogs.Tools.Inputs": "Eingänge",
+    "Dialogs.Tools.Submit": "Speichern",
+    "Dialogs.Tools.Close": "Schliessen",
+    "Dialogs.Tools.Remove": "Entfernen",
+    "Dialogs.Tools.Time": "Zeit (t)",
+    "Dialogs.Tools.Functions": "Funktionen",
+    
+    "Dialogs.Outputs.Available": "Verfügbar",
+    "Dialogs.Outputs.Selected": "Ausgewählt",
+    "Dialogs.Outputs.Submit": "Erstellen",
 
-        "TimeTable": {
-            "Label": "Zeit-Tabelle",
-            "Time": "Zeit"
-        },
+    "Dialogs.Warnings.Title": "Warnung",
+    "Dialogs.Warnings.NoObjects": "Keine Objekte vorhanden",
+    "Dialogs.Warnings.MissingValues": "Füge den Objekten {} einen Wert hinzu",
+    "Dialogs.Warnings.SelectObjects": "Wähle ein oder mehrere Objekte aus",
+    
+    "Dialogs.Verifications.Title": "Warnung",
+    "Dialogs.Verifications.Accept": "Akzeptieren",
+    "Dialogs.Verifications.Decline": "Ablehnen",
+    "Dialogs.Verifications.Remove.Content": "Das Objekt '{}' wird entfernt",
+    "Dialogs.Verifications.Remove.SubContent": "Mit shift + del kann dieser Dialog übersprungen werden",
+    "Dialogs.Verifications.Override.Content": "Das Modell '{}' wird überschrieben",
 
-        "Summary": {
-            "Label": "Zusammenfassung",
-            "Old": "Alt",
-            "New": "Neu"
-        },
+    "Dialogs.Close": "Schliessen",
+    
+    "Settings.timesteps": "Anzahl an Zeitschritten",
+    "Settings.interval": "Intervall (dt)",
+    
+    "Model.Save": "Speichern",
+    "Model.Export": "Exportieren",
+    "Model.Import": "Importieren",
+    "Model.New": "Neu",
+    "Model.UnnamedModel": "Unbenanntes Modell",
+    
+    "Model.SaveModal.Title": "Modell Speichern",
+    "Model.SaveModal.Name": "Name",
+    "Model.SaveModal.Saved": "Vorhandene Modelle",
+    "Model.SaveModal.Submit": "Speichern",
+    "Model.SaveModal.Close": "Schliessen",
 
-        "Close": "Schliessen"
-    },
-
-    "Dialogs": {
-        "Tools": {
-            "Name": "Name",
-            "Color": "Farbe",
-            "Value": "Wert",
-            "Inputs": "Eingänge",
-            "Submit": "Speichern",
-            "Close": "Schliessen",
-            "Remove": "Entfernen",
-            "Time": "Zeit (t)",
-            "Functions": "Funktionen"
-        },
-
-        "Outputs": {
-            "Available": "Verfügbar",
-            "Selected": "Ausgewählt",
-            "Submit": "Erstellen"
-        },
-
-        "Warnings": {
-            "Title": "Warnung",
-            
-            "NoObjects": "Keine Objekte vorhanden",
-            "MissingValues": "Füge den Objekten {} einen Wert hinzu",
-            "SelectObjects": "Wähle ein oder mehrere Objekte aus"
-        },
-
-        "Verifications": {
-            "Title": "Warnung",
-            "Accept": "Akzeptieren",
-            "Decline": "Ablehnen",
-            
-            "Remove": {
-                "Content": "Das Objekt '{}' wird entfernt",
-                "SubContent": "Mit shift + del kann dieser Dialog übersprungen werden"
-            },
-
-            "Override": {
-                "Content": "Das Modell '{}' wird überschrieben"
-            }
-        },
-
-        "Close": "Schliessen"
-    },
-
-    "Settings": {
-        "timesteps": "Anzahl an Zeitschritten",
-        "interval": "Intervall (dt)"
-    },
-
-    "Model": {
-        "Save": "Speichern",
-        "Export": "Exportieren",
-        "Import": "Importieren",
-        "New": "Neu",
-        "UnnamedModel": "Unbenanntes Modell",
-
-        "SaveModal": {
-            "Title": "Modell Speichern",
-            "Name": "Name",
-            "Saved": "Vorhandene Modelle",
-            "Submit": "Speichern",
-            "Close": "Schliessen"
-        }
-    },
-
-    "Misc": {
-        "ApplyLanguage": "Sprache Anwenden"
-    }
+    "Misc.ApplyLanguage": "Sprache Anwenden"
 }

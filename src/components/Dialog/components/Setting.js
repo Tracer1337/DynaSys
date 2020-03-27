@@ -30,7 +30,7 @@ const Setting = (props) => {
 
     return (
         <div className="setting">
-            <label>{Strings.Settings[props.name]}</label>
+            <label>{Strings["Settings."+[props.name]]}</label>
             {element}
         </div>
     )

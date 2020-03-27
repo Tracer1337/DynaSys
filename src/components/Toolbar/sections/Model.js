@@ -32,13 +32,13 @@ const Model = () => {
 
     // Add the model under the name given by data to the models in localStorage
     const handleSaveSubmit = async data => {
-        const name = data.name || Strings.Model.UnnamedModel
+        const name = data.name || Strings["Model.UnnamedModel"]
         model.name = name
 
         // Ask if the user really wants to override the model if it already exists
         if(models[name]) {
             const shouldOverride = await Dialog.verify({
-                content: Strings.Dialogs.Verifications.Override.Content.replace("{}", name)
+                content: Strings["Dialogs.Verifications.Override.Content"].replace("{}", name)
             })
 
             if(!shouldOverride) {
@@ -87,13 +87,13 @@ const Model = () => {
                 <p>{model.name}</p>
             </div>
 
-            <button onClick={handleSaveClick} className="item">{Strings.Model.Save}</button>
+            <button onClick={handleSaveClick} className="item">{Strings["Model.Save"]}</button>
 
-            <button onClick={handleExportClick} className="item">{Strings.Model.Export}</button>
+            <button onClick={handleExportClick} className="item">{Strings["Model.Export"]}</button>
 
-            <button onClick={handleImportClick} className="item">{Strings.Model.Import}</button>
+            <button onClick={handleImportClick} className="item">{Strings["Model.Import"]}</button>
 
-            <button onClick={handleNewClick} className="item">{Strings.Model.New}</button>
+            <button onClick={handleNewClick} className="item">{Strings["Model.New"]}</button>
 
             {Object.entries(models).map(([name, json], i) => (
                 <div className="item">
@@ -110,18 +110,18 @@ const Model = () => {
                     fields={[
                         {
                             type: "title",
-                            value: Strings.Model.SaveModal.Title
+                            value: Strings["Model.SaveModal.Title"]
                         },
                         {
                             type: "string",
-                            label: Strings.Model.SaveModal.Name,
+                            label: Strings["Model.SaveModal.Name"],
                             name: "name",
                             defaultValue: model.name,
                             ref: saveNameInput
                         },
                         {
                             type: "list",
-                            label: Strings.Model.SaveModal.Saved,
+                            label: Strings["Model.SaveModal.Saved"],
                             items: Object.keys(models).map(name => ({
                                 type: "button",
                                 label: name,
@@ -130,11 +130,11 @@ const Model = () => {
                         },
                         {
                             type: "submit",
-                            value: Strings.Model.SaveModal.Submit
+                            value: Strings["Model.SaveModal.Submit"]
                         },
                         {
                             type: "button",
-                            label: Strings.Model.SaveModal.Close,
+                            label: Strings["Model.SaveModal.Close"],
                             onClick: () => setShowSaveModal(false)
                         }
                     ]}

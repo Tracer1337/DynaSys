@@ -37,7 +37,7 @@ class Effect extends Component {
 
 export default createConnector(Effect, {
     type: "Effect",
-    label: Strings.Tools.Effect.Label,
+    label: Strings["Tools.Effect.Label"],
     dialogAvailable: false,
     isMovable: false
 })

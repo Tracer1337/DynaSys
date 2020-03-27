@@ -22,6 +22,6 @@ const Presets = () => {
 }
 
 export default createSection(Presets, {
-    title: Strings.Toolbar.Presets,
+    title: Strings["Toolbar.Presets"],
     className: "presets"
 })

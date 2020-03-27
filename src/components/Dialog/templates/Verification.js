@@ -19,7 +19,7 @@ export default ({content, subContent}) => {
                 fields={[
                     {
                         type: "title",
-                        value: Strings.Dialogs.Verifications.Title
+                        value: Strings["Dialogs.Verifications.Title"]
                     },
                     {
                         type: "textbox",
@@ -33,12 +33,12 @@ export default ({content, subContent}) => {
                     ),
                     {
                         type: "button",
-                        label: Strings.Dialogs.Verifications.Accept,
+                        label: Strings["Dialogs.Verifications.Accept"],
                         onClick: () => eventEmitter.dispatchEvent(new CustomEvent("answer", { detail: { value: true } }))
                     },
                     {
                         type: "button",
-                        label: Strings.Dialogs.Verifications.Decline,
+                        label: Strings["Dialogs.Verifications.Decline"],
                         onClick: () => eventEmitter.dispatchEvent(new CustomEvent("answer", { detail: { value: false } }))
                     }
                 ]}
