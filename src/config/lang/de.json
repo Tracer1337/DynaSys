@@ -77,6 +77,21 @@
             "SelectObjects": "Wähle ein oder mehrere Objekte aus"
         },
 
+        "Verifications": {
+            "Title": "Warnung",
+            "Accept": "Akzeptieren",
+            "Decline": "Ablehnen",
+            
+            "Remove": {
+                "Content": "Das Objekt '{}' wird entfernt",
+                "SubContent": "Mit shift + del kann dieser Dialog übersprungen werden"
+            },
+
+            "Override": {
+                "Content": "Das Modell '{}' wird überschrieben"
+            }
+        },
+
         "Close": "Schliessen"
     },
 
@@ -98,13 +113,6 @@
             "Saved": "Vorhandene Modelle",
             "Submit": "Speichern",
             "Close": "Schliessen"
-        },
-
-        "OverrideModal": {
-            "Title": "Warnung",
-            "Content": "Das Modell '{}' wird überschrieben!",
-            "Accept": "Akzeptieren",
-            "Decline": "Ablehnen"
         }
     },
 

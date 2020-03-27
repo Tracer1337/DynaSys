@@ -11,11 +11,20 @@ function createTool(Child, config) {
         static config = config
 
         state = {
-            renderDialog: false
+            renderDialog: false,
+            selected: false
         }
 
         userSettled = (event) => {
             this.child.userSettled(event)
+        }
+
+        select = () => {
+            this.setState({ selected: true })
+        }
+
+        unselect = () => {
+            this.setState({ selected: false })
         }
 
         requestDialog() {
@@ -163,7 +172,7 @@ function createTool(Child, config) {
 
                         return (
                             <div
-                                className={`tool ${Tool.config.className || ""}`}
+                                className={`tool ${Tool.config.className || ""} ${this.state.selected ? "selected" : ""}`}
                                 ref={ref => this.container = ref}
                                 style={{transform: `translate(${object.x}px, ${object.y}px)`}}
                                 onMouseOver={this.handleMouseOver.bind(this)}

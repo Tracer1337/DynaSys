@@ -1,5 +1,6 @@
 .tool-space {
     z-index: 1;
+    outline: none;
 
     &.moving .tool{
         cursor: grabbing;

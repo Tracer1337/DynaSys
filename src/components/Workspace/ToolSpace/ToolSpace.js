@@ -13,10 +13,12 @@ class ToolSpace extends Component {
             requestClick: this.requestClick.bind(this),
             onSettle: this.onSettle.bind(this)
         },
-        isMoving: false
+        isMoving: false,
+        selectedObjectId: null,
     }
 
     renderedIds = []
+    toolRefs = {}
 
     idCounter = 0
 
@@ -90,6 +92,7 @@ class ToolSpace extends Component {
             // Create the new object and render it into the workspace
             const newTool = React.createElement(tool, {
                 key: object.id,
+                ref: ref => this.toolRefs[object.id] = ref,
                 object,
                 onMouseOver: this.handleMouseOver.bind(this),
                 onMouseOut: this.handleMouseOut.bind(this),
@@ -111,11 +114,7 @@ class ToolSpace extends Component {
 
     handleMouseOver({target, id, isMovable}) {
         if(!this.state.isMoving && !this.isMouseDown) {
-            if (isMovable) {
-                this.mouseOver = { target, id }
-            } else {
-                this.mouseOver = {}
-            }
+            this.mouseOver = { target, id, isMovable }
         }
     }
 
@@ -127,6 +126,10 @@ class ToolSpace extends Component {
 
     handleMouseDown() {
         this.isMouseDown = true
+
+        if(this.mouseOver.id) {
+            this.setState({ selectedObjectId: this.mouseOver.id })
+        }
     }
 
     handleMouseUp() {
@@ -135,7 +138,7 @@ class ToolSpace extends Component {
 
     handleMouseMove(event) {
         const objectDomElement = this.context.activeTool ? this.currentToolDomElement : this.mouseOver.target
-        const isMovingWhenSettled = this.isMouseDown && this.mouseOver.target
+        const isMovingWhenSettled = this.isMouseDown && this.mouseOver.target && this.mouseOver.isMovable
 
         if (this.context.activeTool || isMovingWhenSettled) {
             if(!this.state.isMoving) {
@@ -169,9 +172,37 @@ class ToolSpace extends Component {
         if (this.context.activeTool) {
             this.currentToolRef.userSettled({ object: this.context.model.getObjectById(parseInt(event.target.dataset.id)) })
         }
+
+        if(event.target === this.container.current && this.selectedObjectId !== null) {
+            this.setState({ selectedObjectId: null })
+        }
     }
 
-    componentDidUpdate() {
+    handleKeyDown(event) {
+        // DEL -> Remove selected object
+        if(event.keyCode === 46) {
+            let skipVerification = false
+            if(event.shiftKey) {
+                skipVerification = true
+            }
+
+            this.context.onObjectRemove(this.state.selectedObjectId, skipVerification)
+            this.setState({ selectedObjectId: null })
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        // Deselect old selection and select the new selection
+        if(this.state.selectedObjectId !== prevState.selectedObjectId) {
+            if(this.toolRefs[prevState.selectedObjectId]) {
+                this.toolRefs[prevState.selectedObjectId].unselect()
+            }
+
+            if(this.toolRefs[this.state.selectedObjectId]) {
+                this.toolRefs[this.state.selectedObjectId].select()
+            }
+        }
+
         // Set idCounter to a higher value than the highest in objects
         this.context.model.getObjects().forEach(object => object.id >= this.idCounter ? (this.idCounter = object.id + 1) : null)
         
@@ -220,6 +251,8 @@ class ToolSpace extends Component {
                             onMouseDown={this.handleMouseDown.bind(this)}
                             onMouseUp={this.handleMouseUp.bind(this)}
                             onClick={this.handleClick.bind(this)}
+                            onKeyDown={this.handleKeyDown.bind(this)}
+                            tabIndex="0"
                         >
                             {CurrentTool && (
                                 <CurrentTool

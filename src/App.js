@@ -97,7 +97,19 @@ class App extends Component {
         this.forceUpdate()
     }
 
-    handleObjectRemove(id) {
+    async handleObjectRemove(id, skipVerification = false) {
+        if (!skipVerification) {
+            const objectName = this.model.getObjectById(id).name
+            const shouldRemove = await Dialog.verify({
+                content: Strings.Dialogs.Verifications.Remove.Content.replace("{}", objectName),
+                subContent: Strings.Dialogs.Verifications.Remove.SubContent
+            })
+
+            if(!shouldRemove) {
+                return
+            }
+        }
+
         this.model.remove(id)
         this.forceUpdate()
     }
