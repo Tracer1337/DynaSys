@@ -48,9 +48,10 @@ function createOutput(Child, config) {
                         onClick: () => this.setState({ selectedObjects: this.state.selectedObjects.filter(selected => selected.id !== object.id) })
                     }))
                 },
-                this.state.renderSelectedObjectsWarning && {
-                    type: "textbox",
-                    value: Strings["Dialogs.Warnings.SelectObjects"]
+                {
+                    type: "warning",
+                    value: Strings["Dialogs.Warnings.SelectObjects"],
+                    render: this.state.renderSelectedObjectsWarning
                 },
                 {
                     type: "submit",

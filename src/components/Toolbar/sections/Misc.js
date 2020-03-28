@@ -12,7 +12,9 @@ const Misc = () => {
     const [showReloadAdvice, setShowReloadAdvice] = useState(false)
 
     const handleApplyLanguage = () => {
-        window.location.href = `${window.location.origin}?lang=${langCode}`
+        const url = new URL(window.location.href)
+        url.searchParams.set("lang", langCode)
+        window.location.href = url.href
     }
 
     const handleOpenSettings = () => {

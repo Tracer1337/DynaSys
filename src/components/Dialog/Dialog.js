@@ -10,16 +10,17 @@ import Submit from "./components/Submit.js"
 import Setting from "./components/Setting.js"
 import Functions from "./components/Functions.js"
 import Select from "./components/Select.js"
+import Warning from "./components/Warning.js"
 
 import Verification from "./templates/Verification.js"
-import Warning from "./templates/Warning.js"
+import WarningTemplate from "./templates/Warning.js"
 import Settings from "./templates/Settings.js"
 
 import "./Dialog.scss"
 
 class Dialog extends Component {
     static verify = Verification
-    static warn = Warning
+    static warn = WarningTemplate
     static settings = Settings
 
     constructor(props) {
@@ -79,6 +80,10 @@ class Dialog extends Component {
 
             case "select":
                 element = <Select {...field} value={this.state.fieldState[field.name]} onChange={value => this.handleChange(field.name, value)}/>
+                break
+
+            case "warning":
+                element = <Warning {...field}/>
                 break
             
             default:
