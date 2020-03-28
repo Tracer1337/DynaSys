@@ -54,7 +54,8 @@ function createOutput(Child, config) {
                 },
                 {
                     type: "setting",
-                    name: "timesteps"
+                    name: "timesteps",
+                    key: -1
                 },
                 {
                     type: "setting",

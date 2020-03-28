@@ -1,6 +1,17 @@
-import Preset1 from "./Preset1.js"
-import Preset2 from "./Preset2.js"
-import Preset3 from "./Preset3.js"
-import Preset4 from "./Preset4.js"
+import Preset1 from "./Preset1.json"
+import Preset2 from "./Preset2.json"
 
-export default {Preset1, Preset2, Preset3, Preset4}
+import Strings from "src/config/strings.js"
+
+const presets = { Preset1, Preset2 }
+
+for(let name in presets) {
+    presets[name].model.forEach(object => {
+        const translation = Strings[`Presets.${name}.${object.name}`]
+        if(translation) {
+            object.name = translation
+        }
+    })
+}
+
+export default presets

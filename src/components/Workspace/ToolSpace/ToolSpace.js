@@ -240,6 +240,7 @@ class ToolSpace extends Component {
         })
 
         window.addEventListener("mousemove", this.handleMouseMove.bind(this))
+        window.addEventListener("keydown", this.handleKeyDown.bind(this))
     }
 
     render() {
@@ -257,7 +258,6 @@ class ToolSpace extends Component {
                             onMouseDown={this.handleMouseDown.bind(this)}
                             onMouseUp={this.handleMouseUp.bind(this)}
                             onClick={this.handleClick.bind(this)}
-                            onKeyDown={this.handleKeyDown.bind(this)}
                             tabIndex="0"
                         >
                             {CurrentTool && (

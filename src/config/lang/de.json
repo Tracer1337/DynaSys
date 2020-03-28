@@ -67,5 +67,20 @@
     "Model.SaveModal.Submit": "Speichern",
     "Model.SaveModal.Close": "Schliessen",
 
-    "Misc.ApplyLanguage": "Sprache Anwenden"
+    "Misc.ApplyLanguage": "Sprache Anwenden",
+
+    "Presets.Preset1.Population": "Bevölkerung",
+    "Presets.Preset1.Growth": "Bevölkerungswachstum",
+    "Presets.Preset1.Births": "Geburten",
+
+    "Presets.Preset2.Guests": "Gäste",
+    "Presets.Preset2.GuestsIncrease": "GästeZunahme",
+    "Presets.Preset2.GuestsDecrease": "GästeAbnahme",
+    "Presets.Preset2.GuestsIncreaseFactor": "WerbeFaktor",
+    "Presets.Preset2.GuestsDecreaseFactor": "SchwundFaktor",
+    "Presets.Preset2.Env": "Umwelt",
+    "Presets.Preset2.EnvIncrease": "UmweltVerbesserung",
+    "Presets.Preset2.EnvDecrease": "UmweltZerstörung",
+    "Presets.Preset2.EnvIncreaseFactor": "UmweltErholungsFaktor",
+    "Presets.Preset2.EnvDecreaseFactor": "UmweltZerstörungsFaktor"
 }

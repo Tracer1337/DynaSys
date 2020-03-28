@@ -67,5 +67,16 @@
     "Model.SaveModal.Submit": "Save",
     "Model.SaveModal.Close": "Close",
 
-    "Misc.ApplyLanguage": "Apply Language"
+    "Misc.ApplyLanguage": "Apply Language",
+
+    "Presets.Preset4.Guests": "Guests",
+    "Presets.Preset4.GuestsIncrease": "GuestsGrowth",
+    "Presets.Preset4.GuestsDecrease": "GuestsLoss",
+    "Presets.Preset4.GuestsIncreaseFactor": "AdFactor",
+    "Presets.Preset4.GuestsDecreaseFactor": "LossFactor",
+    "Presets.Preset4.Env": "Environment",
+    "Presets.Preset4.EnvIncrease": "EnvImprovement",
+    "Presets.Preset4.EnvDecrease": "EnvDestruction",
+    "Presets.Preset4.EnvIncreaseFactor": "EnvRegenerationFactor",
+    "Presets.Preset4.EnvDecreaseFactor": "EnvDestructionFactor"
 }
