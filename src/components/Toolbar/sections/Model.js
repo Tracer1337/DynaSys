@@ -22,10 +22,6 @@ const Model = () => {
         setModelsState(_getModels())
     }
 
-    const presetModel = () => {
-        model.getObjects().map(object => object.isPresetted = true)
-    }
-
     const handleSaveClick = () => {
         setShowSaveModal(true)
     }
@@ -46,7 +42,7 @@ const Model = () => {
             }
         }
 
-        presetModel()
+        model.makePreset()
         models[name] = model
 
         setModels(models)
@@ -68,8 +64,8 @@ const Model = () => {
     }
 
     const handleExportClick = () => {
-        presetModel()
-        downloadJSON(model, "model")
+        model.makePreset()
+        downloadJSON(model, model.name)
     }
 
     const handleImportClick = async () => {
@@ -95,9 +91,9 @@ const Model = () => {
 
             <button onClick={handleNewClick} className="item">{Strings["Model.New"]}</button>
 
-            {Object.entries(models).map(([name, json], i) => (
+            {Object.entries(models).map(([name, object], i) => (
                 <div className="item">
-                    <button onClick={() => onModelLoad(json)} key={i+"-Load"}>
+                    <button onClick={() => onModelLoad(object)} key={i+"-Load"}>
                         {name}
                     </button>
 

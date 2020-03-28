@@ -45,6 +45,7 @@ function createTool(Child, config) {
         
         handleSubmit(state) {
             this.context.onObjectChange({id: this.props.object.id, newValues: state})
+            
             this.setState({renderDialog: false})
         }
 

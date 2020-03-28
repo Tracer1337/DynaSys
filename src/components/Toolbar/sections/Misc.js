@@ -24,8 +24,8 @@ const Misc = () => {
     return (
         <>
             <div>
-                <a href="https://github.com/Tracer1337/DynaSys" target="_blank" className="github-link">
-                    <img src={image}/>    
+                <a href="https://github.com/Tracer1337/DynaSys" target="_blank" className="github-link" rel="noopener noreferrer">
+                    <img src={image} alt="View on Github"/>    
                 </a>
             </div>
 

@@ -40,7 +40,7 @@ class Connector extends Component {
         const labelPosition = { x: from.x + fromTo.x / 2, y: from.y + fromTo.y / 2 }
 
         if(labelPosition.x !== this.props.label.x || labelPosition.y !== this.props.label.y) {
-            this.props.onShallowObjectChange({id: this.props.label.id, newValues: labelPosition})
+            this.props.onShallowObjectChange({id: this.props.label.id, newValues: labelPosition}, false)
         }
 
         return (

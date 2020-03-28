@@ -126,6 +126,7 @@ class ToolSpace extends Component {
 
     handleMouseDown() {
         this.isMouseDown = true
+        this.hasMoved = false
 
         if(!Number.isNaN(this.mouseOver.id)) {
             this.setState({ selectedObjectId: this.mouseOver.id })
@@ -145,6 +146,11 @@ class ToolSpace extends Component {
                 this.setState({isMoving: true})
             }
 
+            if(!this.hasMoved) {
+                this.context.createSnapshot()
+                this.hasMoved = true
+            }
+
             const containerRect = this.container.current.getBoundingClientRect()
 
             const mouseX = event.clientX - containerRect.x
@@ -155,7 +161,7 @@ class ToolSpace extends Component {
 
             if (isMovingWhenSettled) {
                 this.preventDialog = true
-                this.context.onShallowObjectChange({ id: this.mouseOver.id, newValues: { x: newX, y: newY } })
+                this.context.onShallowObjectChange({ id: this.mouseOver.id, newValues: { x: newX, y: newY } }, false)
             } else {
                 objectDomElement.style.transform = `translate(${newX}px, ${newY}px)`
             }

@@ -9,6 +9,7 @@ import outputRenderers from "./components/Outputs/Outputs.js"
 import Model from "./Model/Model.js"
 import waitFrames from "./utils/waitFrames.js"
 import Strings from "./config/strings.js"
+import SettingsProvider from "./config/SettingsProvider.js"
 
 import "./App.scss"
 
@@ -16,6 +17,8 @@ const AppContext = React.createContext({})
 
 class App extends Component {
     model = new Model(Strings["Model.UnnamedModel"])
+
+    snapshots = []
 
     listeners = {}
 
@@ -41,7 +44,9 @@ class App extends Component {
             onOutputClose: this.handleOutputClose.bind(this),
 
             onModelLoad: this.handleModelLoad.bind(this),
-            onModelReset: this.handleModelReset.bind(this)
+            onModelReset: this.handleModelReset.bind(this),
+
+            createSnapshot: this.createSnapshot.bind(this)
         }
     }
 
@@ -70,6 +75,24 @@ class App extends Component {
         this.listeners[event.type].forEach(fn => fn(event))
     }
 
+    createSnapshot() {
+        this.model.makePreset()
+        this.snapshots.push(Model.clone(this.model))
+
+        if (this.snapshots.length > SettingsProvider.settings.maxSnapshots.value) {
+            this.snapshots.shift()
+        }
+    }
+
+    applyLastSnapshot() {
+        if (this.snapshots.length === 0) {
+            return
+        }
+
+        const json = JSON.stringify(this.snapshots.pop())
+        this.handleModelLoad(JSON.parse(json))
+    }
+
     setContext(values) {
         this.setState({contextValue: {...this.state.contextValue, ...values}})
     }
@@ -93,14 +116,20 @@ class App extends Component {
     }
 
     handleObjectCreate(event) {
+        this.createSnapshot()
+
         const newObject = new objects[event.type](event.props)
         this.model.add(newObject)
         this.forceUpdate()
         return newObject
     }
 
-    handleShallowObjectChange(event) {
-        this.model.update(event.id, event.newValues)
+    handleShallowObjectChange(event, shouldCreateSnapshot = true) {
+        if(shouldCreateSnapshot) {
+            this.createSnapshot()
+        }
+
+        this.model.update(event.id, event.newValues, shouldCreateSnapshot)
         this.emit({
             type: "objectchange",
             details: event
@@ -119,11 +148,12 @@ class App extends Component {
                 content: Strings["Dialogs.Verifications.Remove.Content"].replace("{}", objectName),
                 subContent: Strings["Dialogs.Verifications.Remove.SubContent"]
             })
-
+            
             if(!shouldRemove) {
                 return
             }
         }
+        this.createSnapshot()
 
         this.model.remove(id)
         this.forceUpdate()
@@ -137,22 +167,34 @@ class App extends Component {
         this.setState({renderOutput: null})
     }
 
-    handleModelLoad(json) {
+    handleModelLoad(object) {
         this.model.reset()
         this.forceUpdate()
         
         waitFrames(() => {
-            this.setModel(Model.loadJSON(json))
+            this.setModel(Model.loadObject(object))
         }, 2)
     }
 
     handleModelReset() {
+        this.createSnapshot()
         this.setModel(new Model(Strings["Model.UnnamedModel"]))
         this.forceUpdate()
     }
 
+    handleKeyDown(event) {
+        if(event.ctrlKey && event.keyCode === 90) {
+            this.applyLastSnapshot()
+        }
+    }
+
+    componentDidMount() {
+        window.addEventListener("keydown", this.handleKeyDown.bind(this))
+    }
+
     render() {
         window.model = this.model
+        window.snapshots = this.snapshots
 
         return (
             <div className="app">

@@ -20,7 +20,7 @@ const Tools = () => {
         if(activeTool !== selected) {
             setSelected(activeTool)
         }
-    }, [activeTool])
+    }, [activeTool, selected])
 
     return Object.entries(tools).map(([type, tool]) => !tool.config.hideInToolbar && (
 

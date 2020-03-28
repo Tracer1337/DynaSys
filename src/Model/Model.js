@@ -1,16 +1,23 @@
 import objects from "./Objects/Objects.js"
 
 class Model {
-    static loadJSON(json) {
-        const object = JSON.parse(json)
+    static loadObject(object) {
         const newModel = new Model(object.name)
         newModel.parseObjectsToInternals(object.model)
         return newModel
     }
 
+    static clone(model) {
+        const clonedObject = JSON.parse(JSON.stringify(model))
+        const newModel = new Model(clonedObject.name)
+        newModel.parseObjectsToInternals(clonedObject.model)
+        return newModel
+    }
+
     constructor(name) {
-        this.model = []
         this.name = name
+
+        this.model = []
     }
 
     add(object) {
@@ -82,7 +89,7 @@ class Model {
             name: this.name,
             model: this.model
         }
-        return JSON.stringify(object)
+        return object
     }
 
     parseObjectsToInternals(model) {
@@ -103,6 +110,10 @@ class Model {
 
     reset() {
         this.model = []
+    }
+
+    makePreset() {
+        this.model.forEach(object => object.isPresetted = true)
     }
 }
 
