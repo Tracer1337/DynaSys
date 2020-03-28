@@ -53,15 +53,6 @@ function createOutput(Child, config) {
                     value: Strings["Dialogs.Warnings.SelectObjects"]
                 },
                 {
-                    type: "setting",
-                    name: "timesteps",
-                    key: -1
-                },
-                {
-                    type: "setting",
-                    name: "interval"
-                },
-                {
                     type: "submit",
                     value: Strings["Dialogs.Outputs.Submit"]
                 },

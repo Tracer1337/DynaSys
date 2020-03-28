@@ -120,7 +120,8 @@ function createTool(Child, config) {
                         type: "select",
                         options: Colors.map(color => ({
                             value: color,
-                            label: color
+                            label: color,
+                            style: {backgroundColor: color}
                         })),
                         defaultValue: object.color || Colors[0]
                     },

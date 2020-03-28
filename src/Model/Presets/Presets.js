@@ -6,6 +6,8 @@ import Strings from "src/config/strings.js"
 const presets = { Preset1, Preset2 }
 
 for(let name in presets) {
+    presets[name].name = Strings[`Presets.${name}`]
+
     presets[name].model.forEach(object => {
         const translation = Strings[`Presets.${name}.${object.name}`]
         if(translation) {

@@ -9,13 +9,13 @@ const Presets = () => {
     const {onModelLoad} = useContext(AppContext)
 
     return (
-        Object.entries(presets).map(([name, json]) => (
+        Object.entries(presets).map(([name, object]) => (
             <button
                 className={`item`}
                 key={name}
-                onClick={() => onModelLoad(json)}
+                onClick={() => onModelLoad(object)}
             >
-                {name}
+                {object.name}
             </button>
         ))
     )

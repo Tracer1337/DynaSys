@@ -5,6 +5,7 @@ import String from "./components/String.js"
 import List from "./components/List.js"
 import Textbox from "./components/Textbox.js"
 import Title from "./components/Title.js"
+import Subtitle from "./components/Subtitle.js"
 import Submit from "./components/Submit.js"
 import Setting from "./components/Setting.js"
 import Functions from "./components/Functions.js"
@@ -12,12 +13,14 @@ import Select from "./components/Select.js"
 
 import Verification from "./templates/Verification.js"
 import Warning from "./templates/Warning.js"
+import Settings from "./templates/Settings.js"
 
 import "./Dialog.scss"
 
 class Dialog extends Component {
     static verify = Verification
     static warn = Warning
+    static settings = Settings
 
     constructor(props) {
         super(props)
@@ -54,6 +57,10 @@ class Dialog extends Component {
                 element = <Title {...field}/>
                 break
 
+            case "subtitle":
+                element = <Subtitle {...field}/>
+                break
+
             case "button":
                 element = <button onClick={field.onClick}>{field.label}</button>
                 break
@@ -80,7 +87,7 @@ class Dialog extends Component {
         }
 
         return (
-            <div className="field">
+            <div className="field" key={field.key}>
                 {element}
             </div>
         )

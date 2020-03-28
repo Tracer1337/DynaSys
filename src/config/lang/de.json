@@ -52,8 +52,17 @@
 
     "Dialogs.Close": "Schliessen",
     
-    "Settings.timesteps": "Anzahl an Zeitschritten",
-    "Settings.interval": "Intervall (dt)",
+    "Settings": "Einstellungen",
+    "Settings.Close": "Schliessen",
+
+    "Settings.decimalPoints": "Rundung auf Nachkommastellen",
+    "Settings.timesteps": "Berechnete Zeiteinheiten",
+    "Settings.interval": "Zeit-Intervall (dt)",
+    "Settings.maxSnapshots": "Zwischenschritte speichern",
+
+    "Settings.Sections.general": "Allgemein",
+    "Settings.Sections.output": "Ausgabe",
+    "Settings.Sections.performance": "Leistung",
     
     "Model.Save": "Speichern",
     "Model.Export": "Exportieren",
@@ -69,10 +78,12 @@
 
     "Misc.ApplyLanguage": "Sprache Anwenden",
 
+    "Presets.Preset1": "Vorlage 1",
     "Presets.Preset1.Population": "Bevölkerung",
     "Presets.Preset1.Growth": "Bevölkerungswachstum",
     "Presets.Preset1.Births": "Geburten",
 
+    "Presets.Preset2": "Vorlage 2",
     "Presets.Preset2.Guests": "Gäste",
     "Presets.Preset2.GuestsIncrease": "GästeZunahme",
     "Presets.Preset2.GuestsDecrease": "GästeAbnahme",

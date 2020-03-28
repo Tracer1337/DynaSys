@@ -10,8 +10,8 @@ function Select({ label, options, onChange, value }) {
             <label>{label}</label>
 
             <select value={value} onChange={handleChange}>
-                {options.map(({value, label}, i) => (
-                    <option value={value} key={i}>{label}</option>
+                {options.map(({value, label, style}, i) => (
+                    <option value={value} key={i} style={style}>{label}</option>
                 ))}
             </select>
         </div>

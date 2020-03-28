@@ -51,9 +51,18 @@
     "Dialogs.Verifications.Override.Content": "The model '{}' will be overriden",
 
     "Dialogs.Close": "Close",
-    
+
+    "Settings": "Settings",
+    "Settings.Close": "Close",
+
+    "Settings.decimalPoints": "Round to decimal places",
     "Settings.timesteps": "Amount of timesteps",
     "Settings.interval": "Interval (dt)",
+    "Settings.maxSnapshots": "Save snapshots",
+
+    "Settings.Sections.general": "General",
+    "Settings.Sections.output": "Output",
+    "Settings.Sections.performance": "Performance",
     
     "Model.Save": "Save",
     "Model.Export": "Export",
@@ -69,14 +78,20 @@
 
     "Misc.ApplyLanguage": "Apply Language",
 
-    "Presets.Preset4.Guests": "Guests",
-    "Presets.Preset4.GuestsIncrease": "GuestsGrowth",
-    "Presets.Preset4.GuestsDecrease": "GuestsLoss",
-    "Presets.Preset4.GuestsIncreaseFactor": "AdFactor",
-    "Presets.Preset4.GuestsDecreaseFactor": "LossFactor",
-    "Presets.Preset4.Env": "Environment",
-    "Presets.Preset4.EnvIncrease": "EnvImprovement",
-    "Presets.Preset4.EnvDecrease": "EnvDestruction",
-    "Presets.Preset4.EnvIncreaseFactor": "EnvRegenerationFactor",
-    "Presets.Preset4.EnvDecreaseFactor": "EnvDestructionFactor"
+    "Presets.Preset1": "Preset 1",
+    "Presets.Preset1.Population": "Population",
+    "Presets.Preset1.Growth": "Growth",
+    "Presets.Preset1.Births": "Births",
+
+    "Presets.Preset2": "Preset 2",
+    "Presets.Preset2.Guests": "Guests",
+    "Presets.Preset2.GuestsIncrease": "GuestsGrowth",
+    "Presets.Preset2.GuestsDecrease": "GuestsLoss",
+    "Presets.Preset2.GuestsIncreaseFactor": "AdFactor",
+    "Presets.Preset2.GuestsDecreaseFactor": "LossFactor",
+    "Presets.Preset2.Env": "Environment",
+    "Presets.Preset2.EnvIncrease": "EnvImprovement",
+    "Presets.Preset2.EnvDecrease": "EnvDestruction",
+    "Presets.Preset2.EnvIncreaseFactor": "EnvRegenerationFactor",
+    "Presets.Preset2.EnvDecreaseFactor": "EnvDestructionFactor"
 }
