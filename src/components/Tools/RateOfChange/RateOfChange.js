@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import TrendingDownIcon from "@material-ui/icons/TrendingDown"
 
 import createConnector from "../Connector/createConnector.js"
 import Strings from "src/config/strings.js"
@@ -58,6 +59,7 @@ class RateOfChange extends Component {
 export default createConnector(RateOfChange, {
     type: "RateOfChange",
     label: Strings["Tools.RateOfChange.Label"],
+    icon: TrendingDownIcon,
     dialogAvailable: true,
     isMovable: false
 })

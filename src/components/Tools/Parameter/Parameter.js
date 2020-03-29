@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked"
 
 import createTool from "../createTool.js"
 import Strings from "src/config/strings.js"
@@ -24,6 +25,7 @@ class Parameter extends Component {
 export default createTool(Parameter, {
     type: "Parameter",
     label: Strings["Tools.Parameter.Label"],
+    icon: RadioButtonUncheckedIcon,
     dialogAvailable: true,
     isMovable: true
 })

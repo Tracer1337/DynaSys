@@ -1,4 +1,10 @@
 import React, { useState, useRef, useContext } from "react"
+import SaveIcon from "@material-ui/icons/Save"
+import SaveAltIcon from "@material-ui/icons/SaveAlt"
+import OpenInBrowserIcon from "@material-ui/icons/OpenInBrowser"
+import AddIcon from "@material-ui/icons/Add"
+
+import IconButton from "../components/IconButton.js"
 
 import { AppContext } from "src/App.js"
 import createSection from "./createSection.js"
@@ -6,21 +12,13 @@ import Dialog from "../../Dialog/Dialog.js"
 import Strings from "src/config/strings.js"
 import downloadJSON from "src/utils/downloadJSON.js"
 import importJSON from "src/utils/importJSON.js"
-
-const _getModels = () => JSON.parse(localStorage.getItem("models")) || {}
-const _setModels = models => localStorage.setItem("models", JSON.stringify(models))
+import { getModels, setModels } from "src/utils/models.js"
 
 const Model = () => {
     const [showSaveModal, setShowSaveModal] = useState(false)
-    const [models, setModelsState] = useState(_getModels())
-    const { model, onModelLoad, onModelReset } = useContext(AppContext)
+    const { model, onModelLoad, onModelReset, emit } = useContext(AppContext)
 
     const saveNameInput = useRef()
-
-    const setModels = models => {
-        _setModels(models)
-        setModelsState(_getModels())
-    }
 
     const handleSaveClick = () => {
         setShowSaveModal(true)
@@ -28,6 +26,8 @@ const Model = () => {
 
     // Add the model under the name given by data to the models in localStorage
     const handleSaveSubmit = async data => {
+        const models = getModels()
+        
         const name = data.name || Strings["Model.UnnamedModel"]
         model.name = name
 
@@ -46,21 +46,9 @@ const Model = () => {
         models[name] = model
 
         setModels(models)
+        emit(new CustomEvent("modelschange"))
         
         setShowSaveModal(false)
-    }
-
-    // Remove the model with given name from localStorage
-    const handleModelRemove = name => {
-        const newModels = {}
-
-        for(let key in models) {
-            if(key !== name) {
-                newModels[key] = models[key]
-            }
-        }
-        
-        setModels(newModels)
     }
 
     const handleExportClick = () => {
@@ -79,27 +67,29 @@ const Model = () => {
 
     return (
         <div>
-            <div>
-                <p>{model.name}</p>
-            </div>
+            <IconButton
+                onClick={handleSaveClick}
+                icon={SaveIcon}
+                label={Strings["Model.Save"]}
+            />
 
-            <button onClick={handleSaveClick} className="item">{Strings["Model.Save"]}</button>
+            <IconButton
+                onClick={handleExportClick}
+                icon={SaveAltIcon}
+                label={Strings["Model.Export"]}
+            />
 
-            <button onClick={handleExportClick} className="item">{Strings["Model.Export"]}</button>
+            <IconButton
+                onClick={handleImportClick}
+                icon={OpenInBrowserIcon}
+                label={Strings["Model.Import"]}
+            />
 
-            <button onClick={handleImportClick} className="item">{Strings["Model.Import"]}</button>
-
-            <button onClick={handleNewClick} className="item">{Strings["Model.New"]}</button>
-
-            {Object.entries(models).map(([name, object], i) => (
-                <div className="item">
-                    <button onClick={() => onModelLoad(object)} key={i+"-Load"}>
-                        {name}
-                    </button>
-
-                    <button onClick={() => handleModelRemove(name)} key={i+"-Remove"}>X</button>
-                </div>
-            ))}
+            <IconButton
+                onClick={handleNewClick}
+                icon={AddIcon}
+                label={Strings["Model.New"]}
+            />
 
             {showSaveModal && (
                 <Dialog
@@ -118,9 +108,9 @@ const Model = () => {
                         {
                             type: "list",
                             label: Strings["Model.SaveModal.Saved"],
-                            items: Object.keys(models).map(name => ({
+                            items: Object.keys(getModels()).map(name => ({
                                 type: "button",
-                                label: name,
+                                value: name,
                                 onClick: () => saveNameInput.current.set(name)
                             }))
                         },
@@ -130,7 +120,7 @@ const Model = () => {
                         },
                         {
                             type: "button",
-                            label: Strings["Model.SaveModal.Close"],
+                            value: Strings["Model.SaveModal.Close"],
                             onClick: () => setShowSaveModal(false)
                         }
                     ]}

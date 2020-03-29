@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import FilterDramaIcon from "@material-ui/icons/FilterDrama"
 
 import createTool from "../../createTool.js"
 import Strings from "src/config/strings.js"
@@ -8,7 +9,7 @@ class Sink extends Component {
     render() {
         return (
             <div className="object sink" data-id={this.props.object.id}>
-                Sink
+                <FilterDramaIcon className="icon" color="action" />
             </div>
         )
     }

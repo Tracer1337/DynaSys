@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from "react"
+import { Select, MenuItem, Button, withStyles } from "@material-ui/core"
+import SettingsIcon from "@material-ui/icons/Settings"
+import GithubIcon from "@material-ui/icons/GitHub"
+import LanguageIcon from "@material-ui/icons/Language"
+
+import IconButton from "../components/IconButton.js"
 
 import createSection from "./createSection.js"
-import image from "src/assets/images/view-on-github.png"
 import { languages, defaultLang } from "src/config/strings.js"
 import getSearchParam from "src/utils/getSearchParam.js"
 import Dialog from "../../Dialog/Dialog.js"
 import Strings from "src/config/strings.js"
 
-const Misc = () => {
+const styles = {
+    select: {
+        marginLeft: 8
+    }
+}
+
+const Misc = ({classes}) => {
     const [langCode, setLangCode] = useState(getSearchParam("lang") || defaultLang)
     const [showReloadAdvice, setShowReloadAdvice] = useState(false)
 
@@ -15,10 +26,6 @@ const Misc = () => {
         const url = new URL(window.location.href)
         url.searchParams.set("lang", langCode)
         window.location.href = url.href
-    }
-
-    const handleOpenSettings = () => {
-        Dialog.settings()
     }
 
     useEffect(() => {
@@ -31,31 +38,43 @@ const Misc = () => {
 
     return (
         <>
-            <button onClick={handleOpenSettings}>{Strings["Settings"]}</button>
+            <IconButton
+                onClick={Dialog.settings}
+                icon={SettingsIcon}
+                label={Strings["Settings"]}
+            />
 
-            <div>
-                <a href="https://github.com/Tracer1337/DynaSys" target="_blank" className="github-link" rel="noopener noreferrer">
-                    <img src={image} alt="View on Github"/>    
-                </a>
-            </div>
+            <IconButton
+                onClick={() => window.open("https://github.com/Tracer1337/DynaSys", "_blank")}
+                icon={GithubIcon}
+                label={Strings["Misc.Github"]}
+            />
 
-            <>
-                <select value={langCode} onChange={event => setLangCode(event.target.value)}>
-                    {Object.entries(languages).map(([code, {Name}], i) => (
-                        <option value={code} key={i}>{Name}</option>
-                    ))}
-                </select>
 
-                {showReloadAdvice && (
-                    <button onClick={handleApplyLanguage}>{languages[langCode]["Misc.ApplyLanguage"]}</button>
+            <IconButton
+                icon={LanguageIcon}
+                customLabel={() => (
+                    <Select 
+                        value={langCode} 
+                        onChange={event => setLangCode(event.target.value)}
+                        className={classes.select}
+                    >
+                        {Object.entries(languages).map(([code, { Name }], i) => (
+                            <MenuItem value={code} key={i}>{Name}</MenuItem>
+                        ))}
+                    </Select>
                 )}
-            </>
+            />
 
-
+            {showReloadAdvice && (
+                <Button onClick={handleApplyLanguage}>{languages[langCode]["Misc.ApplyLanguage"]}</Button>
+            )}
         </>
     )
 }
 
-export default createSection(Misc, {
+const Styled = withStyles(styles)(Misc)
+
+export default createSection(Styled, {
     className: "misc"
 })

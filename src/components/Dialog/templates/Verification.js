@@ -27,18 +27,20 @@ export default ({content, subContent}) => {
                     },
                     subContent && (
                         {
-                            type: "textbox",
+                            type: "caption",
                             value: subContent
                         }
                     ),
                     {
                         type: "button",
-                        label: Strings["Dialogs.Verifications.Accept"],
+                        inline: true,
+                        value: Strings["Dialogs.Verifications.Accept"],
                         onClick: () => eventEmitter.dispatchEvent(new CustomEvent("answer", { detail: { value: true } }))
                     },
                     {
                         type: "button",
-                        label: Strings["Dialogs.Verifications.Decline"],
+                        inline: true,
+                        value: Strings["Dialogs.Verifications.Decline"],
                         onClick: () => eventEmitter.dispatchEvent(new CustomEvent("answer", { detail: { value: false } }))
                     }
                 ]}

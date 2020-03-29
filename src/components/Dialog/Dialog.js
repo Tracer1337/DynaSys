@@ -1,22 +1,45 @@
 import React, { Component } from "react"
 import ReactDOM from "react-dom"
+import { Dialog as MuiDialog, Container, withStyles } from "@material-ui/core"
+import clsx from "clsx"
 
 import String from "./components/String.js"
 import List from "./components/List.js"
+import ListItem from "./components/ListItem.js"
 import Textbox from "./components/Textbox.js"
 import Title from "./components/Title.js"
 import Subtitle from "./components/Subtitle.js"
-import Submit from "./components/Submit.js"
+import Button from "./components/Button.js"
 import Setting from "./components/Setting.js"
 import Functions from "./components/Functions.js"
 import Select from "./components/Select.js"
 import Warning from "./components/Warning.js"
+import Caption from "./components/Caption.js"
 
 import Verification from "./templates/Verification.js"
 import WarningTemplate from "./templates/Warning.js"
 import Settings from "./templates/Settings.js"
 
 import "./Dialog.scss"
+
+const styles = theme => ({
+    outerDialog: {
+        zIndex: theme.zIndex.drawer
+    },
+
+    innerDialog: {
+        paddingBottom: 6
+    },
+
+    field: {
+        margin: 10
+    },
+
+    inlineField: {
+        display: "inline-block",
+        margin: 10
+    }
+})
 
 class Dialog extends Component {
     static verify = Verification
@@ -37,7 +60,7 @@ class Dialog extends Component {
         }
     }
     
-    getField(field, index) {
+    getField(field, index, style) {
         field.key = field.key || index
         let element
 
@@ -47,7 +70,11 @@ class Dialog extends Component {
                 break
             
             case "list":
-                element = <List {...field}>{field.items.map(f => this.getField(f))}</List>
+                element = <List {...field}>{field.items.map((f, i) => this.getField(f, index + i, {margin: 0}))}</List>
+                break
+
+            case "listItem":
+                element = <ListItem {...field}/>
                 break
             
             case "textbox":
@@ -63,11 +90,11 @@ class Dialog extends Component {
                 break
 
             case "button":
-                element = <button onClick={field.onClick}>{field.label}</button>
+                element = <Button {...field}/>
                 break
 
             case "submit":
-                element = <Submit {...field} onClick={this.handleSubmit.bind(this)}/>
+                element = <Button {...field} onClick={this.handleSubmit.bind(this)}/>
                 break
 
             case "setting":
@@ -86,13 +113,25 @@ class Dialog extends Component {
                 element = <Warning {...field}/>
                 break
             
+            case "caption":
+                element = <Caption {...field}/>
+                break
+
+            case "element":
+                element = React.createElement(field.value)
+                break
+            
             default:
                 element = <p>Element type {field.type} not found</p>
                 break
         }
 
         return (
-            <div className="field" key={field.key}>
+            <div key={field.key} style={style} className={clsx(
+                this.props.classes.field, {
+                    [this.props.classes.inlineField]: field.inline
+                }
+            )}>
                 {element}
             </div>
         )
@@ -121,17 +160,22 @@ class Dialog extends Component {
     }
 
     render() {
+        const { classes } = this.props
+        
         return ReactDOM.createPortal(
-            <div className="outer-dialog">
-                <div 
-                    className="inner-dialog"
-                    onKeyDown={this.handleKeyPress.bind(this)}
-                >
+            <MuiDialog 
+                className={clsx(classes.outerDialog)}
+                open={true}
+                onKeyDown={this.handleKeyPress.bind(this)}
+                maxWidth="md"
+                fullWidth
+            >
+                <Container className={classes.innerDialog}>
                     {this.props.fields.filter(e => e).map((f, i) => this.getField(f, i))}
-                </div>
-            </div>
+                </Container>
+            </MuiDialog>
         , document.getElementById("root"))
     }
 }
 
-export default Dialog
+export default withStyles(styles)(Dialog)

@@ -1,14 +1,9 @@
 import React from "react"
+import { Alert } from "@material-ui/lab"
 
-const Warning = ({value, render}) => {
-    if(!render) {
-        return <></>
-    }
-
+const Warning = ({value}) => {
     return (
-        <div className="warning">
-            {value}
-        </div>
+        <Alert severity="warning">{value}</Alert>
     )
 }
 

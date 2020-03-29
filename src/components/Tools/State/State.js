@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank"
 
 import createTool from "../createTool.js"
 import Strings from "src/config/strings.js"
@@ -24,6 +25,7 @@ class State extends Component {
 export default createTool(State, {
     type: "State",
     label: Strings["Tools.State.Label"],
+    icon: CheckBoxOutlineBlankIcon,
     dialogAvailable: true,
     isMovable: true
 })

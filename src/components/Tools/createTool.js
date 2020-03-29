@@ -135,15 +135,19 @@ function createTool(Child, config) {
                     object.hasInput !== false && {
                         label: Strings["Dialogs.Tools.Inputs"],
                         type: "list",
-                        items: Array.isArray(object.inputs) ? [{
-                            type: "button",
-                            label: Strings["Dialogs.Tools.Time"],
-                            onClick: () => this.handleInputClick({name: "t"})
-                        }].concat(object.inputs.map(object => object.hasOutput && ({
-                            type: "button",
-                            label: object.name,
-                            onClick: () => this.handleInputClick(object)
-                        })).filter(e => e)) : []
+                        items: Array.isArray(object.inputs) ? [
+                            {
+                                type: "listItem",
+                                value: Strings["Dialogs.Tools.Time"],
+                                onClick: () => this.handleInputClick({name: "t"})
+                            }
+                        ].concat(object.inputs.map(object => object.hasOutput && (
+                            {
+                                type: "listItem",
+                                value: object.name,
+                                onClick: () => this.handleInputClick(object)
+                            }
+                        )).filter(e => e)) : []
                     },
                     {
                         type: "functions",
@@ -152,17 +156,21 @@ function createTool(Child, config) {
                     },
                     {
                         type: "submit",
+                        inline: true,
                         value: Strings["Dialogs.Tools.Submit"]
                     },
                     {
                         type: "button",
-                        label: Strings["Dialogs.Tools.Close"],
-                        onClick: () => this.setState({renderDialog: false})
+                        inline: true,
+                        color: "secondary",
+                        value: Strings["Dialogs.Tools.Remove"],
+                        onClick: this.handleRemove.bind(this)
                     },
                     {
                         type: "button",
-                        label: Strings["Dialogs.Tools.Remove"],
-                        onClick: this.handleRemove.bind(this)
+                        inline: true,
+                        value: Strings["Dialogs.Tools.Close"],
+                        onClick: () => this.setState({renderDialog: false})
                     }
                 ].filter(e => e)
             }

@@ -58,7 +58,7 @@
     "Settings.decimalPoints": "Round to decimal places",
     "Settings.timesteps": "Amount of timesteps",
     "Settings.interval": "Interval (dt)",
-    "Settings.maxSnapshots": "Save snapshots",
+    "Settings.maxSnapshots": "Saved snapshots",
 
     "Settings.Sections.general": "General",
     "Settings.Sections.output": "Output",
@@ -77,6 +77,7 @@
     "Model.SaveModal.Close": "Close",
 
     "Misc.ApplyLanguage": "Apply Language",
+    "Misc.Github": "Github Repo",
 
     "Presets.Preset1": "Preset 1",
     "Presets.Preset1.Population": "Population",

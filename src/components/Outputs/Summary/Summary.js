@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted"
 
 import MaskConverter from "../../Utils/MaskConverter/MaskConverter.js"
 import createOutput from "../createOutput.js"
@@ -25,5 +26,6 @@ class Summary extends Component {
 
 export default createOutput(Summary, {
     type: "Summary",
-    label: Strings["Outputs.Summary.Label"]
+    label: Strings["Outputs.Summary.Label"],
+    icon: FormatListBulletedIcon
 })

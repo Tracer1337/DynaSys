@@ -1,24 +1,36 @@
 import React from "react"
+import { Paper, InputLabel, FormGroup, Chip, withStyles } from "@material-ui/core"
 
 const availableFunctions = ["pi", "e", "phi", "abs(x)", "ceil(x)", "floor(x)", "round(x [, n])", "exp(x)", "log(x [, base])", "log10(x)", "pow(x, y)", "sign(x)", "sqrt(x)", "random(min, max)", "sin(x)", "cos(x)", "tan(x)"]
 
-const Functions = ({label, onClick}) => {
-    return (
-        <div className="functions">
-            <label>{label}</label>
+const styles = {
+    chipContainer: {
+        padding: 2
+    },
 
-            <div>
+    chip: {
+        margin: 2
+    }
+}
+
+const Functions = ({ label, onClick, classes }) => {
+    return (
+        <FormGroup>
+            <InputLabel>{label}</InputLabel>
+
+            <Paper variant="outlined" className={classes.chipContainer}>
                 {availableFunctions.map((name, i) => (
-                    <button 
+                    <Chip 
                         key={i}
                         onClick={() => onClick(name)}
-                    >
-                        {name}
-                    </button>
+                        label={name}
+                        variant="outlined"
+                        className={classes.chip}
+                    />
                 ))}
-            </div>
-        </div>
+            </Paper>
+        </FormGroup>
     )
 }
 
-export default Functions
+export default withStyles(styles)(Functions)

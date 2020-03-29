@@ -1,20 +1,29 @@
 import React from "react"
+import { Select as MuiSelect, InputLabel, FormControl, MenuItem } from "@material-ui/core"
 
-function Select({ label, options, onChange, value }) {
+import useId from "src/utils/useId.js"
+
+function Select({ label, options, onChange, value, classes }) {
+    const labelId = useId()
+
     const handleChange = event => {
         onChange(event.target.value)
     }
 
     return (
-        <div className="select">
-            <label>{label}</label>
+        <FormControl fullWidth>
+            <InputLabel id={labelId}>{label}</InputLabel>
 
-            <select value={value} onChange={handleChange}>
+            <MuiSelect 
+                value={value} 
+                onChange={handleChange}
+                labelId={labelId}
+            >
                 {options.map(({value, label, style}, i) => (
-                    <option value={value} key={i} style={style}>{label}</option>
+                    <MenuItem value={value} key={i} style={style}>{label}</MenuItem>
                 ))}
-            </select>
-        </div>
+            </MuiSelect>
+        </FormControl>
     )
 }
 

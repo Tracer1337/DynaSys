@@ -1,11 +1,27 @@
 import React from "react"
+import { DialogTitle, Divider, withStyles } from "@material-ui/core"
 
-function Title({value}) {
+const styles = {
+    title: {
+        textAlign: "center",
+        padding: "12px"
+    },
+
+    divider: {
+        margin: "0 -34px"
+    }
+}
+
+function Title({value, classes}) {
     return (
-        <h3 className="title">
-            {value}
-        </h3>
+        <>
+            <DialogTitle className={classes.title}>
+                {value}
+            </DialogTitle>
+
+            <Divider className={classes.divider}/>
+        </>
     )
 }
 
-export default Title
+export default withStyles(styles)(Title)

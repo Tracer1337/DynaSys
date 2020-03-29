@@ -12,11 +12,22 @@
 
     .object {
         padding: 10px;
-        min-width: 25px;
-        border: 1px solid black;
+        min-width: 50px;
+        border: 1px solid #707070;
     }
 
-    &.selected .object {
-        border-color: green;
+    &.selected {
+        .object {
+            border-color: green;
+        }
+
+        .icon {
+            color: green;
+        }
+    }
+
+    .icon {
+        font-size: 48px;
+        pointer-events: none;
     }
 }

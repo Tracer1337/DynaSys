@@ -1,18 +1,24 @@
 import React from "react"
+import { List as MuiList, FormGroup, Paper, InputLabel, withStyles } from "@material-ui/core"
 
-function List({label, children}) {
+const styles = {
+    label: {
+        marginBottom: 6
+    }
+}
+
+function List({ label, children, classes }) {
     return (
-        <div className="list">
-            <label>{label}</label>
-            <ul>
-                {children.map((child, i) => (
-                    <li key={i}>
-                        {child}
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <FormGroup>
+            <InputLabel className={classes.label}>{label}</InputLabel>
+
+            <Paper variant="outlined">
+                <MuiList>
+                    {children}
+                </MuiList>
+            </Paper>
+        </FormGroup>
     )
 }
 
-export default List
+export default withStyles(styles)(List)

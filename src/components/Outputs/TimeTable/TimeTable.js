@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import TableChartIcon from "@material-ui/icons/TableChart"
 
 import createOutput from "../createOutput.js"
 import Strings from "src/config/strings.js"
@@ -58,5 +59,6 @@ class TimeTable extends Component {
 
 export default createOutput(TimeTable, {
     type: "TimeTable",
-    label: Strings["Outputs.TimeTable.Label"]
+    label: Strings["Outputs.TimeTable.Label"],
+    icon: TableChartIcon
 })

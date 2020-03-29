@@ -1,8 +1,10 @@
 import React, { Component } from "react"
+import { CssBaseline, Grid, withStyles } from "@material-ui/core"
 
 import Workspace from "./components/Workspace/Workspace.js"
 import Toolbar from "./components/Toolbar/Toolbar.js"
 import Dialog from "./components/Dialog/Dialog.js"
+import AppBar from "./components/AppBar/AppBar.js"
 
 import objects from "./Model/Objects/Objects.js"
 import outputRenderers from "./components/Outputs/Outputs.js"
@@ -12,6 +14,18 @@ import Strings from "./config/strings.js"
 import SettingsProvider from "./config/SettingsProvider.js"
 
 import "./App.scss"
+
+const styles = theme => ({
+    spacer: theme.mixins.toolbar,
+
+    mainContainer: {
+        height: "100%"
+    },
+
+    flexGrow: {
+        flexGrow: 1
+    }
+})
 
 const AppContext = React.createContext({})
 
@@ -38,6 +52,7 @@ class App extends Component {
 
             addEventListener: this.addEventListener.bind(this),
             removeEventListener: this.removeEventListener.bind(this),
+            emit: this.emit.bind(this),
 
             onActiveToolChange: this.handleActiveToolChange.bind(this),
             onOutputCreate: this.handleOutputCreate.bind(this),
@@ -196,12 +211,26 @@ class App extends Component {
         window.model = this.model
         window.snapshots = this.snapshots
 
+        const {classes} = this.props
+
         return (
             <div className="app">
-                <AppContext.Provider value={this.state.contextValue}>
-                    <Toolbar/>
+                <CssBaseline/>
 
-                    <Workspace/>
+                <AppContext.Provider value={this.state.contextValue}>
+                    <AppBar/>
+
+                    <div className={classes.spacer}/>
+
+                    <Grid container className={classes.mainContainer}>
+                        <Grid item>
+                            <Toolbar />
+                        </Grid>
+
+                        <Grid item className={classes.flexGrow}>
+                            <Workspace />
+                        </Grid>
+                    </Grid>
 
                     {this.state.renderOutput && React.createElement(outputRenderers[this.state.renderOutput])}
                 </AppContext.Provider>
@@ -210,7 +239,8 @@ class App extends Component {
     }
 }
 
-export default App
+export default withStyles(styles)(App)
+
 export {
     AppContext
 }

@@ -1,10 +1,11 @@
 import React from "react"
+import { Typography } from "@material-ui/core"
 
 function Textbox({value}) {
     return (
-        <div className="textbox">
+        <Typography>
             {value}
-        </div>
+        </Typography>
     )
 }
 

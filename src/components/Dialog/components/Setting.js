@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+import { FormGroup, Input, InputLabel} from "@material-ui/core"
+
 import SettingsProvider from "src/config/SettingsProvider.js"
 import Strings from "src/config/strings.js"
 
@@ -17,9 +19,12 @@ const Setting = (props) => {
     switch(setting.type) {
         case "number":
             element = (
-                <div className="number">
-                    <input type="number" value={value} step={setting.step || 1} onChange={handleChange}/>
-                </div>
+                <Input 
+                    type="number"
+                    value={value}
+                    step={setting.step || 1}
+                    onChange={handleChange}
+                />
             )
             break
 
@@ -29,10 +34,11 @@ const Setting = (props) => {
     }
 
     return (
-        <div className="setting">
-            <label>{Strings["Settings."+[props.name]]}</label>
+        <FormGroup>
+            <InputLabel>{Strings["Settings." + [props.name]]}</InputLabel>
+
             {element}
-        </div>
+        </FormGroup>
     )
 }
 

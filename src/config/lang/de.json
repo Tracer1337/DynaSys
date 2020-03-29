@@ -58,7 +58,7 @@
     "Settings.decimalPoints": "Rundung auf Nachkommastellen",
     "Settings.timesteps": "Berechnete Zeiteinheiten",
     "Settings.interval": "Zeit-Intervall (dt)",
-    "Settings.maxSnapshots": "Zwischenschritte speichern",
+    "Settings.maxSnapshots": "Gespeicherte Zwischenschritte",
 
     "Settings.Sections.general": "Allgemein",
     "Settings.Sections.output": "Ausgabe",
@@ -77,6 +77,7 @@
     "Model.SaveModal.Close": "Schliessen",
 
     "Misc.ApplyLanguage": "Sprache Anwenden",
+    "Misc.Github": "Github Repo",
 
     "Presets.Preset1": "Vorlage 1",
     "Presets.Preset1.Population": "Bevölkerung",

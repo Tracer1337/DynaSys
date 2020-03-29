@@ -13,7 +13,7 @@ export default (content) => {
                 type: "title",
                 value: Strings["Dialogs.Warnings.Title"]
             }, {
-                type: "textbox",
+                type: "warning",
                 value: content
             }, {
                 type: "submit",

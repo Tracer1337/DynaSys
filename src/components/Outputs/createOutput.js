@@ -31,8 +31,8 @@ function createOutput(Child, config) {
                         }
 
                         return {
-                            type: "button",
-                            label: object.name,
+                            type: "listItem",
+                            value: object.name,
                             id: object.id,
                             onClick: () => this.setState({ selectedObjects: [...this.state.selectedObjects, object] })
                         }
@@ -42,24 +42,25 @@ function createOutput(Child, config) {
                     type: "list",
                     label: Strings["Dialogs.Outputs.Selected"],
                     items: this.state.selectedObjects.map(object => ({
-                        type: "button",
-                        label: object.name,
+                        type: "listItem",
+                        value: object.name,
                         id: object.id,
                         onClick: () => this.setState({ selectedObjects: this.state.selectedObjects.filter(selected => selected.id !== object.id) })
                     }))
                 },
-                {
+                this.state.renderSelectedObjectsWarning && {
                     type: "warning",
-                    value: Strings["Dialogs.Warnings.SelectObjects"],
-                    render: this.state.renderSelectedObjectsWarning
+                    value: Strings["Dialogs.Warnings.SelectObjects"]
                 },
                 {
                     type: "submit",
+                    inline: true,
                     value: Strings["Dialogs.Outputs.Submit"]
                 },
                 {
                     type: "button",
-                    label: Strings["Dialogs.Close"],
+                    inline: true,
+                    value: Strings["Dialogs.Close"],
                     onClick: this.context.onOutputClose
                 }
             ].filter(e => e)
@@ -117,15 +118,22 @@ function createOutput(Child, config) {
                         }
 
                         return ReactDOM.createPortal(
-                            <div className="output">
-                                <div className="content">
-                                    <Child
-                                        selectedObjects={this.state.selectedObjects}
-                                        model={this.context.model}
-                                    />
-                                    <button onClick={this.context.onOutputClose}>{Strings["Outputs.Close"]}</button>
-                                </div>
-                            </div>
+                            <Dialog
+                                fields={[
+                                    {
+                                        type: "element",
+                                        value: () => <Child
+                                            selectedObjects={this.state.selectedObjects}
+                                            model={this.context.model}
+                                        />
+                                    },
+                                    {
+                                        type: "button",
+                                        value: Strings["Outputs.Close"],
+                                        onClick: this.context.onOutputClose
+                                    }
+                                ]}
+                            />
                         , document.getElementById("root"))
                     }}
                 </AppContext.Consumer>

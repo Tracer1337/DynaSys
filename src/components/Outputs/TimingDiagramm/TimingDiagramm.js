@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { Line } from "react-chartjs-2"
+import ShowChartIcon from "@material-ui/icons/ShowChart"
 
 import createOutput from "../createOutput.js"
 import Strings from "src/config/strings.js"
@@ -30,42 +31,41 @@ class TimingDiagramm extends Component {
         }
         
         return(
-            <div className="timing-diagramm">
-                <Line
-                    width={window.innerWidth * .9}
-                    height={window.innerHeight * .8}
+            <Line
+                width={window.innerWidth * .9}
+                height={window.innerHeight * .8}
 
-                    data={{
-                        labels,
-                        datasets
-                    }}
+                data={{
+                    labels,
+                    datasets
+                }}
 
-                    options={{
-                        title: {
-                            display: true,
-                            text: Strings["Outputs.TimingDiagramm.Label"]
-                        },
-                        scales: {
-                            xAxes: [{
-                                scaleLabel: {
-                                    display: true,
-                                    labelString: Strings["Outputs.TimingDiagramm.XAxesLabel"]
-                                }
-                            }]
-                        },
-                        elements: {
-                            point: {
-                                radius: 0
+                options={{
+                    title: {
+                        display: true,
+                        text: Strings["Outputs.TimingDiagram.Label"]
+                    },
+                    scales: {
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: Strings["Outputs.TimingDiagram.XAxesLabel"]
                             }
+                        }]
+                    },
+                    elements: {
+                        point: {
+                            radius: 0
                         }
-                    }}
-                />
-            </div>
+                    }
+                }}
+            />
         )
     }
 }
 
 export default createOutput(TimingDiagramm, {
     type: "TimingDiagramm",
-    label: Strings["Outputs.TimingDiagram.Label"]
+    label: Strings["Outputs.TimingDiagram.Label"],
+    icon: ShowChartIcon
 })

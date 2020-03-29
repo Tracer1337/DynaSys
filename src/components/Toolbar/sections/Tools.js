@@ -1,5 +1,7 @@
 import React, { useState, useContext, useEffect } from "react"
 
+import IconButton from "../components/IconButton.js"
+
 import { AppContext } from "src/App.js"
 import tools from "../../Tools/Tools.js"
 import createSection from "./createSection.js"
@@ -24,14 +26,14 @@ const Tools = () => {
 
     return Object.entries(tools).map(([type, tool]) => !tool.config.hideInToolbar && (
 
-        <button
-            className={`item ${selected === type ? "selected" : ""}`}
-            key={type}
+        <IconButton
             onClick={() => handleClick(type)}
-        >
-            {tool.config.label}
-        </button>
-
+            icon={tool.config.icon}
+            label={tool.config.label}
+            color={selected === type ? "secondary" : "default"}
+            key={type}
+        />
+        
     ))
 }
 

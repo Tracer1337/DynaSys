@@ -1,4 +1,5 @@
 import { Component } from "react"
+import TrendingFlatIcon from "@material-ui/icons/TrendingFlat"
 
 import createConnector from "../Connector/createConnector.js"
 import Strings from "src/config/strings.js"
@@ -38,6 +39,7 @@ class Effect extends Component {
 export default createConnector(Effect, {
     type: "Effect",
     label: Strings["Tools.Effect.Label"],
+    icon: TrendingFlatIcon,
     dialogAvailable: false,
     isMovable: false
 })

@@ -50,5 +50,5 @@ export default () => {
             fields={fields}
             onSubmit={() => ReactDOM.unmountComponentAtNode(container)}
         />
-        , container)
+    , container)
 }

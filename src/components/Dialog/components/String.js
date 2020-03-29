@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { TextField } from "@material-ui/core"
 
 class String extends Component {
     append = value => {
@@ -17,14 +18,12 @@ class String extends Component {
 
     render() {
         return(
-            <div className="string">
-                <label>{this.props.label}</label>
-                <input
-                    type="string"
-                    value={this.props.value}
-                    onChange={this.handleChange.bind(this)}
-                />
-            </div>
+            <TextField
+                value={this.props.value}
+                onChange={this.handleChange.bind(this)}
+                label={this.props.label}
+                fullWidth
+            />
         )
     }
 }
