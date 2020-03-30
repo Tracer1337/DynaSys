@@ -187,6 +187,10 @@ class ToolSpace extends Component {
     handleKeyDown(event) {
         // DEL -> Remove selected object
         if(event.keyCode === 46) {
+            if(!this.state.selectedObjectId) {
+                return
+            }
+
             let skipVerification = false
             if(event.shiftKey) {
                 skipVerification = true

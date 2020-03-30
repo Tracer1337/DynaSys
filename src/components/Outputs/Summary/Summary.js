@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Tab } from "@material-ui/core"
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted"
 
 import MaskConverter from "../../Utils/MaskConverter/MaskConverter.js"
@@ -11,15 +12,40 @@ class Summary extends Component {
         const objects = this.props.model.getObjects().filter(object => this.props.selectedObjects.includes(object))
 
         return (
-            <div className="summary">
-                {
-                    objects.map(object => (
-                        <div className="equation" key={object.id}>
-                            <MaskConverter maskedString={object.getEquation()}/>
-                        </div>
-                    ))
-                }
-            </div>
+            <Paper variant="outlined">
+                <TableContainer>
+                    <Table>
+                        
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>{Strings["Outputs.Summary.Name"]}</TableCell>
+                                <TableCell>{Strings["Outputs.Summary.Value"]}</TableCell>
+                            </TableRow>
+                        </TableHead>
+
+                        <TableBody>
+                            {
+                                objects.map(object => {
+                                    const [leftSide, rightSide] = object.getEquation()
+
+                                    return (
+                                        <TableRow>
+                                            <TableCell>
+                                                <MaskConverter maskedString={leftSide}/>
+                                            </TableCell>
+
+                                            <TableCell>
+                                                <MaskConverter maskedString={rightSide}/>
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                                })
+                            }
+                        </TableBody>
+
+                    </Table>
+                </TableContainer>
+            </Paper>
         )
     }
 }

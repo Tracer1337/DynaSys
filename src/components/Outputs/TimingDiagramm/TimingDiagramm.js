@@ -41,10 +41,6 @@ class TimingDiagramm extends Component {
                 }}
 
                 options={{
-                    title: {
-                        display: true,
-                        text: Strings["Outputs.TimingDiagram.Label"]
-                    },
                     scales: {
                         xAxes: [{
                             scaleLabel: {

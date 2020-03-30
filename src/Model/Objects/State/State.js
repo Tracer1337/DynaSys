@@ -12,8 +12,9 @@ class State extends InternalObject {
     }
 
     getEquation() {
-        const equation = `${this.name}.${Strings["Outputs.Summary.New"]} = ${this.name}.${Strings["Outputs.Summary.Old"]} + dt * (${this.deltas.map(({ object, sign }) => (sign < 0 ? "- " : "+ ") + object.name).join(" ")})`
-        return this.mask(equation)
+        const leftSide = this.mask(`${this.name}.${Strings["Outputs.Summary.New"]}`)
+        const rightSide = this.mask(`${this.name}.${Strings["Outputs.Summary.Old"]} + dt * (${this.deltas.map(({ object, sign }) => (sign < 0 ? "- " : "+ ") + object.name).join(" ")})`)
+        return [leftSide, rightSide]
     }
 
     evaluate({t, dt}) {

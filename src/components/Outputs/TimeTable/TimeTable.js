@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import { Paper, Table, TableHead, TableBody, TableRow, TableCell, TableContainer } from "@material-ui/core"
 import TableChartIcon from "@material-ui/icons/TableChart"
 
 import createOutput from "../createOutput.js"
@@ -23,36 +24,40 @@ class TimeTable extends Component {
         }
 
         return (
-            <div className="time-table">
-                <table border="1" style={{borderCollapse: "collapse"}}>
+            <Paper variant="outlined">
+                <TableContainer>
+                    <Table>
+                        
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>{Strings["Outputs.TimeTable.Time"]}</TableCell>
+                                {
+                                    Object.keys(data).map(id =>
+                                        <TableCell key={id}>{this.props.model.getObjectById(id).name}</TableCell>
+                                    )
+                                }
+                            </TableRow>
+                        </TableHead>
 
-                    <thead>
-                        <tr>
-                            <th>{Strings["Outputs.TimeTable.Time"]}</th>
+
+                        <TableBody>
                             {
-                                Object.keys(data).map(id => 
-                                    <th key={id}>{this.props.model.getObjectById(id).name}</th>
+                                formatted.map((row, t) =>
+                                    <TableRow hover key={t}>
+                                        <TableCell>{fix(t * object.dt)}</TableCell>
+                                        {
+                                            Object.values(row).map((value, i) =>
+                                                <TableCell key={i}>{value}</TableCell>
+                                            )
+                                        }
+                                    </TableRow>
                                 )
                             }
-                        </tr>
-                    </thead>
+                        </TableBody>
 
-                    <tbody>
-                        {
-                            formatted.map((row, t) => 
-                                <tr key={t}>
-                                    <td>{fix(t * object.dt)}</td>
-                                    {
-                                        Object.values(row).map((value, i) => 
-                                            <td key={i}>{value}</td>
-                                        )
-                                    }
-                                </tr>
-                            )
-                        }
-                    </tbody>
-                </table>
-            </div>
+                    </Table>
+                </TableContainer>
+            </Paper>
         )
     }
 }

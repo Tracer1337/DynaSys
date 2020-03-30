@@ -95,8 +95,9 @@ class InternalObject {
     }
 
     getEquation() {
-        const equation = `${this.name} = ${this.value}`
-        return this.mask(equation)
+        const leftSide = this.mask(this.name)
+        const rightSide = this.mask(this.value)
+        return [leftSide, rightSide]
     }
 
     evaluate({t}) {

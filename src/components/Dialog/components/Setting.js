@@ -1,17 +1,47 @@
-import React, { useState } from "react"
-import { FormGroup, Input, InputLabel} from "@material-ui/core"
+import React, { useState, useRef } from "react"
+import { FormGroup, Grid, Input, InputLabel, Popover, Typography, withStyles } from "@material-ui/core"
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline"
 
 import SettingsProvider from "src/config/SettingsProvider.js"
 import Strings from "src/config/strings.js"
 
-const Setting = (props) => {
-    const setting = SettingsProvider.settings[props.name]
+const styles = {
+    helpIconWrapper: {
+        height: 20
+    },
+    
+    helpIcon: {
+        opacity: .54,
+        marginRight: 5,
+        cursor: "pointer"
+    },
+
+    helper: {
+        pointerEvents: "none"
+    },
+
+    innerHelper: {
+        padding: 10
+    }
+}
+
+const Setting = ({ name, classes }) => {
+    const setting = SettingsProvider.settings[name]
 
     const [value, setValue] = useState(setting.value)
+    const [helperAnchor, setHelperAnchor] = useState(null)
 
     const handleChange = (event) => {
-        SettingsProvider.set(props.name, event.target.value)
+        SettingsProvider.set(name, event.target.value)
         setValue(event.target.value)
+    }
+
+    const handleShowHelper = (event) => {
+        setHelperAnchor(event.currentTarget)
+    }
+
+    const handleHideHelper = () => {
+        setHelperAnchor(null)
     }
 
     let element
@@ -29,17 +59,53 @@ const Setting = (props) => {
             break
 
         default:
-            element = <div>Setting {props.name} not found</div>
+            element = <div>Setting {name} not found</div>
             break
     }
 
+    const helperVisible = !!helperAnchor
+
     return (
         <FormGroup>
-            <InputLabel>{Strings["Settings." + [props.name]]}</InputLabel>
+            <Grid container alignItems="center">
+                <Grid item className={classes.helpIconWrapper}>
+                    <HelpOutlineIcon 
+                        fontSize="small" 
+                        className={classes.helpIcon}
+                        onMouseEnter={handleShowHelper}
+                        onMouseLeave={handleHideHelper}
+                    />
+
+                    <Popover
+                        className={classes.helper}
+                        classes={{paper: classes.innerHelper}}
+                        open={helperVisible}
+                        anchorEl={helperAnchor}
+                        onClose={handleHideHelper}
+                        disableRestoreFocus
+
+                        anchorOrigin={{
+                            horizontal: "top",
+                            vertical: "left"
+                        }}
+
+                        transformOrigin={{
+                            horizontal: "right",
+                            vertical: "bottom"
+                        }}
+                    >
+                        <Typography>{Strings[`Settings.${name}.helperText`]}</Typography>
+                    </Popover>
+                </Grid>
+
+                <Grid item>
+                    <InputLabel>{Strings[`Settings.${name}`]}</InputLabel>
+                </Grid>
+            </Grid>
 
             {element}
         </FormGroup>
     )
 }
 
-export default Setting
+export default withStyles(styles)(Setting)

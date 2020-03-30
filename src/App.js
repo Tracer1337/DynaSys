@@ -16,14 +16,13 @@ import SettingsProvider from "./config/SettingsProvider.js"
 import "./App.scss"
 
 const styles = theme => ({
-    spacer: theme.mixins.toolbar,
-
     mainContainer: {
         height: "100%"
     },
 
-    flexGrow: {
-        flexGrow: 1
+    workspaceWrapper: {
+        flexGrow: 1,
+        paddingTop: 64
     }
 })
 
@@ -220,14 +219,12 @@ class App extends Component {
                 <AppContext.Provider value={this.state.contextValue}>
                     <AppBar/>
 
-                    <div className={classes.spacer}/>
-
                     <Grid container className={classes.mainContainer}>
                         <Grid item>
                             <Toolbar />
                         </Grid>
 
-                        <Grid item className={classes.flexGrow}>
+                        <Grid item className={classes.workspaceWrapper}>
                             <Workspace />
                         </Grid>
                     </Grid>

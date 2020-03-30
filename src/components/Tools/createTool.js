@@ -184,7 +184,10 @@ function createTool(Child, config) {
                             <div
                                 className={`tool ${Tool.config.className || ""} ${this.state.selected ? "selected" : ""}`}
                                 ref={ref => this.container = ref}
-                                style={{transform: `translate(${object.x}px, ${object.y}px)`}}
+                                style={{
+                                    transform: `translate(${object.x}px, ${object.y}px)`,
+                                    color: object.color
+                                }}
                                 onMouseOver={this.handleMouseOver.bind(this)}
                                 onMouseOut={this.props.onMouseOut}
                             >

@@ -121,6 +121,10 @@ function createOutput(Child, config) {
                             <Dialog
                                 fields={[
                                     {
+                                        type: "title",
+                                        value: Output.config.label
+                                    },
+                                    {
                                         type: "element",
                                         value: () => <Child
                                             selectedObjects={this.state.selectedObjects}

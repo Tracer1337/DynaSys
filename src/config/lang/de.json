@@ -21,6 +21,8 @@
     "Outputs.Summary.Label": "Zusammenfassung",
     "Outputs.Summary.Old": "Alt",
     "Outputs.Summary.New": "Neu",
+    "Outputs.Summary.Name": "Name",
+    "Outputs.Summary.Value": "Wert",
     
     "Outputs.Close": "Schliessen",
 
@@ -56,9 +58,16 @@
     "Settings.Close": "Schliessen",
 
     "Settings.decimalPoints": "Rundung auf Nachkommastellen",
+    "Settings.decimalPoints.helperText": "Ein höherer Wert kann die Genauigkeit der Berechnungen erhöhen",
+
     "Settings.timesteps": "Berechnete Zeiteinheiten",
+    "Settings.timesteps.helperText": "Ein höherer Wert benötigt mehr Rechenleistung",
+
     "Settings.interval": "Zeit-Intervall (dt)",
+    "Settings.interval.helperText": "Ein höherer Wert liefert ein genaueres Ergebnis auf Kosten der Berechnungsdauer",
+
     "Settings.maxSnapshots": "Gespeicherte Zwischenschritte",
+    "Settings.maxSnapshots.helperText": "Anzahl der mit strg + z rückgängig-machbaren Änderungen",
 
     "Settings.Sections.general": "Allgemein",
     "Settings.Sections.output": "Ausgabe",

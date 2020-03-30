@@ -21,6 +21,8 @@
     "Outputs.Summary.Label": "Summary",
     "Outputs.Summary.Old": "Old",
     "Outputs.Summary.New": "New",
+    "Outputs.Summary.Name": "Name",
+    "Outputs.Summary.Value": "Value",
     
     "Outputs.Close": "Close",
 
@@ -56,10 +58,17 @@
     "Settings.Close": "Close",
 
     "Settings.decimalPoints": "Round to decimal places",
-    "Settings.timesteps": "Amount of timesteps",
-    "Settings.interval": "Interval (dt)",
-    "Settings.maxSnapshots": "Saved snapshots",
+    "Settings.decimalPoints.helperText": "A higher value may increase the accuracy of the calculations",
 
+    "Settings.timesteps": "Amount of timesteps",
+    "Settings.timesteps.helperText": "A higher value consumes more computing-power",
+
+    "Settings.interval": "Interval (dt)",
+    "Settings.interval.helperText": "A higher value gives a more accurate result at the expense of computing-time",
+    
+    "Settings.maxSnapshots": "Saved snapshots",
+    "Settings.maxSnapshots.helperText": "Amount of the reversible changes by pressing ctrl + z",
+    
     "Settings.Sections.general": "General",
     "Settings.Sections.output": "Output",
     "Settings.Sections.performance": "Performance",
