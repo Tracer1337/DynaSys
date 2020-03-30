@@ -85,8 +85,8 @@ const Setting = ({ name, classes }) => {
                         disableRestoreFocus
 
                         anchorOrigin={{
-                            horizontal: "top",
-                            vertical: "left"
+                            horizontal: "left",
+                            vertical: "top"
                         }}
 
                         transformOrigin={{
