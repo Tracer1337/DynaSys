@@ -19,6 +19,8 @@ import Caption from "./components/Caption.js"
 import Verification from "./templates/Verification.js"
 import WarningTemplate from "./templates/Warning.js"
 import Settings from "./templates/Settings.js"
+import SaveModel from "./templates/SaveModel.js"
+import LoadModel from "./templates/LoadModel.js"
 
 import "./Dialog.scss"
 
@@ -45,6 +47,8 @@ class Dialog extends Component {
     static verify = Verification
     static warn = WarningTemplate
     static settings = Settings
+    static saveModel = SaveModel
+    static loadModel = LoadModel
 
     constructor(props) {
         super(props)

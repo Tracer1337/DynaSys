@@ -50,7 +50,10 @@
     "Dialogs.Verifications.Decline": "Decline",
     "Dialogs.Verifications.Remove.Content": "The object '{}' will be removed",
     "Dialogs.Verifications.Remove.SubContent": "This dialog may be skipped by pressing shift + del",
+    "Dialogs.Verifications.RemoveModel.Content": "The model '{}' will be removed",
+    "Dialogs.Verifications.RemoveModel.SubContent": "This action cannot be undone",
     "Dialogs.Verifications.Override.Content": "The model '{}' will be overriden",
+    "Dialogs.Verifications.OverrideUnlessSaved.Content": "If the model '{}' is not saved, it will be overriden in the next step",
 
     "Dialogs.Close": "Close",
 
@@ -74,6 +77,7 @@
     "Settings.Sections.performance": "Performance",
     
     "Model.Save": "Save",
+    "Model.Load": "Load",
     "Model.Export": "Export",
     "Model.Import": "Import",
     "Model.New": "New",
@@ -81,9 +85,14 @@
     
     "Model.SaveModal.Title": "Save Model",
     "Model.SaveModal.Name": "Name",
-    "Model.SaveModal.Saved": "Existing Models",
+    "Model.SaveModal.Saved": "Saved Models",
     "Model.SaveModal.Submit": "Save",
     "Model.SaveModal.Close": "Close",
+
+    "Model.LoadModal.Title": "Load Model",
+    "Model.LoadModal.Presets": "Presets",
+    "Model.LoadModal.Saved": "Saved Models",
+    "Model.LoadModal.Close": "Close",
 
     "Misc.ApplyLanguage": "Apply Language",
     "Misc.Github": "Github Repo",

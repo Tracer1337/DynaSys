@@ -1,8 +1,9 @@
-import React, { useState, useRef, useContext } from "react"
+import React, { useContext } from "react"
 import SaveIcon from "@material-ui/icons/Save"
 import SaveAltIcon from "@material-ui/icons/SaveAlt"
 import OpenInBrowserIcon from "@material-ui/icons/OpenInBrowser"
 import AddIcon from "@material-ui/icons/Add"
+import CachedIcon from "@material-ui/icons/Cached"
 
 import IconButton from "../components/IconButton.js"
 
@@ -12,43 +13,17 @@ import Dialog from "../../Dialog/Dialog.js"
 import Strings from "src/config/strings.js"
 import downloadJSON from "src/utils/downloadJSON.js"
 import importJSON from "src/utils/importJSON.js"
-import { getModels, setModels } from "src/utils/models.js"
 
 const Model = () => {
-    const [showSaveModal, setShowSaveModal] = useState(false)
-    const { model, onModelLoad, onModelReset, emit } = useContext(AppContext)
-
-    const saveNameInput = useRef()
+    const context = useContext(AppContext)
+    const { model, onModelLoad, onModelReset } = context
 
     const handleSaveClick = () => {
-        setShowSaveModal(true)
+        Dialog.saveModel(context)
     }
 
-    // Add the model under the name given by data to the models in localStorage
-    const handleSaveSubmit = async data => {
-        const models = getModels()
-        
-        const name = data.name || Strings["Model.UnnamedModel"]
-        model.name = name
-
-        // Ask if the user really wants to override the model if it already exists
-        if(models[name]) {
-            const shouldOverride = await Dialog.verify({
-                content: Strings["Dialogs.Verifications.Override.Content"].replace("{}", name)
-            })
-
-            if(!shouldOverride) {
-                return
-            }
-        }
-
-        model.makePreset()
-        models[name] = model
-
-        setModels(models)
-        emit(new CustomEvent("modelschange"))
-        
-        setShowSaveModal(false)
+    const handleLoadClick = () => {
+        Dialog.loadModel(context)
     }
 
     const handleExportClick = () => {
@@ -74,6 +49,12 @@ const Model = () => {
             />
 
             <IconButton
+                onClick={handleLoadClick}
+                icon={CachedIcon}
+                label={Strings["Model.Load"]}
+            />
+
+            <IconButton
                 onClick={handleExportClick}
                 icon={SaveAltIcon}
                 label={Strings["Model.Export"]}
@@ -90,43 +71,6 @@ const Model = () => {
                 icon={AddIcon}
                 label={Strings["Model.New"]}
             />
-
-            {showSaveModal && (
-                <Dialog
-                    fields={[
-                        {
-                            type: "title",
-                            value: Strings["Model.SaveModal.Title"]
-                        },
-                        {
-                            type: "string",
-                            label: Strings["Model.SaveModal.Name"],
-                            name: "name",
-                            defaultValue: model.name,
-                            ref: saveNameInput
-                        },
-                        {
-                            type: "list",
-                            label: Strings["Model.SaveModal.Saved"],
-                            items: Object.keys(getModels()).map(name => ({
-                                type: "button",
-                                value: name,
-                                onClick: () => saveNameInput.current.set(name)
-                            }))
-                        },
-                        {
-                            type: "submit",
-                            value: Strings["Model.SaveModal.Submit"]
-                        },
-                        {
-                            type: "button",
-                            value: Strings["Model.SaveModal.Close"],
-                            onClick: () => setShowSaveModal(false)
-                        }
-                    ]}
-                    onSubmit={handleSaveSubmit}
-                />
-            )}
         </div>
     )
 }

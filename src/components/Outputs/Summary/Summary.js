@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell, Tab } from "@material-ui/core"
+import { Paper, TableContainer, Table, TableHead, TableBody, TableRow, TableCell } from "@material-ui/core"
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted"
 
 import MaskConverter from "../../Utils/MaskConverter/MaskConverter.js"

@@ -12,7 +12,7 @@ const styles = {
     }
 }
 
-const IconButton = ({ classes, icon, label, color, customLabel, onClick}) => (
+const IconButton = ({ classes, icon, label, color, customLabel, onClick }) => (
     <Grid
         container
         spacing={1}
