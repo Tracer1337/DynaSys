@@ -6,7 +6,7 @@ class Parameter extends InternalObject {
 
         this.type = "Parameter"
 
-        this.hasInput = false
+        this.hasInput = true
         this.hasOutput = true
     }
 }

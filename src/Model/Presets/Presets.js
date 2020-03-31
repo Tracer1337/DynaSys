@@ -1,18 +1,15 @@
-import Preset1 from "./Preset1.json"
-import Preset2 from "./Preset2.json"
+import Tourism from "./Tourism.json"
+import Aids from "./Aids.json"
 
 import Strings from "src/config/strings.js"
 
-const presets = { Preset1, Preset2 }
+const presets = { Tourism, Aids }
 
 for(let name in presets) {
     presets[name].name = Strings[`Presets.${name}`]
 
     presets[name].model.forEach(object => {
-        const translation = Strings[`Presets.${name}.${object.name}`]
-        if(translation) {
-            object.name = translation
-        }
+        object.name = Strings[`Presets.${name}.${object.name}`]
     })
 }
 

@@ -51,7 +51,8 @@ class InternalObject {
 
         for (let object of this.inputs) {
             if (object.hasOutput) {
-                parser.set(object.name, object.old)
+                const value = object.type === "State" ? (object.new || object.old) : object.getValue(data)
+                parser.set(object.name, value)
             }
         }
 
@@ -61,14 +62,16 @@ class InternalObject {
 
         const result = parser.evaluate(this.value || "0")
 
+        // console.log(`[${data.t} - ${this.name}]`, parser, result, this)
+
         return +result.toFixed(SettingsProvider.settings.decimalPoints.value)
     }
 
-    getDelta({t}) {
+    getDelta(data) {
         let delta = 0
 
         for (let {object, sign} of this.deltas) {
-            delta += object.getValue({t}) * sign
+            delta += object.getValue(data) * sign
         }
 
         return delta
@@ -100,12 +103,12 @@ class InternalObject {
         return [leftSide, rightSide]
     }
 
-    evaluate({t}) {
-        if (t === 0) {
-            this.old = this.getValue({t})
+    evaluate(data) {
+        const value = this.getValue(data)
+        if(data.t === 0) {
+            this.old = value
         }
-
-        return this.old
+        return value
     }
 
     clone() {

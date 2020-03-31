@@ -26,7 +26,7 @@ class TimingDiagramm extends Component {
         })
 
         const labels = []
-        for(let i = 0; i < object.timesteps / object.dt; i++) {
+        for(let i = 0; i <= object.timesteps / object.dt; i++) {
             labels[i] = fix(i * object.dt)
         }
         

@@ -23,7 +23,7 @@ class State extends InternalObject {
             return this.old
         }
 
-        const delta = this.getDelta({t})
+        const delta = this.getDelta({t: t-1})
         
         this.new = this.old + dt * delta
 

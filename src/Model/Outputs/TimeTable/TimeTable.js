@@ -14,7 +14,8 @@ class TimeTable extends Output {
         // Create id - value map for objects
         const data = {}
         const model = this.model
-        const objects = model.getObjects()
+        // Create a new array since it will become sorted
+        const objects = [...model.getObjects()]
 
         for (let object of objects) {
             data[object.id] = []
@@ -23,8 +24,19 @@ class TimeTable extends Output {
             object.new = 0
         }
 
+        // Put "State" objects to the beginning so that they will be calculated first
+        const isState = obj => obj.type === "State"
+        objects.sort((a, b) => {
+            const aIsState = isState(a)
+            const bIsState = isState(b)
+
+            if(aIsState && !bIsState) return -1
+            if(!aIsState && bIsState) return 1
+            else return 0
+        })
+
         // Generate data table
-        for (let t = 0; t < this.timesteps; t += this.dt) {
+        for (let t = 0; t <= this.timesteps; t += this.dt) {
             t = fix(t)
 
             // Feed the data through all objects

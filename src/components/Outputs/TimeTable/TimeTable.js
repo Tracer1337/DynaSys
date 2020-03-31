@@ -16,7 +16,7 @@ class TimeTable extends Component {
 
         // Change data = {id: [values, ...], ...} to formatted = [{id: value, ...}, ...]
         const formatted = []
-        for(let i = 0; i < object.timesteps / object.dt; i++) {
+        for(let i = 0; i <= object.timesteps / object.dt; i++) {
             formatted[i] = {}
             for(let id in data) {
                 formatted[i][id] = data[id][i]
