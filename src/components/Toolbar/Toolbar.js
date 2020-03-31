@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import { Drawer, withStyles } from "@material-ui/core"
 import clsx from "clsx"
 
-import Tools from "./sections/Tools.js"
 import Outputs from "./sections/Outputs.js"
 import Model from "./sections/Model.js"
 import Misc from "./sections/Misc.js"
@@ -87,8 +86,6 @@ class Toolbar extends Component {
                             <div className={classes.spacer}/>
 
                             <div className={classes.sectionWrapper}>
-                                <Tools/>
-
                                 <Outputs/>
 
                                 <Model/>

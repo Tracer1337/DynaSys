@@ -1,0 +1,14 @@
+.fab {
+    &:hover {
+        background-color: #f50057 !important;
+    }
+
+    .toolbtn {
+        transition: all 100ms linear;
+
+        &.selected {
+            margin: 0 30px;
+            color: white;
+        }
+    }
+}

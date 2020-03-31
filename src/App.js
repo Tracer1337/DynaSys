@@ -3,6 +3,7 @@ import { CssBaseline, Grid, withStyles } from "@material-ui/core"
 
 import Workspace from "./components/Workspace/Workspace.js"
 import Toolbar from "./components/Toolbar/Toolbar.js"
+import FloatingTools from "./components/FloatingTools/FloatingTools.js"
 import Dialog from "./components/Dialog/Dialog.js"
 import AppBar from "./components/AppBar/AppBar.js"
 
@@ -15,7 +16,7 @@ import SettingsProvider from "./config/SettingsProvider.js"
 
 import "./App.scss"
 
-const styles = theme => ({
+const styles = {
     mainContainer: {
         height: "100%"
     },
@@ -24,7 +25,7 @@ const styles = theme => ({
         flexGrow: 1,
         paddingTop: 64
     }
-})
+}
 
 const AppContext = React.createContext({})
 
@@ -221,11 +222,12 @@ class App extends Component {
 
                     <Grid container className={classes.mainContainer}>
                         <Grid item>
-                            <Toolbar />
+                            <Toolbar/>
                         </Grid>
 
                         <Grid item className={classes.workspaceWrapper}>
-                            <Workspace />
+                            <Workspace/>
+                            <FloatingTools/>
                         </Grid>
                     </Grid>
 
