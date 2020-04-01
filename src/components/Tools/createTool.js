@@ -65,11 +65,11 @@ function createTool(Child, config) {
         }
 
         handleInputClick(object) {
-            this.valueInput.append(object.name)
+            this.valueInput.insert(object.name)
         }
 
         handleFunctionClick(fn) {
-            this.valueInput.append(fn)
+            this.valueInput.insert(fn)
         }
 
         handleRemove() {
