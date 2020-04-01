@@ -7,7 +7,13 @@ import "./FloatingTools.scss"
 const styles = {
     button: {
         pointerEvents: "all",
-        margin: "0 10px"
+        margin: "0 10px",
+        transition: "margin 100ms linear"
+    },
+
+    selected: {
+        margin: "0 30px",
+        color: "#f50057"
     },
 
     label: {
@@ -34,7 +40,8 @@ const Button = ({ label, icon, selected, onClick, classes }) => {
     
     return (
         <IconButton
-            className={clsx(classes.button, "toolbtn", { "selected": selected })}
+            className={clsx(classes.button, { [classes.selected]: selected })}
+            color={selected ? "secondary" : "primary"}
             onClick={onClick}
             label={label}
             onMouseEnter={handleLabelShow}

@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react"
-import { Fab, IconButton, withStyles } from "@material-ui/core"
+import { Grid, Paper, withStyles } from "@material-ui/core"
 import clsx from "clsx"
 
 import Button from "./Button.js"
@@ -9,13 +9,13 @@ import tools from "../Tools/Tools.js"
 import "./FloatingTools.scss"
 
 const styles = {
-    fab: {
+    container: {
         position: "absolute",
         bottom: 20,
-        left: "50%",
         zIndex: 1,
-        pointerEvents: "none",
-        cursor: "default"
+        cursor: "default",
+        borderRadius: 24,
+        padding: "0 15px"
     }
 }
 
@@ -37,22 +37,22 @@ const Tools = ({ classes }) => {
     }, [activeTool, selected])
 
     return (
-        <Fab
-            className={clsx("fab", classes.fab)}
-            variant="extended"
-            color="secondary"
-            disableRipple
-        >
-            {Object.entries(tools).map(([type, tool], i) => !tool.config.hideInToolbar && (
-                <Button
-                    key={i}
-                    label={tool.config.label}
-                    icon={tool.config.icon}
-                    selected={selected === type}
-                    onClick={() => handleClick(type)}
-                />
-            ))}
-        </Fab>
+        <Grid container justify="center">
+            <Paper
+                className={clsx(classes.container, { [classes.selected]: !!selected })}
+                elevation={5}
+            >
+                {Object.entries(tools).map(([type, tool], i) => !tool.config.hideInToolbar && (
+                    <Button
+                        key={i}
+                        label={tool.config.label}
+                        icon={tool.config.icon}
+                        selected={selected === type}
+                        onClick={() => handleClick(type)}
+                    />
+                ))}
+            </Paper>
+        </Grid>
     )
 }
 
