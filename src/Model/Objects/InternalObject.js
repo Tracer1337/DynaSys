@@ -77,9 +77,9 @@ class InternalObject {
         return delta
     }
 
-    mask(equation) {
+    mask(string) {
         // Apply colors of objects to string
-        let masked = equation
+        let masked = string
 
         const sortedObjects = [this, ...this.inputs, ...this.outputs, ...this.deltas.map(d => d.object)]
         sortedObjects.sort((a, b) => (b.name || "").length - (a.name || "").length)

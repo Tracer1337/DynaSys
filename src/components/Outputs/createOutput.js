@@ -32,7 +32,8 @@ function createOutput(Child, config) {
 
                         return {
                             type: "listItem",
-                            value: object.name,
+                            value: object.mask(object.name),
+                            masked: true,
                             id: object.id,
                             onClick: () => this.setState({ selectedObjects: [...this.state.selectedObjects, object] })
                         }
@@ -43,7 +44,8 @@ function createOutput(Child, config) {
                     label: Strings["Dialogs.Outputs.Selected"],
                     items: this.state.selectedObjects.map(object => ({
                         type: "listItem",
-                        value: object.name,
+                        value: object.mask(object.name),
+                        masked: true,
                         id: object.id,
                         onClick: () => this.setState({ selectedObjects: this.state.selectedObjects.filter(selected => selected.id !== object.id) })
                     }))

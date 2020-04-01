@@ -144,7 +144,8 @@ function createTool(Child, config) {
                         ].concat(object.inputs.map(object => object.hasOutput && (
                             {
                                 type: "listItem",
-                                value: object.name,
+                                value: object.mask(object.name),
+                                masked: true,
                                 onClick: () => this.handleInputClick(object)
                             }
                         )).filter(e => e)) : []
