@@ -37,7 +37,7 @@ const Presets = () => {
 
     return (
         <>
-            {Object.values(presets).map((object, i) => (
+            {presets.map((object, i) => (
                 <IconButton
                     key={i}
                     onClick={() => onModelLoad(object)}
@@ -46,7 +46,7 @@ const Presets = () => {
                 />
             ))}
         
-            {Object.values(models).map((object, i) => (
+            {models.map((object, i) => (
                 <IconButton
                     key={i}
                     onClick={() => onModelLoad(object)}

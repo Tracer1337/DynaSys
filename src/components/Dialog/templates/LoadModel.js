@@ -29,9 +29,9 @@ const LoadModel = ({ appContext, onClose }) => {
     }
     
     // Remove the model with given name from localStorage
-    const handleRemove = async object => {
+    const handleRemove = async removeModel => {
         const shouldRemove = await Dialog.verify({
-            content: Strings["Dialogs.Verifications.RemoveModel.Content"].replace("{}", object.name),
+            content: Strings["Dialogs.Verifications.RemoveModel.Content"].replace("{}", removeModel.name),
             subContent: Strings["Dialogs.Verifications.RemoveModel.SubContent"]
         })
 
@@ -39,13 +39,11 @@ const LoadModel = ({ appContext, onClose }) => {
             return
         }
     
-        const newModels = {}
+        const newModels = []
 
-        for (let key in models) {
-            const savedObject = models[key]
-
-            if (savedObject.name !== object.name) {
-                newModels[key] = models[key]
+        for (let savedModel of models) {
+            if (savedModel.name !== removeModel.name) {
+                newModels.push(savedModel)
             }
         }
 
@@ -60,7 +58,7 @@ const LoadModel = ({ appContext, onClose }) => {
         {
             type: "list",
             label: Strings["Model.LoadModal.Presets"],
-            items: Object.values(presets).map(object => ({
+            items: presets.map(object => ({
                 type: "listItem",
                 value: object.name,
                 onClick: () => handleLoad(object)
@@ -69,7 +67,7 @@ const LoadModel = ({ appContext, onClose }) => {
         {
             type: "list",
             label: Strings["Model.LoadModal.Saved"],
-            items: Object.values(getModels()).map(object => ({
+            items: getModels().map(object => ({
                 type: "listItem",
                 value: object.name,
                 onClick: () => handleLoad(object),

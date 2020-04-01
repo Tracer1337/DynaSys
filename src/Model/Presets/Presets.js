@@ -3,12 +3,13 @@ import Pandemic from "./Pandemic.json"
 
 import Strings from "src/config/strings.js"
 
-const presets = { Tourism, Pandemic }
+const presets = [Tourism, Pandemic]
 
-for(let name in presets) {
-    presets[name].name = Strings[`Presets.${name}`]
+for(let preset of presets) {
+    const {name} = preset
+    preset.name = Strings[`Presets.${name}`]
 
-    presets[name].model.forEach(object => {
+    preset.model.forEach(object => {
         object.name = Strings[`Presets.${name}.${object.name}`]
     })
 }

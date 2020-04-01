@@ -14,13 +14,14 @@ const SaveModel = ({ appContext, onClose }) => {
     const handleSubmit = async data => {
         const models = getModels()
 
-        const name = data.name || Strings["Model.UnnamedModel"]
-        model.name = name
+        model.name = data.name || Strings["Model.UnnamedModel"]
+        
+        const index = models.findIndex(m => m.name === model.name)
 
         // Ask if the user really wants to override the model if it already exists
-        if (models[name]) {
+        if (index !== -1) {
             const shouldOverride = await Dialog.verify({
-                content: Strings["Dialogs.Verifications.Override.Content"].replace("{}", name)
+                content: Strings["Dialogs.Verifications.Override.Content"].replace("{}", model.name)
             })
 
             if (!shouldOverride) {
@@ -29,7 +30,9 @@ const SaveModel = ({ appContext, onClose }) => {
         }
 
         model.makePreset()
-        models[name] = model
+        
+        if(index !== -1) models[index] = model
+        else models.push(model)
 
         setModels(models)
         emit(new CustomEvent("modelschange"))
@@ -51,7 +54,7 @@ const SaveModel = ({ appContext, onClose }) => {
         {
             type: "list",
             label: Strings["Model.SaveModal.Saved"],
-            items: Object.values(getModels()).map(({name}) => ({
+            items: getModels().map(({name}) => ({
                 type: "listItem",
                 value: name,
                 onClick: () => saveNameInput.current.set(name)
