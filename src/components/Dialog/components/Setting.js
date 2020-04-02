@@ -2,6 +2,8 @@ import React, { useState } from "react"
 import { FormGroup, Grid, Input, InputLabel, Popover, Typography, withStyles } from "@material-ui/core"
 import HelpOutlineIcon from "@material-ui/icons/HelpOutline"
 
+import Select from "./Select.js"
+
 import SettingsProvider from "src/config/SettingsProvider.js"
 import Strings from "src/config/strings.js"
 
@@ -31,9 +33,9 @@ const Setting = ({ name, classes }) => {
     const [value, setValue] = useState(setting.value)
     const [helperAnchor, setHelperAnchor] = useState(null)
 
-    const handleChange = (event) => {
-        SettingsProvider.set(name, event.target.value)
-        setValue(event.target.value)
+    const handleChange = (value) => {
+        SettingsProvider.set(name, value)
+        setValue(value)
     }
 
     const handleShowHelper = (event) => {
@@ -53,13 +55,26 @@ const Setting = ({ name, classes }) => {
                     type="number"
                     value={value}
                     step={setting.step || 1}
+                    onChange={event => handleChange(event.target.value)}
+                />
+            )
+            break
+
+        case "select":
+            element = (
+                <Select
+                    options={setting.options.map(option => ({
+                        label: Strings[`Settings.${name}.options.${option}`],
+                        value: option
+                    }))}
+                    value={value}
                     onChange={handleChange}
                 />
             )
             break
 
         default:
-            element = <div>Setting {name} not found</div>
+            element = <div>Setting type "{setting.type}" not found (in "{name}")</div>
             break
     }
 

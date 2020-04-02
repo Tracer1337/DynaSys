@@ -1,15 +1,14 @@
 import React, { Component } from "react"
 import FilterDramaIcon from "@material-ui/icons/FilterDrama"
 
-import createTool from "../../createTool.js"
+import createTool from "../createTool.js"
 import Strings from "src/config/strings.js"
-import "./Source.scss"
 
 class Source extends Component {
     render() {
         return (
             <div className="object source" data-id={this.props.object.id}>
-                <FilterDramaIcon className="icon" color="action"/>
+                <FilterDramaIcon className="icon"/>
             </div>
         )
     }

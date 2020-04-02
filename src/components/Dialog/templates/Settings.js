@@ -44,7 +44,6 @@ export default () => {
         value: Strings["Settings.Close"]
     })
 
-
     ReactDOM.render(
         <Dialog
             fields={fields}

@@ -3,7 +3,7 @@ import { Select as MuiSelect, InputLabel, FormControl, MenuItem } from "@materia
 
 import useId from "src/utils/useId.js"
 
-function Select({ label, options, onChange, value, classes }) {
+function Select({ label, options, onChange, value }) {
     const labelId = useId()
 
     const handleChange = event => {
@@ -12,7 +12,9 @@ function Select({ label, options, onChange, value, classes }) {
 
     return (
         <FormControl fullWidth>
-            <InputLabel id={labelId}>{label}</InputLabel>
+            {label && 
+                <InputLabel id={labelId}>{label}</InputLabel>
+            }
 
             <MuiSelect 
                 value={value} 

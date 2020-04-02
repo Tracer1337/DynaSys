@@ -15,7 +15,11 @@ class Parameter extends Component {
 
     render() {
         return (
-            <div className="object parameter" data-id={this.props.object.id} onClick={this.props.onClick}>
+            <div 
+                className="object parameter" 
+                data-id={this.props.object.id} 
+                onClick={this.props.onClick}
+            >
                 {this.props.label}
             </div>
         )

@@ -1,10 +1,8 @@
 .tool {
     display: inline-block;
-    font-size: 20px;
-    text-align: center;
-    cursor: pointer;
     position: absolute;
     user-select: none;
+    pointer-events: none;
 
     &.click-through {
         pointer-events: none;
@@ -13,16 +11,23 @@
     .object {
         padding: 10px;
         min-width: 50px;
-        border: 1px solid #707070;
+        height: 50px;
+        border: 1px solid #607d8b;
+        background-color: white;
+        cursor: pointer;
+        font-size: 20px;
+        text-align: center;
+        transform: translate(-50%, -50%);
+        pointer-events: all;
     }
 
     &.selected {
         .object {
-            border-color: green;
+            border: 2px solid #1976D2;
         }
 
         .icon {
-            color: green;
+            color: #1976D2;
         }
     }
 

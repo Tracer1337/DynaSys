@@ -28,19 +28,24 @@ class ToolSpace extends Component {
 
     container = React.createRef()
 
-    getObjectPositionById(id) {
+    getObjectRectById(id) {
         const objects = Array.from(this.container.current.getElementsByClassName("object"))
-        const result = objects.find(object => parseInt(object.dataset.id) === id)
+        const requestedObject = objects.find(object => parseInt(object.dataset.id) === id)
 
-        if (!result) {
+        if (!requestedObject) {
             return undefined
         }
 
-        const rect = result.getBoundingClientRect()
+        const rect = requestedObject.getBoundingClientRect()
         const containerRect = this.container.current.getBoundingClientRect()
-        const position = { x: rect.x - containerRect.x + rect.width / 2, y: rect.y - containerRect.y + rect.height / 2 }
+        const result = { 
+            x: rect.x - containerRect.x, 
+            y: rect.y - containerRect.y,
+            width: rect.width,
+            height: rect.height
+        }
 
-        return position
+        return result
     }
 
     createObject({ type, settled, props }) {
@@ -156,8 +161,8 @@ class ToolSpace extends Component {
             const mouseX = event.clientX - containerRect.x
             const mouseY = event.clientY - containerRect.y
 
-            const newX = this.currentX = constrain(mouseX - objectDomElement.offsetWidth / 2, 0, containerRect.width - objectDomElement.offsetWidth)
-            const newY = this.currentY = constrain(mouseY - objectDomElement.offsetHeight / 2, 0, containerRect.height - objectDomElement.offsetHeight)
+            const newX = this.currentX = constrain(mouseX, objectDomElement.offsetWidth / 2, containerRect.width - objectDomElement.offsetWidth / 2)
+            const newY = this.currentY = constrain(mouseY, objectDomElement.offsetHeight / 2, containerRect.height - objectDomElement.offsetHeight / 2)
 
             if (isMovingWhenSettled) {
                 this.preventDialog = true
@@ -233,7 +238,7 @@ class ToolSpace extends Component {
 
     componentDidMount() {
         this.props.acrossSpaceCommunication.set("ToolSpace", {
-            getObjectPositionById: this.getObjectPositionById.bind(this)
+            getObjectRectById: this.getObjectRectById.bind(this)
         })
 
         this.setState({

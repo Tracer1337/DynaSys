@@ -75,9 +75,15 @@
     "Settings.maxSnapshots": "Gespeicherte Zwischenschritte",
     "Settings.maxSnapshots.helperText": "Anzahl der mit strg + z rückgängig-machbaren Änderungen",
 
+    "Settings.connectionStyle": "Verbindungen",
+    "Settings.connectionStyle.helperText": "Darstellung der Verbindungen durch z.B. Effekte",
+    "Settings.connectionStyle.options.orthogonal": "Orthogonal",
+    "Settings.connectionStyle.options.straight": "Gerade",
+
     "Settings.Sections.general": "Allgemein",
     "Settings.Sections.output": "Ausgabe",
     "Settings.Sections.performance": "Leistung",
+    "Settings.Sections.appearance": "Darstellung",
     
     "Model.Save": "Speichern",
     "Model.Load": "Laden",

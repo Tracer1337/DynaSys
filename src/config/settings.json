@@ -24,5 +24,16 @@
         "type": "number",
         "section": "performance",
         "value": 20
+    },
+
+
+    "connectionStyle": {
+        "type": "select",
+        "section": "appearance",
+        "value": "straight",
+        "options": [
+            "straight",
+            "orthogonal"
+        ]
     }
 }

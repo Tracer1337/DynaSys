@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 
 import { AppContext } from "src/App.js"
-import SVGArrow from "src/components/Utils/SVG/Arrow.js"
+import SVGArrow from "src/components/Utils/SVG/Arrow/Arrow.js"
 import Connector from "./Connector.js"
 import "./ConnectorSpace.scss"
 
@@ -15,7 +15,7 @@ class ConnectorSpace extends Component {
     idCounter = 0
 
     enablePreview(input) {
-        const from = this.props.acrossSpaceCommunication.ToolSpace.getObjectPositionById(input.id)
+        const from = this.props.acrossSpaceCommunication.ToolSpace.getObjectRectById(input.id)
         this.setState({
             renderPreview: true, 
             previewFrom: from
@@ -36,7 +36,7 @@ class ConnectorSpace extends Component {
                 input={input}
                 output={output}
                 label={object}
-                getObjectPositionById={this.props.acrossSpaceCommunication.ToolSpace.getObjectPositionById}
+                getObjectRectById={this.props.acrossSpaceCommunication.ToolSpace.getObjectRectById}
                 onObjectChange={this.context.onObjectChange}
                 onShallowObjectChange={this.context.onShallowObjectChange}
             />

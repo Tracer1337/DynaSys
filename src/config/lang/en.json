@@ -74,10 +74,16 @@
     
     "Settings.maxSnapshots": "Saved snapshots",
     "Settings.maxSnapshots.helperText": "Amount of the reversible changes by pressing ctrl + z",
+
+    "Settings.connectionStyle": "Connections",
+    "Settings.connectionStyle.helperText": "Appearance of connections created by e.g. effects",
+    "Settings.connectionStyle.options.orthogonal": "Orthogonal",
+    "Settings.connectionStyle.options.straight": "Straight",
     
     "Settings.Sections.general": "General",
     "Settings.Sections.output": "Output",
     "Settings.Sections.performance": "Performance",
+    "Settings.Sections.appearance": "Appearance",
     
     "Model.Save": "Save",
     "Model.Load": "Load",

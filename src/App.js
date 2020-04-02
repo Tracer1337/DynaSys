@@ -233,10 +233,12 @@ class App extends Component {
     }
 
     render() {
+        // The following globalizations are for debugging purposes only
         window.model = this.model
         window.snapshots = this.snapshots
+        window.settings = SettingsProvider.settings
 
-        const {classes} = this.props
+        const { classes } = this.props
 
         return (
             <div className="app">

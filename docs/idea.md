@@ -1,2 +1,2 @@
 [ ] Jest integration / JSDocs in Model integrieren
-[ ] Objekte schöner darstellen
+[ ] Effekte von toolspace entfernen -> Haben keine Tool-Represäntation

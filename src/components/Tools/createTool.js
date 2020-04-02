@@ -1,4 +1,5 @@
 import React, { Component } from "react"
+import clsx from "clsx"
 
 import { AppContext } from "src/App.js"
 import Dialog from "../Dialog/Dialog.js"
@@ -183,7 +184,7 @@ function createTool(Child, config) {
 
                         return (
                             <div
-                                className={`tool ${Tool.config.className || ""} ${this.state.selected ? "selected" : ""}`}
+                                className={clsx("tool", Tool.config.className, {"selected": this.state.selected})}
                                 ref={ref => this.container = ref}
                                 style={{
                                     transform: `translate(${object.x}px, ${object.y}px)`,
@@ -194,7 +195,7 @@ function createTool(Child, config) {
                             >
                                 <Child
                                     ref={ref => this.child = ref}
-                                    label={this.props.unSettled || !object.name ? "?" : object.name}
+                                    label={this.props.unSettled || !object.name ? "" : object.name}
                                     object={object}
                                     onClick={this.handleClick.bind(this)}
                                     {...this.props}

@@ -1,3 +1,10 @@
 .rate-of-change {
-    border-radius: 5px;
+    border-radius: 25px;
+}
+
+.source, .sink {
+    border: none !important;
+    padding: 0 !important;
+    border-radius: 50%;
+    color: #607d8b;
 }

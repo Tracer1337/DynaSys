@@ -1,6 +1,40 @@
 import settings from "./settings.json"
 
 class SettingsProvider {
+    /**
+     * Event-related methods
+     */
+
+    static listeners = []
+    
+    static addEventListener(type, fn) {
+        if (!this.listeners[type]) {
+            this.listeners[type] = []
+        }
+
+        this.listeners[type].push(fn)
+    }
+
+    static removeEventListener(type, fn) {
+        this.listeners[type] = this.listeners[type].filter(l => l !== fn)
+
+        if (this.listeners[type].length === 0) {
+            delete this.listeners[type]
+        }
+    }
+
+    static dispatchEvent(event) {
+        if (!this.listeners[event.type]) {
+            return
+        }
+
+        this.listeners[event.type].forEach(fn => fn(event))
+    }
+
+    /**
+     * Setting-related methods
+     */
+
     static getStoredSettings() {
         return JSON.parse(localStorage.getItem("settings"))
     }
@@ -39,6 +73,7 @@ class SettingsProvider {
         }
 
         SettingsProvider.storeSettings(key, setting)
+        SettingsProvider.dispatchEvent(new CustomEvent("change", { detail: { key, value } }))
     }
 }
 
