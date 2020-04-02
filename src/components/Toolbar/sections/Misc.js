@@ -50,7 +50,6 @@ const Misc = ({classes}) => {
                 label={Strings["Misc.Github"]}
             />
 
-
             <IconButton
                 icon={LanguageIcon}
                 customLabel={() => (

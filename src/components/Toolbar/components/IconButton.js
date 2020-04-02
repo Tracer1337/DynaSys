@@ -31,7 +31,10 @@ const IconButton = ({ classes, icon, label, color, customLabel, onClick }) => (
         <Grid item className={classes.textButtonWrapper}>
             {customLabel ? React.createElement(customLabel) : (
                 <Button
-                    onClick={onClick}
+                    onClick={event => {
+                        event.currentTarget.blur()
+                        onClick(event)
+                    }}
                     color={color}
                     className={classes.textButton}
                 >
