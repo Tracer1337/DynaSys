@@ -3,7 +3,7 @@ import ReactDOM from "react-dom"
 
 import Dialog from "../Dialog.js"
 import Strings from "src/config/strings.js"
-import { getModels, setModels } from "src/utils/models.js"
+import { getModels, saveModel, modelExists } from "src/utils/storage.js"
 
 const SaveModel = ({ appContext, onClose }) => {
     const { model, emit } = appContext
@@ -12,14 +12,10 @@ const SaveModel = ({ appContext, onClose }) => {
 
     // Add the model under the name given by data to the models in localStorage
     const handleSubmit = async data => {
-        const models = getModels()
-
-        model.name = data.name || Strings["Model.UnnamedModel"]
-        
-        const index = models.findIndex(m => m.name === model.name)
+        model.name = data.name || Strings["Model.UnnamedModel"] 
 
         // Ask if the user really wants to override the model if it already exists
-        if (index !== -1) {
+        if (modelExists(model)) {
             const shouldOverride = await Dialog.verify({
                 content: Strings["Dialogs.Verifications.Override.Content"].replace("{}", model.name)
             })
@@ -29,12 +25,7 @@ const SaveModel = ({ appContext, onClose }) => {
             }
         }
 
-        model.makePreset()
-        
-        if(index !== -1) models[index] = model
-        else models.push(model)
-
-        setModels(models)
+        saveModel(model)
         emit(new CustomEvent("modelschange"))
         onClose()
     }

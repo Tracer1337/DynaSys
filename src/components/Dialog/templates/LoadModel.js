@@ -4,16 +4,11 @@ import ReactDOM from "react-dom"
 import Dialog from "../Dialog.js"
 import Strings from "src/config/strings.js"
 import presets from "src/Model/Presets/Presets.js"
-import { getModels, setModels as setStoredModels } from "src/utils/models.js"
+import { getModels, removeModel } from "src/utils/storage.js"
 
 const LoadModel = ({ appContext, onClose }) => {
     const [models, setStateModels] = useState(getModels())
     const { model, onModelLoad } = appContext
-
-    const setModels = newModels => {
-        setStoredModels(newModels)
-        setStateModels(newModels)
-    }
 
     const handleLoad = async object => {
         const shouldApply = await Dialog.verify({
@@ -29,9 +24,9 @@ const LoadModel = ({ appContext, onClose }) => {
     }
     
     // Remove the model with given name from localStorage
-    const handleRemove = async removeModel => {
+    const handleRemove = async model => {
         const shouldRemove = await Dialog.verify({
-            content: Strings["Dialogs.Verifications.RemoveModel.Content"].replace("{}", removeModel.name),
+            content: Strings["Dialogs.Verifications.RemoveModel.Content"].replace("{}", model.name),
             subContent: Strings["Dialogs.Verifications.RemoveModel.SubContent"]
         })
 
@@ -39,15 +34,8 @@ const LoadModel = ({ appContext, onClose }) => {
             return
         }
     
-        const newModels = []
-
-        for (let savedModel of models) {
-            if (savedModel.name !== removeModel.name) {
-                newModels.push(savedModel)
-            }
-        }
-
-        setModels(newModels)
+        removeModel(model)
+        setStateModels(getModels())
     }
 
     const fields = [
@@ -68,7 +56,7 @@ const LoadModel = ({ appContext, onClose }) => {
         {
             type: "list",
             label: Strings["Model.LoadModal.Saved"],
-            items: getModels().map(object => ({
+            items: models.map(object => ({
                 type: "listItem",
                 value: object.name,
                 previewModel: object,

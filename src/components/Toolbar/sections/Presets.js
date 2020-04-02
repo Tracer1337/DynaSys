@@ -6,25 +6,12 @@ import IconButton from "../components/IconButton.js"
 import { AppContext } from "src/App.js"
 import presets from "src/Model/Presets/Presets.js"
 import createSection from "./createSection.js"
-import { getModels } from "src/utils/models.js"
+import { getModels } from "src/utils/storage.js"
 import Strings from "src/config/strings.js"
 
 const Presets = () => {
     const [models, setModels] = useState(getModels())
     const { onModelLoad, addEventListener, removeEventListener } = useContext(AppContext)
-
-    // Remove the model with given name from localStorage
-    const handleModelRemove = name => {
-        const newModels = {}
-
-        for (let key in models) {
-            if (key !== name) {
-                newModels[key] = models[key]
-            }
-        }
-
-        setModels(newModels)
-    }
 
     const handleModelChange = () => {
         setModels(getModels())

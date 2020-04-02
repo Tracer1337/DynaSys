@@ -4,6 +4,7 @@ import ReactDOM from "react-dom"
 import { AppContext } from "src/App.js"
 import Dialog from "../Dialog/Dialog.js"
 import Strings from "src/config/strings.js"
+import { saveModel } from "src/utils/storage.js"
 import "./Output.scss"
 
 function createOutput(Child, config) {
@@ -73,8 +74,14 @@ function createOutput(Child, config) {
             if(this.state.selectedObjects.length === 0) {
                 this.setState({ renderSelectedObjectsWarning: true })
             } else {
+                this.context.model.selectedObjects = this.state.selectedObjects
+                saveModel(this.context.model)
                 this.setState({ renderDialog: false })
             }
+        }
+
+        componentDidMount() {
+            this.setState({ selectedObjects: this.context.model.selectedObjects })
         }
 
         render() {
