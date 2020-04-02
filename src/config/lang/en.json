@@ -55,6 +55,9 @@
     "Dialogs.Verifications.Override.Content": "The model '{}' will be overriden",
     "Dialogs.Verifications.OverrideUnlessSaved.Content": "If the model '{}' is not saved, it will be overriden in the next step",
 
+    "Dialogs.ListItem.Remove": "Remove",
+    "Dialogs.ListItem.Preview": "Preview",
+
     "Dialogs.Close": "Close",
 
     "Settings": "Settings",

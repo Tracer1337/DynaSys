@@ -55,6 +55,9 @@
     "Dialogs.Verifications.Override.Content": "Das Modell '{}' wird überschrieben",
     "Dialogs.Verifications.OverrideUnlessSaved.Content": "Wenn das Modell '{}' nicht gespeichert ist, wird es im nächsten Schritt überschrieben",
 
+    "Dialogs.ListItem.Remove": "Entfernen",
+    "Dialogs.ListItem.Preview": "Vorschau",
+    
     "Dialogs.Close": "Schliessen",
     
     "Settings": "Einstellungen",

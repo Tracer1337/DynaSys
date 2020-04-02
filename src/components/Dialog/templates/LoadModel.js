@@ -61,6 +61,7 @@ const LoadModel = ({ appContext, onClose }) => {
             items: presets.map(object => ({
                 type: "listItem",
                 value: object.name,
+                previewModel: object,
                 onClick: () => handleLoad(object)
             }))
         },
@@ -70,6 +71,7 @@ const LoadModel = ({ appContext, onClose }) => {
             items: getModels().map(object => ({
                 type: "listItem",
                 value: object.name,
+                previewModel: object,
                 onClick: () => handleLoad(object),
                 onRemove: () => handleRemove(object)
             }))

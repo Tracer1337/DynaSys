@@ -27,7 +27,32 @@ const styles = {
     }
 }
 
-const AppContext = React.createContext({})
+const appContextInitialValue = {
+    model: null,
+    activeTool: null,
+
+    onObjectCreate: () => null,
+    onObjectChange: () => null,
+    onObjectRemove: () => null,
+    onShallowObjectChange: () => null,
+
+    onSettle: () => null,
+
+    addEventListener: () => null,
+    removeEventListener: () => null,
+    emit: () => null,
+
+    onActiveToolChange: () => null,
+    onOutputCreate: () => null,
+    onOutputClose: () => null,
+
+    onModelLoad: () => null,
+    onModelReset: () => null,
+
+    createSnapshot: () => null
+}
+
+const AppContext = React.createContext(appContextInitialValue)
 
 class App extends Component {
     model = new Model(Strings["Model.UnnamedModel"])
@@ -241,5 +266,6 @@ class App extends Component {
 export default withStyles(styles)(App)
 
 export {
-    AppContext
+    AppContext,
+    appContextInitialValue
 }

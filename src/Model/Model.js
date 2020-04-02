@@ -115,6 +115,31 @@ class Model {
     makePreset() {
         this.model.forEach(object => object.isPresetted = true)
     }
+
+    getBoundings() {
+        let leftMost, rightMost, topMost, bottomMost
+
+        for(let object of this.model) {
+            if(!leftMost) leftMost = object
+
+            if (!rightMost) rightMost = object
+
+            if (!topMost) topMost = object
+
+            if (!bottomMost) bottomMost = object
+
+
+            if(object.x < leftMost.x) leftMost = object
+
+            if (object.x > rightMost.x) rightMost = object
+
+            if (object.y < topMost.y) topMost = object
+
+            if (object.y > bottomMost.y) bottomMost = object
+        }
+
+        return [topMost, rightMost, bottomMost, leftMost]
+    }
 }
 
 export default Model

@@ -21,6 +21,7 @@ import WarningTemplate from "./templates/Warning.js"
 import Settings from "./templates/Settings.js"
 import SaveModel from "./templates/SaveModel.js"
 import LoadModel from "./templates/LoadModel.js"
+import PreviewModel from "./templates/PreviewModel.js"
 
 import "./Dialog.scss"
 
@@ -49,6 +50,7 @@ class Dialog extends Component {
     static settings = Settings
     static saveModel = SaveModel
     static loadModel = LoadModel
+    static previewModel = PreviewModel
 
     constructor(props) {
         super(props)
