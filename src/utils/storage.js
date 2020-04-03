@@ -1,5 +1,5 @@
 export const getModels = () => {
-    return JSON.parse(localStorage.getItem("models")) || {}
+    return JSON.parse(localStorage.getItem("models")) || []
 }
 
 export const setModels = models => {

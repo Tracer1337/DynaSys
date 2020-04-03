@@ -15,7 +15,12 @@ class ConnectorSpace extends Component {
     idCounter = 0
 
     enablePreview(input) {
-        const from = this.props.acrossSpaceCommunication.ToolSpace.getObjectRectById(input.id)
+        const rect = this.props.acrossSpaceCommunication.ToolSpace.getObjectRectById(input.id)
+        const from = {
+            x: rect.x + rect.width / 2,
+            y: rect.y + rect.height / 2
+        }
+
         this.setState({
             renderPreview: true, 
             previewFrom: from

@@ -3,7 +3,6 @@ import TrendingFlatIcon from "@material-ui/icons/TrendingFlat"
 
 import createConnector from "../Connector/createConnector.js"
 import Strings from "src/config/strings.js"
-import "./Effect.scss"
 
 class Effect extends Component {
     userSettled = ({ object }) => {
@@ -41,5 +40,6 @@ export default createConnector(Effect, {
     label: Strings["Tools.Effect.Label"],
     icon: TrendingFlatIcon,
     dialogAvailable: false,
-    isMovable: false
+    isMovable: false,
+    noTool: true
 })

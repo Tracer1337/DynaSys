@@ -5,7 +5,7 @@ import { config } from "./Arrow.js"
 
 class Arrow extends Component {
     setPath(mouseEvent) {
-        const { from, to } = this.props
+        let { from, to } = this.props
         const { tipLength } = config
 
         if (!to && mouseEvent) {

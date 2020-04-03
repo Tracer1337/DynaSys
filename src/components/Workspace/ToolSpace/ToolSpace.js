@@ -143,6 +143,10 @@ class ToolSpace extends Component {
     }
 
     handleMouseMove(event) {
+        if(this.currentTool?.config.noTool) {
+            return
+        }
+
         const objectDomElement = this.context.activeTool ? this.currentToolDomElement : this.mouseOver.target
         const isMovingWhenSettled = this.isMouseDown && this.mouseOver.target && this.mouseOver.isMovable
 

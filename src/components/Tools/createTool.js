@@ -8,6 +8,18 @@ import Colors from "src/config/colors.json"
 import "./Tool.scss"
 
 function createTool(Child, config) {
+    let Wrapper
+
+    if (config.noTool) {
+        Wrapper = React.forwardRef(({ children }) => <>{children}</>)
+    } else {
+        Wrapper = React.forwardRef(({ children, ...props }, ref) => (
+            <div {...props} ref={ref}>
+                {children}
+            </div>
+        ))
+    }
+
     return class Tool extends Component {
         static config = config
 
@@ -183,8 +195,8 @@ function createTool(Child, config) {
                         this.context = context
 
                         return (
-                            <div
-                                className={clsx("tool", Tool.config.className, {"selected": this.state.selected})}
+                            <Wrapper
+                                className={clsx("tool", Tool.config.className, { "selected": this.state.selected })}
                                 ref={ref => this.container = ref}
                                 style={{
                                     transform: `translate(${object.x}px, ${object.y}px)`,
@@ -206,7 +218,7 @@ function createTool(Child, config) {
                                         onSubmit={this.handleSubmit.bind(this)}
                                     />
                                 )}
-                            </div>
+                            </Wrapper>
                         )
                     }}
                 </AppContext.Consumer>
