@@ -31,7 +31,7 @@ class ToolSpace extends Component {
     getObjectRectById(id) {
         const objects = Array.from(this.container.current.getElementsByClassName("object"))
         const requestedObject = objects.find(object => parseInt(object.dataset.id) === id)
-
+        
         if (!requestedObject) {
             return undefined
         }
@@ -146,10 +146,10 @@ class ToolSpace extends Component {
         if(this.currentTool?.config.noTool) {
             return
         }
-
+        
         const objectDomElement = this.context.activeTool ? this.currentToolDomElement : this.mouseOver.target
         const isMovingWhenSettled = this.isMouseDown && this.mouseOver.target && this.mouseOver.isMovable
-
+        
         if (this.context.activeTool || isMovingWhenSettled) {
             if(!this.state.isMoving) {
                 this.setState({isMoving: true})
